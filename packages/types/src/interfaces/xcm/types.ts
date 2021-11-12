@@ -429,7 +429,7 @@ export interface NetworkId extends Enum {
   readonly isAny: boolean;
   readonly isNamed: boolean;
   readonly asNamed: Bytes;
-  readonly isAxiaCoin: boolean;
+  readonly isAXIA: boolean;
   readonly isAxiaLunar: boolean;
 }
 
