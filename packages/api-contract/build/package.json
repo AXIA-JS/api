@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/api-contract",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Interfaces for interacting with contracts and contract ABIs",
   "main": "index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/types-known",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Known type definitions",
   "main": "index.js",

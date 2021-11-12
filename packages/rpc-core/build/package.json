@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/rpc-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A JavaScript wrapper for the AXIA JsonRPC interface",
   "main": "index.js",

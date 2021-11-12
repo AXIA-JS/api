@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/rpc-provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Transport providers for the API",
   "main": "index.js",

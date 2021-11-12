@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/types-support",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Supporting files for types, mostly for testing",
   "main": "index.js",

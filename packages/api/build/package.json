@@ -1,6 +1,6 @@
 {
   "name": "@axia-js/api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Promise and RxJS wrappers around the AXIA JS RPC",
   "main": "index.js",
