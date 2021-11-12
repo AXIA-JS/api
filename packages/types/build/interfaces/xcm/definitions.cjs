@@ -96,7 +96,7 @@ const location = {
     _enum: {
       Any: 'Null',
       Named: 'Vec<u8>',
-      AXIACoin: 'Null',
+      AXIA: 'Null',
       AXIALunar: 'Null'
     }
   }

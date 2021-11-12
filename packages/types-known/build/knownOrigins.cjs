@@ -11,7 +11,7 @@ exports.knownOrigins = void 0;
 /* eslint-disable sort-keys */
 // FIXME: Need some sort of solution for specifying these
 // Since we don't have insight into the origin specification, we can only define what we know about
-// in a pure Substrate/AXIACoin implementation, any other custom origins won't be handled at all
+// in a pure Substrate/AXIA implementation, any other custom origins won't be handled at all
 const knownOrigins = {
   //
   // (1) Defaults from Substrate
@@ -20,7 +20,7 @@ const knownOrigins = {
   System: 'SystemOrigin',
   TechnicalCommittee: 'CollectiveOrigin',
   //
-  // (2) Defaults from AXIACoin
+  // (2) Defaults from AXIA
   //
   Xcm: 'XcmOrigin',
   XcmPallet: 'XcmOrigin',

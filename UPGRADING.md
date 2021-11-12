@@ -7,7 +7,7 @@ While we try to keep the user-facing interfaces as stable as possible, sometimes
 
 ## 0.97.1 (and newer)
 
-The 0.97 series lays the groundwork to allow type registration  to be ties to a specific chain and a specific Api instance. In the past, 2 Api instances in the same process would share types, which mean that you could not connect to 2 independent chains with different types. This is very problematic for AXIACoin chains, where the idea is to connect to multiple chains.
+The 0.97 series lays the groundwork to allow type registration  to be ties to a specific chain and a specific Api instance. In the past, 2 Api instances in the same process would share types, which mean that you could not connect to 2 independent chains with different types. This is very problematic for AXIA chains, where the idea is to connect to multiple chains.
 
 When using the Api, a new `Registry` will be created on using `new Api(...)` or `Api.create(...)` and this will be transparently passed when creating types. In the cases where you create type instances explicitly or create type classes for injection, you would need to make adjustments.
 
@@ -90,7 +90,7 @@ const { meta, method, section } = registry.findMetaCall(extrinsic.callIndex);
 
 ## 0.90.1 (and newer), from 0.81.1 (and older)
 
-The 0.90.1 release caters for the [AXIALunar network](https://axialunar.network/) and pulls in all the changes to support [Substrate 2.x](https://github.com/axia-tech/substrate), all while maintaining backwards compatibility to allow operation on networks such as [AXIACoin's Alexander](https://axia.network/).
+The 0.90.1 release caters for the [AXIALunar network](https://axialunar.network/) and pulls in all the changes to support [Substrate 2.x](https://github.com/axia-tech/substrate), all while maintaining backwards compatibility to allow operation on networks such as [AXIA's Alexander](https://axia.network/).
 
 To support the network and the new transaction formats, a number of changes were made to how extrinsics are handled and signed. In addition, as support for ongoing work where type definitions are to be supplied by the actual node metadata, the foundation has been laid to move to type definitions as opposed to classes for runtime types.
 
@@ -120,7 +120,7 @@ The [@axia-js/api](packages/api) has always handled the conversion of types for 
 
 Internally the API will take the input and convert the value into a `Balance`, serialize it using the SCALE codec and transfer it to the node. In some cases users would construct the `Balance` type manually, by importing the class and calling `new` on it. This last approach has now been removed, and where classes are still available (limited reach), discouraged.
 
-First the rationale behind this - in all cases Substrate is very flexible, so while AXIACoin (and the Substrate base), define `type Balance = u128`, this can be different between chains. (This also applies to the majority of built-in supported types). As such, type construction should be done via the actual registered types.
+First the rationale behind this - in all cases Substrate is very flexible, so while AXIA (and the Substrate base), define `type Balance = u128`, this can be different between chains. (This also applies to the majority of built-in supported types). As such, type construction should be done via the actual registered types.
 
 ```js
 // this is applicable everywhere, import the type creator, using the registry

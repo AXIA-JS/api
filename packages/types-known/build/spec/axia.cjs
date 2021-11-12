@@ -39,7 +39,7 @@ const addrAccountIdTypes = {
   Keys: 'SessionKeys5',
   LookupSource: 'AccountId',
   ValidatorPrefs: 'ValidatorPrefsWithCommission'
-}; // these are override types for AXIACoin
+}; // these are override types for AXIA
 
 const versioned = [{
   minmax: [0, 12],

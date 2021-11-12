@@ -1,6 +1,6 @@
 ## extraction
 
-For Substrate & AXIACoin (dev chains) -
+For Substrate & AXIA (dev chains) -
 
 `cargo run --release -- purge-chain -y --dev && cargo run --release -- --dev`
 

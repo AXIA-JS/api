@@ -106,9 +106,9 @@ function decorateMethod(method, options) {
  *
  * @name ApiPromise
  * @description
- * ApiPromise is a standard JavaScript wrapper around the RPC and interfaces on the AXIACoin network. As a full Promise-based, all interface calls return Promises, including the static `.create(...)`. Subscription calls utilise `(value) => {}` callbacks to pass through the latest values.
+ * ApiPromise is a standard JavaScript wrapper around the RPC and interfaces on the AXIA network. As a full Promise-based, all interface calls return Promises, including the static `.create(...)`. Subscription calls utilise `(value) => {}` callbacks to pass through the latest values.
  *
- * The API is well suited to real-time applications where either the single-shot state is needed or use is to be made of the subscription-based features of AXIACoin (and Substrate) clients.
+ * The API is well suited to real-time applications where either the single-shot state is needed or use is to be made of the subscription-based features of AXIA (and Substrate) clients.
  *
  * @see [[ApiRx]]
  *

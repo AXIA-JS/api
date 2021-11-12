@@ -10,7 +10,7 @@ import path from 'path';
 import * as defaultDefinitions from '@axia-js/types/interfaces/definitions';
 import { Registry } from '@axia-js/types/types';
 import staticAXIALunar from '@axia-js/types-support/metadata/static-axialunar';
-import staticAXIACoin from '@axia-js/types-support/metadata/static-axia';
+import staticAXIA from '@axia-js/types-support/metadata/static-axia';
 import staticSubstrate from '@axia-js/types-support/metadata/static-substrate';
 import { isString, stringify } from '@axia-js/util';
 
@@ -263,7 +263,7 @@ export function generateDefaultLookup (destDir = 'packages/types/src/augment/loo
       ? [[undefined, staticData]]
       : [
         ['substrate', staticSubstrate],
-        ['axia', staticAXIACoin],
+        ['axia', staticAXIA],
         ['axialunar', staticAXIALunar]
       ]
   );

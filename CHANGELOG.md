@@ -18,7 +18,7 @@ Changes:
 
 ## 6.0.1 Sep 18, 2021
 
-Upgrade priority: Low. Recommended for users of the latest Substrate/AXIACoin with Metadata v14.
+Upgrade priority: Low. Recommended for users of the latest Substrate/AXIA with Metadata v14.
 
 - **Important** The Metadata v14 change allows the metadata to expose the chain types. This has been a major overhaul of the metadata handling, hence the major version bump.
 
@@ -32,7 +32,7 @@ Changes:
 - Align `DigestItem` to latest Substrate
 - Adjust AXIALunar `IdentityInfo` type for historic versions
 - All `null` values in bundles min/max
-- Bump static metadata for latest Substrate, AXIACoin & AXIALunar
+- Bump static metadata for latest Substrate, AXIA & AXIALunar
 
 
 ## 5.9.1 Sep 13, 2021
@@ -47,7 +47,7 @@ Changes:
 
 - Additional types for parachain Disputes
 - Adjust Xcm Error enum types
-- Add AXIACoin 9090 upgrade block
+- Add AXIA 9090 upgrade block
 - Decoding enhancements with narrowing checks for TS
 
 
@@ -82,7 +82,7 @@ Changes:
 - Add `Auction` to AXIALunar `ProxyType` definition
 - Adjust Xcm definitions with latest v1 & v2 types
 - Support for `scale-info` 1.0 `Range` mapping
-- Bump static metadata for latest Substrate, AXIACoin & AXIALunar
+- Bump static metadata for latest Substrate, AXIA & AXIALunar
 
 
 ## 5.7.1 Aug 29, 2021
@@ -94,7 +94,7 @@ Changes:
 - Optimize `Vec` construction (no re-create on new arrays)
 - Adjust output for enums in `toHuman`
 - Adjust aliases for new parachain module locations
-- Support for versioned xcm types (AXIACoin master)
+- Support for versioned xcm types (AXIA master)
 - Add support for `Range` in `PortableRegistry` (used in Metadata 14)
 - Adjust balances derive for non-existent instances
 - Ensure Statemint (current) defaults to xcm v0
@@ -114,7 +114,7 @@ Changes:
 - Updated XCM types, `AssetId`, `MultiAssets`, `MultiAssetV1`, `AssetInstanceV1`, `XcmOrderV1`
 - Rename `Null` entry in `MultiLocation` to `Here` (Xcm V1)
 - AlphaNet 9090 upgrade block
-- Bump static Substrate, AXIALunar & AXIACoin metadata
+- Bump static Substrate, AXIALunar & AXIA metadata
 
 
 ## 5.5.2 Aug 19, 2021
@@ -140,7 +140,7 @@ Changes:
 
 - Loosen pedantic check not to fail on all-empty values
 - Extend `createType` auto-TS decoration for `BreeMap`, `BTreeSet`, `HashMap`, `Range`
-- Add AXIACoin 9080 upgrade block
+- Add AXIA 9080 upgrade block
 
 
 ## 5.4.1 Aug 9, 2021
@@ -160,7 +160,7 @@ Changes:
 - Handle `BitSequence` in `PortableRegistry`
 - Ensure API `isConnected` is set before connect/disconnect events are fired
 - Move all static test support files into `@axia-js/types-support`
-- Align static Metadata with latest Substrate, AXIACoin & AXIALunar
+- Align static Metadata with latest Substrate, AXIA & AXIALunar
 - Adjust v14 Metadata definitions to latest version
 
 
@@ -188,7 +188,7 @@ Changes:
 - Fix `api.at(<blockHash>)` to decorate with the correct storage hash
 - Adjustments for upcoming metadata v14 in type creation & `PortableRegistry`
 - Add AXIALunar 9080 upgrade block
-- Add v13/v14 static metadata for AXIACoin
+- Add v13/v14 static metadata for AXIA
 - Align static metadata with latest Substrate
 
 
@@ -269,11 +269,11 @@ Changes:
 
 ## 4.16.2 Jun 27, 2021
 
-Upgrade priority: Low. Recommended for AXIACoin with runtime >= 9050.
+Upgrade priority: Low. Recommended for AXIA with runtime >= 9050.
 
 Changes:
 
-- Correct `CompactAssignments` & `RawSolution` types for AXIACoin
+- Correct `CompactAssignments` & `RawSolution` types for AXIA
 
 
 ## 4.16.1 Jun 26, 2021
@@ -286,7 +286,7 @@ Contributed:
 
 Changes:
 
-- Add AXIALunar, AXIACoin & AlphaNet 9050 upgrade blocks
+- Add AXIALunar, AXIA & AlphaNet 9050 upgrade blocks
 - Add AXIALunar & AlphaNet 9070 upgrade blocks
 - Adjust API decoration to lazy-create event and storage types
 - Use TS `override` as applicable (with `--noImplicitOverrides` option)
@@ -355,7 +355,7 @@ Upgrade priority: Low. Internal adjustment only, no major external usage changes
 
 Changelog:
 
-- Update `FundInfo` type with AXIACoin (Thanks to https://github.com/arjanz)
+- Update `FundInfo` type with AXIA (Thanks to https://github.com/arjanz)
 
 Changes:
 
@@ -379,7 +379,7 @@ Changes:
 
 ## 4.11.1 May 23, 2021
 
-Upgrade priority: Low. Recommended for users using staking entries on AXIACoin and users of Substrate master.
+Upgrade priority: Low. Recommended for users using staking entries on AXIA and users of Substrate master.
 
 Changes:
 
@@ -397,7 +397,7 @@ Changes:
 
 ## 4.10.1 May 17, 2021
 
-Upgrade priority: Medium. Recommended for uses of AXIACoin/AXIALunar 9010 runtimes.
+Upgrade priority: Medium. Recommended for uses of AXIA/AXIALunar 9010 runtimes.
 
 - **Breaking change** Support for the contracts V2 compatibility has been dropped in `@axia-js/api-contract`
 
@@ -429,7 +429,7 @@ Changes:
 
 ## 4.9.1 May 6, 2021
 
-Upgrade priority: Medium. Required for the next v0.9.0 AXIACoin/AXIALunar chain upgrades where parachains are used.
+Upgrade priority: Medium. Required for the next v0.9.0 AXIA/AXIALunar chain upgrades where parachains are used.
 
 - **Breaking change** The previously deprecated contracts interfaces, has been removed. Update to `<myContract>.query.*`, `<myContract>.tx.*` and `<myCode>.tx.*` interfaces as per the previous code usage hints.
 - **Important** By default the `isPedantic` mode is now switched on for storage queries. This means that the API will fail on any types where the input/output decoding doesn't match 100%
@@ -466,7 +466,7 @@ Changes:
 - Allow metadata creation for `Map` or `Record`
 - Expose additional camelCase `method` on `AbiMessage` (maps to decorated name)
 - Added explicit double-byte ss58 `AccountId` encoding test
-- Add known upgrade block for AXIACoin v30
+- Add known upgrade block for AXIA v30
 - Cleanup WebSocket handlers when close event has been received
 - Update to latest Substrate metadata
 
@@ -506,11 +506,11 @@ Changes:
 
 ## 4.6.2 Apr 19, 2021
 
-Upgrade priority: Low. Recommended for users of AXIALunar/AXIACoin.
+Upgrade priority: Low. Recommended for users of AXIALunar/AXIA.
 
 Changes:
 
-- Correct AXIALunar/AXIACoin runtime 30 session key definitions
+- Correct AXIALunar/AXIA runtime 30 session key definitions
 
 
 ## 4.6.1 Apr 19, 2021
@@ -535,7 +535,7 @@ Upgrade priority: Low. Recommended with usage with the BetaNet testnet.
 
 Changes:
 
-- Update parachain types as per latest AXIACoin
+- Update parachain types as per latest AXIA
 - Cater for `Keys` with `BEEFY` session keys
 - Update `Keys` injection to allow for on-chain type detection
 - Add `AlphaNet` known upgrade block for runtime 50
@@ -551,7 +551,7 @@ Changes:
 
 - Add `ServiceQuality` type for Cumulus
 - Adjust XCM MultiLocation type (X5 to X8 junctions)
-- Add AXIACoin 29 upgrade block
+- Add AXIA 29 upgrade block
 
 
 ## 4.3.1 Mar 29, 2021
@@ -604,12 +604,12 @@ Changes:
 - Check type generation against fallbacks (build-time only sanity check)
 - Add `mmr_generateProof` RPC
 - Align types with latest substrate master
-- Apply latest AXIACoin auctions/crowdloan/parachains/slots types
+- Apply latest AXIA auctions/crowdloan/parachains/slots types
 
 
 ## 4.0.3 Mar 8, 2021
 
-Upgrade priority: Low. Recommended if you use the API to sync the full chain, most notably AXIACoin.
+Upgrade priority: Low. Recommended if you use the API to sync the full chain, most notably AXIA.
 
 Contributed:
 
@@ -676,7 +676,7 @@ Upgrade priority: Medium. Recommended for users of chains where `MultiAddress` i
 Changes:
 
 - Fix decoding for `MultiAddress` enum where non-`AccountId` variable-lengths are provided as part of a stream
-- Added known AXIACoin 28 upgrade block
+- Added known AXIA 28 upgrade block
 - Update for latest Substrate contracts `Schedule` types
 
 
@@ -725,9 +725,9 @@ Changes:
 
 - Adjust `Result<T, E>` interface to be 100% compatible with the Rust version
 - Add the `2028` upgrade to the known upgrades (optimizing certain `.at` queries)
-- Adjust council derives to cater for latest Substrate & AXIACoin
+- Adjust council derives to cater for latest Substrate & AXIA
 - Adjust BetaNet know type definitions to cater for the latest update
-- Update types for latest AXIACoin/Substrate
+- Update types for latest AXIA/Substrate
 - Add generic arguments for TypeScript users to `.entries/.keys` to deal with the key typings
 
 
@@ -747,7 +747,7 @@ Changes:
 - Expand `api-contract` to allow for `Code` to deploy contract alongside code. `createBlueprint` is now deprecated, replaced by `createContract` or the preferred `code.tx.<constructor>`, which uploads and deploys the code in one operation. This aligns with the current Substrate master contracts implementation.
 - Allow for signed extensions to be supplied inside type bundles
 - Ensure that the auto-connect state is checked on auto-connections (respecting disconnect)
-- Added `CancelProxy` to `ProxyTypes on AXIACoin, AXIALunar & AlphaNet
+- Added `CancelProxy` to `ProxyTypes on AXIA, AXIALunar & AlphaNet
 - Updated to latest Substrate metadata
 
 
@@ -755,19 +755,19 @@ Changes:
 
 Changes:
 
-- Added AXIACoin upgrade block for runtime 27 (known checkpoint optimization)
+- Added AXIA upgrade block for runtime 27 (known checkpoint optimization)
 
 
 ## 3.7.2 Feb 2, 2021
 
 Changes:
 
-- Adjusted the `Keys` type for the 28 runtime on AXIALunar, AXIACoin & AlphaNet
+- Adjusted the `Keys` type for the 28 runtime on AXIALunar, AXIA & AlphaNet
 
 
 ## 3.7.1 Feb 1, 2021
 
-Upgrade priority: Low. However recommended for current Substrate master, AXIACoin and BetaNet users and those wishing to support the upcoming AXIACoin 28 runtime with the new `MultiAddress`.
+Upgrade priority: Low. However recommended for current Substrate master, AXIA and BetaNet users and those wishing to support the upcoming AXIA 28 runtime with the new `MultiAddress`.
 
 - **Breaking change** As indicated in the 3.5.1 release notes, the `Address`/`LookupSource` defaults have now been adjusted for `MultiAddress`. If your chain does not use these types, explicitly add the correct `Address`/`LookupSource` types. This new extensible format is mean to cater for all address types into the future, removing a lot of discrepancies between chains.
 
@@ -780,7 +780,7 @@ Changes:
 
 - Allow `.slice` operator on the `Vec` type
 - Apply `MultiAddress` as a default
-- Adds support for the upcoming AXIACoin 28 and AXIALunar 2028 runtimes
+- Adds support for the upcoming AXIA 28 and AXIALunar 2028 runtimes
 - Add checkpoint for AXIALunar 2027 upgrade
 - Update all parachain types (as per latest BetaNet)
 - Correctly use relay blockNumber in parachain validation data
@@ -791,7 +791,7 @@ Changes:
 
 ## 3.6.1 Jan 24, 2020
 
-Upgrade priority: Medium if not already on at least 3.3.1. The next upgrade of AXIALunar/AXIACoin requires it.
+Upgrade priority: Medium if not already on at least 3.3.1. The next upgrade of AXIALunar/AXIA requires it.
 
 - **Breaking change** To support chains with multiple tokens, such as bridges, the `ChainProperties` type now returns an array of tokens and decimals (instead of singular values) in the `token{Decimals, Symbol}` getters. Additionally, this means that the `registry` interfaces has been changes, to `registry.chainDecimals: number[]` and `registry.chainTokens: string[]`. Where used the `[0]` index will return the first value if only interested in a single, for a straight conversion.
 
@@ -829,7 +829,7 @@ Changes:
 - Update all BetaNet types to the latest (session keys, session reports, parachain indexes)
 - Update known upgrade checkpoints fo AlphaNet
 - Add types of the lottery module in Substrate
-- Add and extend types for the crowdloan module in AXIACoin
+- Add and extend types for the crowdloan module in AXIA
 - Adjust node-template to default to `MultiAddress` on specVersion >= 100
 
 
@@ -924,7 +924,7 @@ Changes:
 
 ## 3.0.1 Dec 14, 2020
 
-Upgrade priority: Low. Recommended for the next AXIALunar/AXIACoin upgrades due to additional types and those following chains following Substrate master closely.
+Upgrade priority: Low. Recommended for the next AXIALunar/AXIA upgrades due to additional types and those following chains following Substrate master closely.
 
 **Important** While this package contains no external interface changes, it now compiles and ships both cjs and esm modules. This means that modern bundlers will have more information for tree-shaking available. Additionally when using Node with `.mjs` extensions, the esm version imports will be used on recent Node versions. Adding an export map, as here, may have some impacts so a major semver bump is advised. There may be (small) dragons hiding in the dark corners...
 
@@ -954,7 +954,7 @@ Upgrade priority: Low. Recommended when following Substrate master and/or parach
 Changes:
 
 - Ensure that maximum era is limited to `consts.system.blockHashCount` (don't overflow on very low blocktimes)
-- Apply current AXIACoin master parachain types
+- Apply current AXIA master parachain types
 - Apply current Substrate master asset types
 - Add `system_{addLogFilter, resetLogFilter}` RPCs
 - Adjust tests for latest Substrate metadata
@@ -1001,7 +1001,7 @@ Changes:
 
 ## 2.7.1 Nov 16, 2020
 
-Upgrade priority: Medium. Recommended for users of AXIACoin/AXIALunar and api-contract users.
+Upgrade priority: Medium. Recommended for users of AXIA/AXIALunar and api-contract users.
 
 Changes:
 
@@ -1011,7 +1011,7 @@ Changes:
 - Fix contract event decoding with pass-through of raw `Bytes`
 - Fix support for enum encoding in api-contract
 - Support new contract `Schedule` type as per Substrate
-- Update AXIALunar/AXIACoin known upgrade blocks
+- Update AXIALunar/AXIA known upgrade blocks
 - Adjust typegen generated `@axia-js/types` imports
 - Adjust internal `@axia-js/types` imports/exports (overall bundle sizes)
 
@@ -1233,7 +1233,7 @@ Changes:
 
 ## 1.31.1 Aug 31, 2020
 
-Upgrade priority: Medium, especially for staking users on AXIACoin, AXIALunar & AlphaNet (type updates applied for v23 onwards) or if transparent `.at(hash)` queries are required/used
+Upgrade priority: Medium, especially for staking users on AXIA, AXIALunar & AlphaNet (type updates applied for v23 onwards) or if transparent `.at(hash)` queries are required/used
 
 - **Important** Substrate changed the `RewardDestination` enum with an extra field for payout-to-any account for staking preferences. If on an older chain consider adding `RewardDestination: 'RewardDestinationTo257'`
 - **Important** Substrate changed the `CompactAssignment` type enhanced types for session solution submissions. If on an older chain consider adding `CompactAssignments: 'CompactAssignmentsTo257'`
@@ -1256,7 +1256,7 @@ Changes:
 - `derive.democracy.locks` now returns delegated locks for an account as well
 - Adjust unlocking derives with appropriate in-place additions (less object allocations)
 - `.sign` on submittables is marked deprecated (not due for removal, but rather use `.signAsync` for consistency with `.signAndSend`)
-- Adjust types for `CompactAssignments` & `RewardDestination` for AXIACoin, AXIALunar & AlphaNet
+- Adjust types for `CompactAssignments` & `RewardDestination` for AXIA, AXIALunar & AlphaNet
 - `@axia-js/util` 3.4
 - `@axia-js/wasm-crypto` 1.4
 
@@ -1361,7 +1361,7 @@ Changes:
 - Update `NetworkState` reputation type for `system_networkState` RPC
 - Update session progress calcs for Aura (cater for negative)
 - Fix class prototype for (basically-deprecated) Linkage type
-- Add AXIACoin types for `purchase` pallet
+- Add AXIA types for `purchase` pallet
 
 
 ## 1.24.1 Jul 13, 2020
@@ -1383,7 +1383,7 @@ Changes:
 
 - Add latest Substrate master types
 - Adjust `<Codec>.toRawType()` to use registry name as available
-- Update `ProxyType` for AXIALunar, AXIACoin & AlphaNet with `IdentityJudgement`
+- Update `ProxyType` for AXIALunar, AXIA & AlphaNet with `IdentityJudgement`
 - Validate number format (signed/unsigned) for number types
 - Remove core codec dependencies on Base class (with proper TS encapsulation)
 - `@axia-js/util` 2.17
@@ -1443,7 +1443,7 @@ Contributed:
 Changes:
 
 - Align metadata and types with latest Substrate
-- Update AXIACoin types for current evolution of parachains
+- Update AXIA types for current evolution of parachains
 - Allow for type aliasing on events (aligning with calls & queries)
 - `@axia-js/util` 2.14
 
@@ -1493,7 +1493,7 @@ Changes:
 
 Changes:
 
-- Support for AXIACoin CC1 types & signed extensions
+- Support for AXIA CC1 types & signed extensions
 - Add support for Babe VRF secondary digests (author extraction)
 - Adjust `Perbill/Permill` `toHuman()` formatting to output percentage
 - Support for latest Substrate types & metadata
@@ -1534,11 +1534,11 @@ Changes:
 - Expand testing around `ExtrinsicEra` construction
 - Expand `Registry` to direct access to available signed extensions (in addition to exposed types)
 - Cater for new `CheckSpecVersion` and `CheckTxVersion` signed extensions (with `SignerPayload` adjustments)
-- Cater for new `PrevalidateAttests` signed extensions (AXIACoin claims)
+- Cater for new `PrevalidateAttests` signed extensions (AXIA claims)
 - Don't re-calculate submittable extrinsic hash on status checks (optimization)
 - Support for both old/new Tuples in `democracy.depositOf` in derives
 - Fix democracy `ProxyState` types
-- Extends types for AXIACoin claims
+- Extends types for AXIA claims
 - Update `@axia-js/util` to 2.10
 
 
@@ -1550,7 +1550,7 @@ Contributed:
 - Rework type generation to use templating for better maintenance (Thanks to https://github.com/xlc)
 - Adjust extrinsic `sign/signAsync` signature to optional options (Thanks to https://github.com/KiChjang)
 - Support round-robin endpoints in the `WsProvider` with array of urls (Thanks to https://github.com/hoani)
-- Remove static test-only metadata for AXIACoin dev chains (not updated regularly, Substrate dev to remain)
+- Remove static test-only metadata for AXIA dev chains (not updated regularly, Substrate dev to remain)
 
 Changes:
 
@@ -1589,7 +1589,7 @@ Changes:
 
 Changes:
 
-- Small patch to add missing AXIACoin master types (will be in next AXIALunar update)
+- Small patch to add missing AXIA master types (will be in next AXIALunar update)
 
 
 ## 1.11.1 Apr 21, 2020
@@ -1638,7 +1638,7 @@ Changes:
 ## 1.9.1 Apr 1, 2020
 
 - **Breaking change** (TypeScript with derives only) The return type names for `api.derive.*` have been adjusted for consistency, all starting with `Derive*` (previously a mixture of `Derived*` and `Derive*`)
-- **Breaking change** (derives only) Additional cleanups of democracy proposal & referenda derives, including support for new AXIACoin/Substrate vote retrievals
+- **Breaking change** (derives only) Additional cleanups of democracy proposal & referenda derives, including support for new AXIA/Substrate vote retrievals
 
 Changes:
 
@@ -1662,7 +1662,7 @@ Changes:
 
 Changes:
 
-- The `isRetracted` Extrinsic status is now a warning, not a fatal error, correctly aligning with AXIACoin/Substrate
+- The `isRetracted` Extrinsic status is now a warning, not a fatal error, correctly aligning with AXIA/Substrate
 - The Substrate extrinsic phase definitions has been expanded with `Initialization` to align with the latest versions
 - Add support for all known substrate RPC methods
 - Extend account derives to include status flags, e.g. `isCouncil`, `isSudo`, ...
@@ -1672,11 +1672,11 @@ Changes:
 
 ## 1.7.1 Mar 17, 2020
 
-- **Important** Current versions of AXIACoin/Substrate have dropped support for linked maps on storage entries. If you are using these queries to retrieve all entries, for instance `staking.{nominators,validators}()` and using an upgraded chain, you need to swap to retrieving entries via `.entries()` or `.keys()` for the keys.
+- **Important** Current versions of AXIA/Substrate have dropped support for linked maps on storage entries. If you are using these queries to retrieve all entries, for instance `staking.{nominators,validators}()` and using an upgraded chain, you need to swap to retrieving entries via `.entries()` or `.keys()` for the keys.
 
 Changes:
 
-- Pull in support and types for latest AXIACoin/Substrate
+- Pull in support and types for latest AXIA/Substrate
 - Add support for the new Substrate `state_getKeysPaged` RPC, including use in storage keys
 - Move `derive.staking.controllers` to `derive.staking.stashes`, reflecting actual content
 - Cater for adjusted storage (non-linked mapped) for `derive.staking.stashes` queries (with old-compat)
@@ -1722,7 +1722,7 @@ Contributed:
 
 Changes:
 
-- Add types & metadata for the latest AXIACoin/Substrate runtime versions (master branches)
+- Add types & metadata for the latest AXIA/Substrate runtime versions (master branches)
 - Type extraction will now allow the same sub-module name across packages, i.e. `@axia-js/types/interfaces/runtime` & `@mine/interfaces/runtime` will be valid
 - Add `.range([from, to]: [Hash, Hash?], ...args: any[]): [Hash, Codec][]` on all storage entries
 - Add `.raw(...args: any[]): Promise<Uint8Array & Codec>` to all RPC calls, returning the un-encoded result
@@ -1800,13 +1800,13 @@ Contributed:
 
 Changes:
 
-- Swap AXIALunar and AXIACoin aliases for `Address` to `AccountId` (future update)
+- Swap AXIALunar and AXIA aliases for `Address` to `AccountId` (future update)
 - Add `LookupSource` and `LookupTarget` types instead of mapping these directly for aliasing
 - Add `BitVec` type primitive
 - Add support for `system.account` for balance & nonce queries in derives as well as Submittables (Substrate composites)
 - Add `rpc.author.hasKey` and `rpc.author.hasSessionKeys` RPCs
 - Add derives for the parachains interfaces
-- Applied the latest types for AXIACoin parachains
+- Applied the latest types for AXIA parachains
 - `registry.findMetaError` now can take in a `DispatchErrorModule` object for error lookups (from `asModule` in `DispatchError`)
 - Metadata now correctly serializes to the original input data via `toHex()` & `toU8a()`
 - Metadata documentation generation rework, including the output of errors from metadata
@@ -1853,7 +1853,7 @@ Changes:
 - Add derives for the society module
 - Don't map empty tuples, e.g. `()` to `Null`, rather keep them empty
 - Add lookups to the metadata errors via `findMetaError`
-- Update metadata and types for the latest Substrate & AXIACoin versions
+- Update metadata and types for the latest Substrate & AXIA versions
 - Support metadata V11 as per latest Substrate
 - Remove support for un-deployed metadata
 - Remove old known types for Substrate V1
@@ -1873,7 +1873,7 @@ Changes:
 - Remove the `codec/Data` type, to remove a conflict with Substrate. This type is now named `Raw`
 - Fix for linked maps using `Option`
 - Add support for Metadata v10
-- Add support for latest AXIACoin/Substrate types
+- Add support for latest AXIA/Substrate types
 - Add `paymentInfo` to submittables to calculate fees
 
 
@@ -1887,7 +1887,7 @@ Changes:
 - Cleanup `DoubleMap` hashing to always hash over the full value (in the case of `Vec<T>`, this includes the length)
 - Update democracy derives to take care of nextTally and lowestUnbaked
 - Add additional derives for both council & treasury
-- Alignment with latest AXIACoin/Substrate master branch types
+- Alignment with latest AXIA/Substrate master branch types
 
 
 ## 0.98.1 Dec 04, 2019
@@ -1902,7 +1902,7 @@ Changes:
 
 - Cleanup circular references between internal dependencies
 - Support for new Substrate democracy with preimages in derive
-- Alignment of types with Substrate/AXIACoin master branches
+- Alignment of types with Substrate/AXIA master branches
 
 
 ## 0.97.1 Nov 29, 2019
@@ -1916,7 +1916,7 @@ Changes:
 
 - `api.derive.*` now has built-in memomization
 - Various fixes and cleanups to `api.derive.*` including era length progress and vesting calculations
-- Aligned all types with the latest AXIACoin & Substrate, including AXIALunar CC3
+- Aligned all types with the latest AXIA & Substrate, including AXIALunar CC3
 - Support for Metadata V9, which adjusts the hashing methods of storage entries
 - Support for Metadata V10 (still un-released), which includes prefixed map support
 
@@ -1947,12 +1947,12 @@ Changes:
 
 Changes:
 
-- Support Extrinsic V4 with additional signature indicator (Latest AXIACoin/Substrate/AXIALunar)
+- Support Extrinsic V4 with additional signature indicator (Latest AXIA/Substrate/AXIALunar)
 - Adjust subscription update checks to avoid duplicated data updates
 - Support Metadata V8 (exposes per-module `decl_error` definitions)
 - Support next generation contracts ABI (with additional type definitions)
 - Support for `BTreeMap<K, V>` types and definitions
-- All latest AXIACoin & Substrate types (as per master branches)
+- All latest AXIA & Substrate types (as per master branches)
 
 ## 0.94.1 Oct 07, 2019
 
@@ -1977,7 +1977,7 @@ Changes:
 - In extrinsic submission, use `rpc.account.nextIndex` to retrieve the nonce when available
 - For TypeScript users `api.query.*.*` is now properly typed for default Substrate calls, i.e. `api.query.balances.freeBalance(...)` will return a `Balance` type. Additionally the `api.queryMulti` and `.multi` on queries not allow generic type params.
 - Add `api.rpc.accounts.nextIndex`, `api.rpc.contracts.call` and `api.rpc.rpc.methods` calls. Optional calls (such as account/contracts) is decorated based on the results from `rpc.methods`, so they don't show up on nodes where they are not active.
-- Updated types to support the latest AXIACoin/Substrate master changes
+- Updated types to support the latest AXIA/Substrate master changes
 - Support recursive type registration (self-referencing via `Box`) in addition to better sanitation of user-defined-types
 - Documentation and example updates (thanks mostly to contributions)
 
@@ -1989,7 +1989,7 @@ Changes:
 - The API now correctly sets the ss58 prefix as retrieved from the chain properties via `ss58Format`
 - Bump to `@axia-js/util` 1.4.1, removing use of `ExtError`
 - The `Keyring` from `@axia-js/keyring` is now exposed on the API as well. You can do `import { Keyring } from '@axia-js/api'` - this alleviates the need for extra dependencies (apart from `@axia-js/api`), and since the keyring is critical for signing operations, aligns everything in one bundle
-- Support the latest AXIACoin & Substrate master branches (incl. metadata updates)
+- Support the latest AXIA & Substrate master branches (incl. metadata updates)
 - Getting started documentation has been made available
 
 
@@ -2015,7 +2015,7 @@ Changes:
 If you are upgrading form an older version, use the CHANGELOG hand-in-hand with the [migration guide](UPGRADING.md).
 
 - **Breaking change** `api.rpc.chain.subscribeNewHeads` is now available as opposed to the old `subscribeNewHead`. This aligns with the Substrate implementation.
-- **Breaking change** Substrate 2.x & AXIACoin master has moved both `BlockNumber` & `Index` to `u32`. The API tracks these closely. If you are running a chain with `u64` values (for either), pass the type override to the API on creation, e.g. `ApiPromise.create({ types: { BlockNumber: 'u64', Index: 'u64' } })` to avoid getting warnings about mismatched types.
+- **Breaking change** Substrate 2.x & AXIA master has moved both `BlockNumber` & `Index` to `u32`. The API tracks these closely. If you are running a chain with `u64` values (for either), pass the type override to the API on creation, e.g. `ApiPromise.create({ types: { BlockNumber: 'u64', Index: 'u64' } })` to avoid getting warnings about mismatched types.
 - **Breaking change** `Api.create(...)` and `new Api(...)` now only takes an options Object, so if you passed the provider directly previously, you need to swap the use to `Api.create({ provider: ... })`
 - **Breaking change** Runtime types have been extended and moved to definitions instead of classes
   - Primitive types for `i*` and `u*` (e.g. `u32`) are now only available in their lowercase versions. Additionally `Vector` is now only available as `Vec`, and `Method` has been renamed to `Call`, in both cases aligning with Rust.
@@ -2288,7 +2288,7 @@ Changes:
 
 Changes:
 
-Substrate has been updated with a breaking new transaction format where the Index/Nonce is now encoded as a Compact. This change is being rolled out to both Alexander (AXIACoin testnet) as well as Charred Cherry (Substrate testnet) - transactions between old and new are not compatible.
+Substrate has been updated with a breaking new transaction format where the Index/Nonce is now encoded as a Compact. This change is being rolled out to both Alexander (AXIA testnet) as well as Charred Cherry (Substrate testnet) - transactions between old and new are not compatible.
 
 
 ## 0.37.1 Jan 04, 2019

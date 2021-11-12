@@ -30,7 +30,7 @@ const addrAccountIdTypes = {
   ValidatorPrefs: 'ValidatorPrefsWithCommission'
 };
 
-// these are override types for AXIACoin
+// these are override types for AXIA
 const versioned: OverrideVersionedType[] = [
   {
     minmax: [0, 12],

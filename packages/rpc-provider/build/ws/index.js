@@ -390,7 +390,7 @@ export class WsProvider {
         fragmentOutgoingMessages: true,
         // default: 16K (bump, the Node has issues with too many fragments, e.g. on setCode)
         fragmentationThreshold: 256 * 1024,
-        // default: 8MB (however AXIACoin api.query.staking.erasStakers.entries(356) is over that)
+        // default: 8MB (however AXIA api.query.staking.erasStakers.entries(356) is over that)
         maxReceivedMessageSize: 16 * 1024 * 1024
       });
       _classPrivateFieldLooseBase(this, _websocket)[_websocket].onclose = _classPrivateFieldLooseBase(this, _onSocketClose)[_onSocketClose];

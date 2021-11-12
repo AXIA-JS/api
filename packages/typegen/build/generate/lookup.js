@@ -10,7 +10,7 @@ import Handlebars from 'handlebars';
 import path from 'path';
 import * as defaultDefinitions from '@axia-js/types/interfaces/definitions';
 import staticAXIALunar from '@axia-js/types-support/metadata/static-axialunar';
-import staticAXIACoin from '@axia-js/types-support/metadata/static-axia';
+import staticAXIA from '@axia-js/types-support/metadata/static-axia';
 import staticSubstrate from '@axia-js/types-support/metadata/static-substrate';
 import { isString, stringify } from '@axia-js/util';
 import { createImports, exportType, initMeta, readTemplate, writeFile } from "../util/index.js";
@@ -207,5 +207,5 @@ function generateLookup(destDir, entries) {
 
 
 export function generateDefaultLookup(destDir = 'packages/types/src/augment/lookup', staticData) {
-  generateLookup(destDir, staticData ? [[undefined, staticData]] : [['substrate', staticSubstrate], ['axia', staticAXIACoin], ['axialunar', staticAXIALunar]]);
+  generateLookup(destDir, staticData ? [[undefined, staticData]] : [['substrate', staticSubstrate], ['axia', staticAXIA], ['axialunar', staticAXIALunar]]);
 }

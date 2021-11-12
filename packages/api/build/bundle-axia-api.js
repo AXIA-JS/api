@@ -1031,7 +1031,7 @@ const axiaApi = (function (exports, keyring, util, types, utilCrypto) {
           fragmentOutgoingMessages: true,
           // default: 16K (bump, the Node has issues with too many fragments, e.g. on setCode)
           fragmentationThreshold: 256 * 1024,
-          // default: 8MB (however AXIACoin api.query.staking.erasStakers.entries(356) is over that)
+          // default: 8MB (however AXIA api.query.staking.erasStakers.entries(356) is over that)
           maxReceivedMessageSize: 16 * 1024 * 1024
         });
         _classPrivateFieldBase(this, _websocket)[_websocket].onclose = _classPrivateFieldBase(this, _onSocketClose)[_onSocketClose];
@@ -3607,7 +3607,7 @@ const axiaApi = (function (exports, keyring, util, types, utilCrypto) {
     Keys: 'SessionKeys5',
     LookupSource: 'AccountId',
     ValidatorPrefs: 'ValidatorPrefsWithCommission'
-  }; // these are override types for AXIACoin
+  }; // these are override types for AXIA
 
   const versioned$4 = [{
     minmax: [0, 12],
@@ -4222,7 +4222,7 @@ const axiaApi = (function (exports, keyring, util, types, utilCrypto) {
   /**
    * @name Rpc
    * @summary The API may use a HTTP or WebSockets provider.
-   * @description It allows for querying a AXIACoin Client Node.
+   * @description It allows for querying a AXIA Client Node.
    * WebSockets provider is recommended since HTTP provider only supports basic querying.
    *
    * ```mermaid
@@ -10234,9 +10234,9 @@ const axiaApi = (function (exports, keyring, util, types, utilCrypto) {
    *
    * @name ApiPromise
    * @description
-   * ApiPromise is a standard JavaScript wrapper around the RPC and interfaces on the AXIACoin network. As a full Promise-based, all interface calls return Promises, including the static `.create(...)`. Subscription calls utilise `(value) => {}` callbacks to pass through the latest values.
+   * ApiPromise is a standard JavaScript wrapper around the RPC and interfaces on the AXIA network. As a full Promise-based, all interface calls return Promises, including the static `.create(...)`. Subscription calls utilise `(value) => {}` callbacks to pass through the latest values.
    *
-   * The API is well suited to real-time applications where either the single-shot state is needed or use is to be made of the subscription-based features of AXIACoin (and Substrate) clients.
+   * The API is well suited to real-time applications where either the single-shot state is needed or use is to be made of the subscription-based features of AXIA (and Substrate) clients.
    *
    * @see [[ApiRx]]
    *
@@ -10456,9 +10456,9 @@ const axiaApi = (function (exports, keyring, util, types, utilCrypto) {
    * @name ApiRx
    *
    * @description
-   * ApiRx is a powerful RxJS Observable wrapper around the RPC and interfaces on the AXIACoin network. As a full Observable API, all interface calls return RxJS Observables, including the static `.create(...)`. In the same fashion and subscription-based methods return long-running Observables that update with the latest values.
+   * ApiRx is a powerful RxJS Observable wrapper around the RPC and interfaces on the AXIA network. As a full Observable API, all interface calls return RxJS Observables, including the static `.create(...)`. In the same fashion and subscription-based methods return long-running Observables that update with the latest values.
    *
-   * The API is well suited to real-time applications where the latest state is needed, unlocking the subscription-based features of AXIACoin (and Substrate) clients. Some familiarity with RxJS is a requirement to use the API, however just understanding `.subscribe` and `.pipe` on Observables will unlock full-scale use thereof.
+   * The API is well suited to real-time applications where the latest state is needed, unlocking the subscription-based features of AXIA (and Substrate) clients. Some familiarity with RxJS is a requirement to use the API, however just understanding `.subscribe` and `.pipe` on Observables will unlock full-scale use thereof.
    *
    * @see [[ApiPromise]]
    *

@@ -87,7 +87,7 @@ function isTreatAsHex(key) {
 /**
  * @name Rpc
  * @summary The API may use a HTTP or WebSockets provider.
- * @description It allows for querying a AXIACoin Client Node.
+ * @description It allows for querying a AXIA Client Node.
  * WebSockets provider is recommended since HTTP provider only supports basic querying.
  *
  * ```mermaid

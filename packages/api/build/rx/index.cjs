@@ -33,9 +33,9 @@ function decorateMethod(method) {
  * @name ApiRx
  *
  * @description
- * ApiRx is a powerful RxJS Observable wrapper around the RPC and interfaces on the AXIACoin network. As a full Observable API, all interface calls return RxJS Observables, including the static `.create(...)`. In the same fashion and subscription-based methods return long-running Observables that update with the latest values.
+ * ApiRx is a powerful RxJS Observable wrapper around the RPC and interfaces on the AXIA network. As a full Observable API, all interface calls return RxJS Observables, including the static `.create(...)`. In the same fashion and subscription-based methods return long-running Observables that update with the latest values.
  *
- * The API is well suited to real-time applications where the latest state is needed, unlocking the subscription-based features of AXIACoin (and Substrate) clients. Some familiarity with RxJS is a requirement to use the API, however just understanding `.subscribe` and `.pipe` on Observables will unlock full-scale use thereof.
+ * The API is well suited to real-time applications where the latest state is needed, unlocking the subscription-based features of AXIA (and Substrate) clients. Some familiarity with RxJS is a requirement to use the API, however just understanding `.subscribe` and `.pipe` on Observables will unlock full-scale use thereof.
  *
  * @see [[ApiPromise]]
  *

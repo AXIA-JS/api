@@ -2,7 +2,7 @@
   "name": "@axia-js/api-derive",
   "version": "0.1.0",
   "type": "module",
-  "description": "Common functions used across AXIACoin, derived from RPC calls and storage queries.",
+  "description": "Common functions used across AXIA, derived from RPC calls and storage queries.",
   "main": "index.js",
   "sideEffects": [
     "./detectPackage.js",
