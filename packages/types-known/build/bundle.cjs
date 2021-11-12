@@ -48,23 +48,32 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 // flatten a VersionedType[] into a Record<string, string>
 
 /** @internal */
-function filterVersions(versions = [], specVersion) {
-  return versions.filter(({
-    minmax: [min, max]
-  }) => ((0, _util.isUndefined)(min) || (0, _util.isNull)(min) || specVersion >= min) && ((0, _util.isUndefined)(max) || (0, _util.isNull)(max) || specVersion <= max)).reduce((result, {
-    types
-  }) => _objectSpread(_objectSpread({}, result), types), {});
+function filterVersions() {
+  let versions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let specVersion = arguments.length > 1 ? arguments[1] : undefined;
+  return versions.filter(_ref => {
+    let {
+      minmax: [min, max]
+    } = _ref;
+    return ((0, _util.isUndefined)(min) || (0, _util.isNull)(min) || specVersion >= min) && ((0, _util.isUndefined)(max) || (0, _util.isNull)(max) || specVersion <= max);
+  }).reduce((result, _ref2) => {
+    let {
+      types
+    } = _ref2;
+    return _objectSpread(_objectSpread({}, result), types);
+  }, {});
 }
 /**
  * @description Get types for specific modules (metadata override)
  */
 
 
-function getModuleTypes({
-  knownTypes
-}, section) {
+function getModuleTypes(_ref3, section) {
   var _knownTypes$typesAlia;
 
+  let {
+    knownTypes
+  } = _ref3;
   return _objectSpread(_objectSpread({}, _modules.default[section] || {}), ((_knownTypes$typesAlia = knownTypes.typesAlias) === null || _knownTypes$typesAlia === void 0 ? void 0 : _knownTypes$typesAlia[section]) || {});
 }
 /**
@@ -72,10 +81,12 @@ function getModuleTypes({
  */
 
 
-function getSpecExtensions({
-  knownTypes
-}, chainName, specName) {
+function getSpecExtensions(_ref4, chainName, specName) {
   var _knownTypes$typesBund, _knownTypes$typesBund2, _knownTypes$typesBund3, _knownTypes$typesBund4, _knownTypes$typesBund5, _knownTypes$typesBund6;
+
+  let {
+    knownTypes
+  } = _ref4;
 
   const _chainName = chainName.toString();
 
@@ -88,10 +99,12 @@ function getSpecExtensions({
  */
 
 
-function getSpecTypes({
-  knownTypes
-}, chainName, specName, specVersion) {
+function getSpecTypes(_ref5, chainName, specName, specVersion) {
   var _knownTypes$typesBund7, _knownTypes$typesBund8, _knownTypes$typesBund9, _knownTypes$typesBund10, _knownTypes$typesBund11, _knownTypes$typesBund12, _knownTypes$typesSpec, _knownTypes$typesChai;
+
+  let {
+    knownTypes
+  } = _ref5;
 
   const _chainName = chainName.toString();
 
@@ -106,10 +119,12 @@ function getSpecTypes({
   return _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, filterVersions(_index2.default[_specName], _specVersion)), filterVersions(_index.default[_chainName], _specVersion)), filterVersions((_knownTypes$typesBund7 = knownTypes.typesBundle) === null || _knownTypes$typesBund7 === void 0 ? void 0 : (_knownTypes$typesBund8 = _knownTypes$typesBund7.spec) === null || _knownTypes$typesBund8 === void 0 ? void 0 : (_knownTypes$typesBund9 = _knownTypes$typesBund8[_specName]) === null || _knownTypes$typesBund9 === void 0 ? void 0 : _knownTypes$typesBund9.types, _specVersion)), filterVersions((_knownTypes$typesBund10 = knownTypes.typesBundle) === null || _knownTypes$typesBund10 === void 0 ? void 0 : (_knownTypes$typesBund11 = _knownTypes$typesBund10.chain) === null || _knownTypes$typesBund11 === void 0 ? void 0 : (_knownTypes$typesBund12 = _knownTypes$typesBund11[_chainName]) === null || _knownTypes$typesBund12 === void 0 ? void 0 : _knownTypes$typesBund12.types, _specVersion)), ((_knownTypes$typesSpec = knownTypes.typesSpec) === null || _knownTypes$typesSpec === void 0 ? void 0 : _knownTypes$typesSpec[_specName]) || {}), ((_knownTypes$typesChai = knownTypes.typesChain) === null || _knownTypes$typesChai === void 0 ? void 0 : _knownTypes$typesChai[_chainName]) || {}), knownTypes.types || {});
 }
 
-function getSpecHasher({
-  knownTypes
-}, chainName, specName) {
+function getSpecHasher(_ref6, chainName, specName) {
   var _knownTypes$typesBund13, _knownTypes$typesBund14, _knownTypes$typesBund15, _knownTypes$typesBund16, _knownTypes$typesBund17, _knownTypes$typesBund18;
+
+  let {
+    knownTypes
+  } = _ref6;
 
   const _chainName = chainName.toString();
 
@@ -122,10 +137,12 @@ function getSpecHasher({
  */
 
 
-function getSpecRpc({
-  knownTypes
-}, chainName, specName) {
+function getSpecRpc(_ref7, chainName, specName) {
   var _knownTypes$typesBund19, _knownTypes$typesBund20, _knownTypes$typesBund21, _knownTypes$typesBund22, _knownTypes$typesBund23, _knownTypes$typesBund24;
+
+  let {
+    knownTypes
+  } = _ref7;
 
   const _chainName = chainName.toString();
 
@@ -138,10 +155,12 @@ function getSpecRpc({
  */
 
 
-function getSpecAlias({
-  knownTypes
-}, chainName, specName) {
+function getSpecAlias(_ref8, chainName, specName) {
   var _knownTypes$typesBund25, _knownTypes$typesBund26, _knownTypes$typesBund27, _knownTypes$typesBund28, _knownTypes$typesBund29, _knownTypes$typesBund30;
+
+  let {
+    knownTypes
+  } = _ref8;
 
   const _chainName = chainName.toString();
 

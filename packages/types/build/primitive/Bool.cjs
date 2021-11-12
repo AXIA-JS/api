@@ -30,7 +30,8 @@ function decodeBool(value) {
 
 class bool extends Boolean {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  constructor(registry, value = false) {
+  constructor(registry) {
+    let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     super(decodeBool(value));
     this.registry = void 0;
     this.createdAtHash = void 0;

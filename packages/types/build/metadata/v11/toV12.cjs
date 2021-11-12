@@ -19,10 +19,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 /**
  * @internal
  **/
-function toV12(registry, {
-  extrinsic,
-  modules
-}) {
+function toV12(registry, _ref) {
+  let {
+    extrinsic,
+    modules
+  } = _ref;
   return registry.createType('MetadataV12', {
     extrinsic,
     modules: modules.map(mod => registry.createType('ModuleMetadataV12', _objectSpread(_objectSpread({}, mod), {}, {

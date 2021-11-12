@@ -52,19 +52,24 @@ function extractDef(registry, _def) {
   let def;
 
   if (isRustEnum(_def)) {
-    def = Object.entries((0, _index.mapToTypeMap)(registry, _def)).reduce((def, [key, Type], index) => {
+    def = Object.entries((0, _index.mapToTypeMap)(registry, _def)).reduce((def, _ref, index) => {
+      let [key, Type] = _ref;
       def[key] = {
         Type,
         index
       };
       return def;
     }, {});
-    isBasic = !Object.values(def).some(({
-      Type
-    }) => Type !== _Null.Null);
+    isBasic = !Object.values(def).some(_ref2 => {
+      let {
+        Type
+      } = _ref2;
+      return Type !== _Null.Null;
+    });
     isIndexed = false;
   } else {
-    def = Object.entries(_def).reduce((def, [key, index]) => {
+    def = Object.entries(_def).reduce((def, _ref3) => {
+      let [key, index] = _ref3;
       def[key] = {
         Type: _Null.Null,
         index
@@ -82,7 +87,9 @@ function extractDef(registry, _def) {
   };
 }
 
-function createFromValue(registry, def, index = 0, value) {
+function createFromValue(registry, def) {
+  let index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  let value = arguments.length > 3 ? arguments[3] : undefined;
   const entry = Object.values(def).find(e => e.index === index);
   (0, _util.assert)(!(0, _util.isUndefined)(entry), () => `Unable to create Enum via index ${index}, in ${Object.keys(def).join(', ')}`);
   return {
@@ -195,9 +202,12 @@ class Enum {
     (0, _classPrivateFieldLooseBase2.default)(this, _def2)[_def2] = defInfo.def;
     (0, _classPrivateFieldLooseBase2.default)(this, _isBasic)[_isBasic] = defInfo.isBasic;
     (0, _classPrivateFieldLooseBase2.default)(this, _isIndexed)[_isIndexed] = defInfo.isIndexed;
-    (0, _classPrivateFieldLooseBase2.default)(this, _indexes)[_indexes] = Object.values(defInfo.def).map(({
-      index
-    }) => index);
+    (0, _classPrivateFieldLooseBase2.default)(this, _indexes)[_indexes] = Object.values(defInfo.def).map(_ref4 => {
+      let {
+        index
+      } = _ref4;
+      return index;
+    });
     (0, _classPrivateFieldLooseBase2.default)(this, _entryIndex)[_entryIndex] = (0, _classPrivateFieldLooseBase2.default)(this, _indexes)[_indexes].indexOf(decoded.index) || 0;
     (0, _classPrivateFieldLooseBase2.default)(this, _raw)[_raw] = decoded.value;
   }
@@ -388,9 +398,10 @@ class Enum {
       }, {}) : this.defKeys;
     }
 
-    const typeMap = Object.entries((0, _classPrivateFieldLooseBase2.default)(this, _def2)[_def2]).reduce((out, [key, {
-      Type
-    }]) => {
+    const typeMap = Object.entries((0, _classPrivateFieldLooseBase2.default)(this, _def2)[_def2]).reduce((out, _ref5) => {
+      let [key, {
+        Type
+      }] = _ref5;
       out[key] = Type;
       return out;
     }, {});

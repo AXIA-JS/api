@@ -115,10 +115,11 @@ class MetaRegistry extends _types.TypeRegistry {
     });
     Object.defineProperty(this, _extractArray, {
       writable: true,
-      value: ({
-        len: length,
-        type
-      }) => {
+      value: _ref => {
+        let {
+          len: length,
+          type
+        } = _ref;
         (0, _util.assert)(!length || length.toNumber() <= 256, 'MetaRegistry: Only support for [Type; <length>], where length <= 256');
         return {
           info: _types.TypeDefInfo.VecFixed,
@@ -132,18 +133,25 @@ class MetaRegistry extends _types.TypeRegistry {
     Object.defineProperty(this, _extractFields, {
       writable: true,
       value: fields => {
-        const [isStruct, isTuple] = fields.reduce(([isAllNamed, isAllUnnamed], {
-          name
-        }) => [isAllNamed && name.isSome, isAllUnnamed && name.isNone], [true, true]);
+        const [isStruct, isTuple] = fields.reduce((_ref2, _ref3) => {
+          let [isAllNamed, isAllUnnamed] = _ref2;
+          let {
+            name
+          } = _ref3;
+          return [isAllNamed && name.isSome, isAllUnnamed && name.isNone];
+        }, [true, true]);
         (0, _util.assert)(isTuple || isStruct, 'Invalid fields type detected, expected either Tuple or Struct');
-        const sub = fields.map(({
-          name,
-          type
-        }) => _objectSpread(_objectSpread({}, this.getMetaTypeDef({
-          type
-        })), name.isSome ? {
-          name: name.unwrap().toString()
-        } : {}));
+        const sub = fields.map(_ref4 => {
+          let {
+            name,
+            type
+          } = _ref4;
+          return _objectSpread(_objectSpread({}, this.getMetaTypeDef({
+            type
+          })), name.isSome ? {
+            name: name.unwrap().toString()
+          } : {});
+        });
         return isTuple && sub.length === 1 ? sub[0] : {
           // check for tuple first (no fields may be available)
           info: isTuple ? _types.TypeDefInfo.Tuple : _types.TypeDefInfo.Struct,
@@ -172,9 +180,10 @@ class MetaRegistry extends _types.TypeRegistry {
     });
     Object.defineProperty(this, _extractSequence, {
       writable: true,
-      value: ({
-        type
-      }, id) => {
+      value: (_ref5, id) => {
+        let {
+          type
+        } = _ref5;
         (0, _util.assert)(!!type, () => `ContractRegistry: Invalid sequence type found at id ${id.toString()}`);
         return {
           info: _types.TypeDefInfo.Vec,
@@ -199,9 +208,11 @@ class MetaRegistry extends _types.TypeRegistry {
     });
     Object.defineProperty(this, _extractVariant, {
       writable: true,
-      value: ({
-        variants
-      }, id) => {
+      value: (_ref6, id) => {
+        let {
+          variants
+        } = _ref6;
+
         const {
           params,
           path
@@ -229,25 +240,34 @@ class MetaRegistry extends _types.TypeRegistry {
     Object.defineProperty(this, _extractVariantSub, {
       writable: true,
       value: variants => {
-        return variants.every(({
-          fields
-        }) => fields.length === 0) ? variants.map(({
-          discriminant,
-          name
-        }) => _objectSpread(_objectSpread({}, discriminant.isSome ? {
-          ext: {
-            discriminant: discriminant.unwrap().toNumber()
-          }
-        } : {}), {}, {
-          info: _types.TypeDefInfo.Plain,
-          name: name.toString(),
-          type: 'Null'
-        })) : variants.map(({
-          fields,
-          name
-        }) => (0, _types.withTypeString)(this, _objectSpread(_objectSpread({}, (0, _classPrivateFieldLooseBase2.default)(this, _extractFields)[_extractFields](fields)), {}, {
-          name: name.toString()
-        })));
+        return variants.every(_ref7 => {
+          let {
+            fields
+          } = _ref7;
+          return fields.length === 0;
+        }) ? variants.map(_ref8 => {
+          let {
+            discriminant,
+            name
+          } = _ref8;
+          return _objectSpread(_objectSpread({}, discriminant.isSome ? {
+            ext: {
+              discriminant: discriminant.unwrap().toNumber()
+            }
+          } : {}), {}, {
+            info: _types.TypeDefInfo.Plain,
+            name: name.toString(),
+            type: 'Null'
+          });
+        }) : variants.map(_ref9 => {
+          let {
+            fields,
+            name
+          } = _ref9;
+          return (0, _types.withTypeString)(this, _objectSpread(_objectSpread({}, (0, _classPrivateFieldLooseBase2.default)(this, _extractFields)[_extractFields](fields)), {}, {
+            name: name.toString()
+          }));
+        });
       }
     });
     const [major, minor] = metadataVersion.split('.').map(n => parseInt(n, 10)); // type indexes are 1-based pre 0.7 and 0-based post

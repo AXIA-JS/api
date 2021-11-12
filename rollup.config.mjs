@@ -3,7 +3,7 @@
 
 import path from 'path';
 
-import { createBundle } from '@axia-js/dev/config/rollup';
+import { createBundle } from '@axia-js/dev/config/rollup.js';
 
 const pkgs = [
   '@axia-js/api',

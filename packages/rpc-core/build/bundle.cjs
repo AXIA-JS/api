@@ -67,15 +67,19 @@ const EMPTY_META = {
 
 /** @internal */
 
-function logErrorMessage(method, {
-  params,
-  type
-}, error) {
-  const inputs = params.map(({
-    isOptional,
-    name,
+function logErrorMessage(method, _ref, error) {
+  let {
+    params,
     type
-  }) => `${name}${isOptional ? '?' : ''}: ${type}`).join(', ');
+  } = _ref;
+  const inputs = params.map(_ref2 => {
+    let {
+      isOptional,
+      name,
+      type
+    } = _ref2;
+    return `${name}${isOptional ? '?' : ''}: ${type}`;
+  }).join(', ');
   l.error(`${method}(${inputs}): ${type}:: ${error.message}`);
 }
 
@@ -123,7 +127,8 @@ class RpcCore {
    * Default constructor for the Api Object
    * @param  {ProviderInterface} provider An API provider using HTTP or WebSocket
    */
-  constructor(instanceId, registry, provider, userRpc = {}) {
+  constructor(instanceId, registry, provider) {
+    let userRpc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
     Object.defineProperty(this, _instanceId, {
       writable: true,
       value: void 0
@@ -194,22 +199,27 @@ class RpcCore {
     this.sections.push(...Object.keys(userRpc).filter(key => !this.sections.includes(key))); // decorate the sections with base and user methods
 
     this.sections.forEach(sectionName => {
-      var _ref, _ref2;
+      var _ref3, _ref4;
 
-      (_ref = this)[_ref2 = sectionName] || (_ref[_ref2] = {});
+      (_ref3 = this)[_ref4 = sectionName] || (_ref3[_ref4] = {});
       const section = this[sectionName];
-      Object.entries(_objectSpread(_objectSpread({}, this._createInterface(sectionName, _types.rpcDefinitions[sectionName] || {})), this._createInterface(sectionName, userRpc[sectionName] || {}))).forEach(([key, value]) => {
+      Object.entries(_objectSpread(_objectSpread({}, this._createInterface(sectionName, _types.rpcDefinitions[sectionName] || {})), this._createInterface(sectionName, userRpc[sectionName] || {}))).forEach(_ref5 => {
+        let [key, value] = _ref5;
         section[key] || (section[key] = value);
       });
     });
   }
 
   _createInterface(section, methods) {
-    return Object.entries(methods).filter(([method, {
-      endpoint
-    }]) => !this.mapping.has(endpoint || `${section}_${method}`)).reduce((exposed, [method, {
-      endpoint
-    }]) => {
+    return Object.entries(methods).filter(_ref6 => {
+      let [method, {
+        endpoint
+      }] = _ref6;
+      return !this.mapping.has(endpoint || `${section}_${method}`);
+    }).reduce((exposed, _ref7) => {
+      let [method, {
+        endpoint
+      }] = _ref7;
       const def = methods[method];
       const isSubscription = !!def.pubsub;
       const jsonrpc = endpoint || `${section}_${method}`;
@@ -236,9 +246,12 @@ class RpcCore {
 
   _createMethodSend(section, method, def) {
     const rpcName = def.endpoint || `${section}_${method}`;
-    const hashIndex = def.params.findIndex(({
-      isHistoric
-    }) => isHistoric);
+    const hashIndex = def.params.findIndex(_ref8 => {
+      let {
+        isHistoric
+      } = _ref8;
+      return isHistoric;
+    });
     let memoized = null; // execute the RPC call, doing a registry swap for historic as applicable
 
     const callWithRegistry = async (outputAs, values) => {
@@ -255,7 +268,11 @@ class RpcCore {
       return outputAs === 'scale' ? this._formatOutput(registry, blockHash, method, def, params, data) : registry.createType(outputAs === 'raw' ? 'Raw' : 'Json', data);
     };
 
-    const creator = outputAs => (...values) => {
+    const creator = outputAs => function () {
+      for (var _len = arguments.length, values = new Array(_len), _key = 0; _key < _len; _key++) {
+        values[_key] = arguments[_key];
+      }
+
       const isDelayed = outputAs === 'scale' && hashIndex !== -1 && !!values[hashIndex];
       return new _rxjs.Observable(observer => {
         callWithRegistry(outputAs, values).then(value => {
@@ -282,12 +299,13 @@ class RpcCore {
   } // create a subscriptor, it subscribes once and resolves with the id as subscribe
 
 
-  _createSubscriber({
-    paramsJson,
-    subName,
-    subType,
-    update
-  }, errorHandler) {
+  _createSubscriber(_ref9, errorHandler) {
+    let {
+      paramsJson,
+      subName,
+      subType,
+      update
+    } = _ref9;
     return new Promise((resolve, reject) => {
       this.provider.subscribe(subType, subName, paramsJson, update).then(resolve).catch(error => {
         errorHandler(error);
@@ -297,18 +315,24 @@ class RpcCore {
   }
 
   _createMethodSubscribe(section, method, def) {
+    var _this = this;
+
     const [updateType, subMethod, unsubMethod] = def.pubsub;
     const subName = `${section}_${subMethod}`;
     const unsubName = `${section}_${unsubMethod}`;
     const subType = `${section}_${updateType}`;
     let memoized = null;
 
-    const creator = outputAs => (...values) => {
+    const creator = outputAs => function () {
+      for (var _len2 = arguments.length, values = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        values[_key2] = arguments[_key2];
+      }
+
       return new _rxjs.Observable(observer => {
         // Have at least an empty promise, as used in the unsubscribe
         let subscriptionPromise = Promise.resolve(null);
 
-        const registry = (0, _classPrivateFieldLooseBase2.default)(this, _registryDefault)[_registryDefault];
+        const registry = (0, _classPrivateFieldLooseBase2.default)(_this, _registryDefault)[_registryDefault];
 
         const errorHandler = error => {
           logErrorMessage(method, def, error);
@@ -316,7 +340,7 @@ class RpcCore {
         };
 
         try {
-          const params = this._formatInputs(registry, null, def, values);
+          const params = _this._formatInputs(registry, null, def, values);
 
           const paramsJson = params.map(param => param.toJSON());
 
@@ -327,13 +351,13 @@ class RpcCore {
             }
 
             try {
-              observer.next(outputAs === 'scale' ? this._formatOutput(registry, null, method, def, params, result) : registry.createType(outputAs === 'raw' ? 'Raw' : 'Json', result));
+              observer.next(outputAs === 'scale' ? _this._formatOutput(registry, null, method, def, params, result) : registry.createType(outputAs === 'raw' ? 'Raw' : 'Json', result));
             } catch (error) {
               observer.error(error);
             }
           };
 
-          subscriptionPromise = this._createSubscriber({
+          subscriptionPromise = _this._createSubscriber({
             paramsJson,
             subName,
             subType,
@@ -350,7 +374,7 @@ class RpcCore {
           // Delete from cache, so old results don't hang around
           (_memoized2 = memoized) === null || _memoized2 === void 0 ? void 0 : _memoized2.unmemoize(...values); // Unsubscribe from provider
 
-          subscriptionPromise.then(subscriptionId => (0, _util.isNull)(subscriptionId) ? Promise.resolve(false) : this.provider.unsubscribe(subType, unsubName, subscriptionId)).catch(error => logErrorMessage(method, def, error));
+          subscriptionPromise.then(subscriptionId => (0, _util.isNull)(subscriptionId) ? Promise.resolve(false) : _this.provider.unsubscribe(subType, unsubName, subscriptionId)).catch(error => logErrorMessage(method, def, error));
         };
       }).pipe((0, _index.drr)());
     };
@@ -360,9 +384,12 @@ class RpcCore {
   }
 
   _formatInputs(registry, blockHash, def, inputs) {
-    const reqArgCount = def.params.filter(({
-      isOptional
-    }) => !isOptional).length;
+    const reqArgCount = def.params.filter(_ref10 => {
+      let {
+        isOptional
+      } = _ref10;
+      return !isOptional;
+    }).length;
     const optText = reqArgCount === def.params.length ? '' : ` (${def.params.length - reqArgCount} optional)`;
     (0, _util.assert)(inputs.length >= reqArgCount && inputs.length <= def.params.length, () => `Expected ${def.params.length} parameters${optText}, ${inputs.length} found instead`);
     return inputs.map((input, index) => registry.createTypeUnsafe(def.params[index].type, [input], {
@@ -378,10 +405,13 @@ class RpcCore {
       const keys = params[0];
       return keys ? this._formatStorageSet(registry, result.block, keys, result.changes) : registry.createType('StorageChangeSet', result);
     } else if (rpc.type === 'Vec<StorageChangeSet>') {
-      const mapped = result.map(({
-        block,
-        changes
-      }) => [registry.createType('Hash', block), this._formatStorageSet(registry, block, params[0], changes)]); // we only query at a specific block, not a range - flatten
+      const mapped = result.map(_ref11 => {
+        let {
+          block,
+          changes
+        } = _ref11;
+        return [registry.createType('Hash', block), this._formatStorageSet(registry, block, params[0], changes)];
+      }); // we only query at a specific block, not a range - flatten
 
       return method === 'queryStorageAt' ? mapped[0][1] : mapped;
     }
@@ -414,7 +444,10 @@ class RpcCore {
 
   _formatStorageSetEntry(registry, blockHash, key, changes, witCache, entryIndex) {
     const hexKey = key.toHex();
-    const found = changes.find(([key]) => key === hexKey); // if we don't find the value, this is our fallback
+    const found = changes.find(_ref12 => {
+      let [key] = _ref12;
+      return key === hexKey;
+    }); // if we don't find the value, this is our fallback
     //   - in the case of an array of values, fill the hole from the cache
     //   - if a single result value, don't fill - it is not an update hole
     //   - fallback to an empty option in all cases
@@ -430,7 +463,8 @@ class RpcCore {
     return this._newType(registry, blockHash, key, input, isEmpty, entryIndex);
   }
 
-  _newType(registry, blockHash, key, input, isEmpty, entryIndex = -1) {
+  _newType(registry, blockHash, key, input, isEmpty) {
+    let entryIndex = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : -1;
     // single return value (via state.getStorage), decode the value based on the
     // outputType that we have specified. Fallback to Raw on nothing
     const type = key.outputType || 'Raw';

@@ -10,36 +10,48 @@ exports.SubmittableResult = void 0;
 const recordIdentity = record => record;
 
 function filterAndApply(events, section, methods, onFound) {
-  return events.filter(({
-    event
-  }) => section === event.section && methods.includes(event.method)).map(record => onFound(record));
+  return events.filter(_ref => {
+    let {
+      event
+    } = _ref;
+    return section === event.section && methods.includes(event.method);
+  }).map(record => onFound(record));
 }
 
-function extractError(events = []) {
-  return filterAndApply(events, 'system', ['ExtrinsicFailed'], ({
-    event: {
-      data
-    }
-  }) => data[0])[0];
+function extractError() {
+  let events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return filterAndApply(events, 'system', ['ExtrinsicFailed'], _ref2 => {
+    let {
+      event: {
+        data
+      }
+    } = _ref2;
+    return data[0];
+  })[0];
 }
 
-function extractInfo(events = []) {
-  return filterAndApply(events, 'system', ['ExtrinsicFailed', 'ExtrinsicSuccess'], ({
-    event: {
-      data,
-      method
-    }
-  }) => method === 'ExtrinsicSuccess' ? data[0] : data[1])[0];
+function extractInfo() {
+  let events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return filterAndApply(events, 'system', ['ExtrinsicFailed', 'ExtrinsicSuccess'], _ref3 => {
+    let {
+      event: {
+        data,
+        method
+      }
+    } = _ref3;
+    return method === 'ExtrinsicSuccess' ? data[0] : data[1];
+  })[0];
 }
 
 class SubmittableResult {
-  constructor({
-    dispatchError,
-    dispatchInfo,
-    events,
-    internalError,
-    status
-  }) {
+  constructor(_ref4) {
+    let {
+      dispatchError,
+      dispatchInfo,
+      events,
+      internalError,
+      status
+    } = _ref4;
     this.dispatchError = void 0;
     this.dispatchInfo = void 0;
     this.internalError = void 0;

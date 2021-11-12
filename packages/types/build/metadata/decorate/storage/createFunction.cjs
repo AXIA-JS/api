@@ -41,12 +41,13 @@ function createKey(registry, itemFn, keys, hashers, args) {
 /** @internal */
 
 
-function expandWithMeta({
-  meta,
-  method,
-  prefix,
-  section
-}, _storageFn) {
+function expandWithMeta(_ref, _storageFn) {
+  let {
+    meta,
+    method,
+    prefix,
+    section
+  } = _ref;
   const storageFn = _storageFn;
   storageFn.meta = meta;
   storageFn.method = (0, _util.stringLowerFirst)(method);
@@ -67,16 +68,18 @@ function expandWithMeta({
 /** @internal */
 
 
-function extendHeadMeta(registry, {
-  meta: {
-    docs,
-    name,
-    type
-  },
-  section
-}, {
-  method
-}, iterFn) {
+function extendHeadMeta(registry, _ref2, _ref3, iterFn) {
+  let {
+    meta: {
+      docs,
+      name,
+      type
+    },
+    section
+  } = _ref2;
+  let {
+    method
+  } = _ref3;
   const outputType = registry.createLookupType(type.asMap.key); // metadata with a fallback value using the type of the key, the normal
   // meta fallback only applies to actual entry values, create one for head
 
@@ -89,10 +92,12 @@ function extendHeadMeta(registry, {
     // FIXME???
     type: registry.createType('StorageEntryTypeLatest', outputType, 0)
   });
-  return (...args) => registry.createType('StorageKey', iterFn(...args), {
-    method,
-    section
-  });
+  return function () {
+    return registry.createType('StorageKey', iterFn(...arguments), {
+      method,
+      section
+    });
+  };
 }
 /** @internal */
 
@@ -105,7 +110,11 @@ function extendPrefixedMap(registry, itemFn, storageFn) {
     method,
     section
   } = itemFn;
-  storageFn.iterKey = extendHeadMeta(registry, itemFn, storageFn, (...args) => {
+  storageFn.iterKey = extendHeadMeta(registry, itemFn, storageFn, function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
     (0, _util.assert)(args.length === 0 || type.isMap && args.length < type.asMap.hashers.length, () => `Iteration ${(0, _util.stringCamelCase)(section || 'unknown')}.${(0, _util.stringCamelCase)(method || 'unknown')} needs arguments to be at least one less than the full arguments, found [${args.join(', ')}]`);
 
     if (args.length) {
@@ -137,7 +146,7 @@ function createFunction(registry, itemFn, options) {
   //   - storage.timestamp.blockPeriod()
   // For higher-map queries the params are passed in as an tuple, [key1, key2]
 
-  const storageFn = expandWithMeta(itemFn, (...args) => {
+  const storageFn = expandWithMeta(itemFn, function () {
     if (type.isPlain) {
       return options.skipHashing ? (0, _util.compactAddLength)((0, _util.u8aToU8a)(options.key)) : createKey(registry, itemFn, [], [], []);
     }
@@ -146,6 +155,11 @@ function createFunction(registry, itemFn, options) {
       hashers,
       key
     } = type.asMap;
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
     return hashers.length === 1 ? createKey(registry, itemFn, [key], hashers, args) : createKey(registry, itemFn, registry.lookup.getSiType(key).def.asTuple.map(t => t), hashers, args);
   });
 
@@ -153,7 +167,9 @@ function createFunction(registry, itemFn, options) {
     extendPrefixedMap(registry, itemFn, storageFn);
   }
 
-  storageFn.keyPrefix = (...args) => storageFn.iterKey && storageFn.iterKey(...args) || (0, _util.compactStripLength)(storageFn())[1];
+  storageFn.keyPrefix = function () {
+    return storageFn.iterKey && storageFn.iterKey(...arguments) || (0, _util.compactStripLength)(storageFn())[1];
+  };
 
   return storageFn;
 }

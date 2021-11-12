@@ -33,25 +33,30 @@ function getCandidate(value) {
   return isCandidateTuple(value) ? value[0] : value;
 }
 
-function sortAccounts([, balanceA], [, balanceB]) {
+function sortAccounts(_ref, _ref2) {
+  let [, balanceA] = _ref;
+  let [, balanceB] = _ref2;
   return balanceB.cmp(balanceA);
 }
 
 function queryElections(api) {
   const elections = api.query.phragmenElection ? 'phragmenElection' : api.query.electionsPhragmen ? 'electionsPhragmen' : api.query.elections ? 'elections' : null;
   const [council] = api.registry.getModuleInstances(api.runtimeVersion.specName.toString(), 'council') || ['council'];
-  return (elections ? api.queryMulti([api.query[council].members, api.query[elections].candidates, api.query[elections].members, api.query[elections].runnersUp]) : (0, _rxjs.combineLatest)([api.query[council].members(), (0, _rxjs.of)([]), (0, _rxjs.of)([]), (0, _rxjs.of)([])])).pipe((0, _rxjs.map)(([councilMembers, candidates, members, runnersUp]) => _objectSpread(_objectSpread({}, elections ? {
-    candidacyBond: api.consts[elections].candidacyBond,
-    desiredRunnersUp: api.consts[elections].desiredRunnersUp,
-    desiredSeats: api.consts[elections].desiredMembers,
-    termDuration: api.consts[elections].termDuration,
-    votingBond: api.consts[elections].votingBond
-  } : {}), {}, {
-    candidateCount: api.registry.createType('u32', candidates.length),
-    candidates: candidates.map(getCandidate),
-    members: members.length ? members.map(getAccountTuple).sort(sortAccounts) : councilMembers.map(accountId => [accountId, api.registry.createType('Balance')]),
-    runnersUp: runnersUp.map(getAccountTuple).sort(sortAccounts)
-  })));
+  return (elections ? api.queryMulti([api.query[council].members, api.query[elections].candidates, api.query[elections].members, api.query[elections].runnersUp]) : (0, _rxjs.combineLatest)([api.query[council].members(), (0, _rxjs.of)([]), (0, _rxjs.of)([]), (0, _rxjs.of)([])])).pipe((0, _rxjs.map)(_ref3 => {
+    let [councilMembers, candidates, members, runnersUp] = _ref3;
+    return _objectSpread(_objectSpread({}, elections ? {
+      candidacyBond: api.consts[elections].candidacyBond,
+      desiredRunnersUp: api.consts[elections].desiredRunnersUp,
+      desiredSeats: api.consts[elections].desiredMembers,
+      termDuration: api.consts[elections].termDuration,
+      votingBond: api.consts[elections].votingBond
+    } : {}), {}, {
+      candidateCount: api.registry.createType('u32', candidates.length),
+      candidates: candidates.map(getCandidate),
+      members: members.length ? members.map(getAccountTuple).sort(sortAccounts) : councilMembers.map(accountId => [accountId, api.registry.createType('Balance')]),
+      runnersUp: runnersUp.map(getAccountTuple).sort(sortAccounts)
+    });
+  }));
 }
 /**
  * @name info

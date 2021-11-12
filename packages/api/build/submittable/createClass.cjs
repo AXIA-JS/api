@@ -27,11 +27,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 const identity = input => input;
 
-function createClass({
-  api,
-  apiType,
-  decorateMethod
-}) {
+function createClass(_ref) {
+  let {
+    api,
+    apiType,
+    decorateMethod
+  } = _ref;
   // an instance of the base extrinsic for us to extend
   const ExtrinsicBase = api.registry.createClass('Extrinsic');
 
@@ -61,9 +62,12 @@ function createClass({
 
   class Submittable extends ExtrinsicBase {
     constructor(registry, extrinsic) {
+      var _this;
+
       super(registry, extrinsic, {
         version: api.extrinsicType
       });
+      _this = this;
       Object.defineProperty(this, _ignoreStatusCb, {
         writable: true,
         value: void 0
@@ -74,11 +78,13 @@ function createClass({
       });
       Object.defineProperty(this, _makeEraOptions, {
         writable: true,
-        value: (options, {
-          header,
-          mortalLength,
-          nonce
-        }) => {
+        value: (options, _ref2) => {
+          let {
+            header,
+            mortalLength,
+            nonce
+          } = _ref2;
+
           if (!header) {
             if ((0, _util.isNumber)(options.era)) {
               // since we have no header, it is immortal, remove any option overrides
@@ -158,13 +164,16 @@ function createClass({
           }
 
           const blockHash = status.isInBlock ? status.asInBlock : status.asFinalized;
-          return api.derive.tx.events(blockHash).pipe((0, _rxjs.map)(({
-            block,
-            events
-          }) => (0, _classPrivateFieldLooseBase2.default)(this, _transformResult)[_transformResult](new _Result.SubmittableResult({
-            events: (0, _index.filterEvents)(hash, block, events, status),
-            status
-          }))), (0, _rxjs.catchError)(internalError => (0, _rxjs.of)((0, _classPrivateFieldLooseBase2.default)(this, _transformResult)[_transformResult](new _Result.SubmittableResult({
+          return api.derive.tx.events(blockHash).pipe((0, _rxjs.map)(_ref3 => {
+            let {
+              block,
+              events
+            } = _ref3;
+            return (0, _classPrivateFieldLooseBase2.default)(this, _transformResult)[_transformResult](new _Result.SubmittableResult({
+              events: (0, _index.filterEvents)(hash, block, events, status),
+              status
+            }));
+          }), (0, _rxjs.catchError)(internalError => (0, _rxjs.of)((0, _classPrivateFieldLooseBase2.default)(this, _transformResult)[_transformResult](new _Result.SubmittableResult({
             internalError,
             status
           })))));
@@ -172,24 +181,27 @@ function createClass({
       });
       Object.defineProperty(this, _observeSend, {
         writable: true,
-        value: (updateId = -1) => {
-          return api.rpc.author.submitExtrinsic(this).pipe((0, _rxjs.tap)(hash => {
-            (0, _classPrivateFieldLooseBase2.default)(this, _updateSigner)[_updateSigner](updateId, hash);
+        value: function () {
+          let updateId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+          return api.rpc.author.submitExtrinsic(_this).pipe((0, _rxjs.tap)(hash => {
+            (0, _classPrivateFieldLooseBase2.default)(_this, _updateSigner)[_updateSigner](updateId, hash);
           }));
         }
       });
       Object.defineProperty(this, _observeSubscribe, {
         writable: true,
-        value: (updateId = -1) => {
-          const hash = this.hash;
-          return api.rpc.author.submitAndWatchExtrinsic(this).pipe((0, _rxjs.switchMap)(status => (0, _classPrivateFieldLooseBase2.default)(this, _observeStatus)[_observeStatus](hash, status)), (0, _rxjs.tap)(status => {
-            (0, _classPrivateFieldLooseBase2.default)(this, _updateSigner)[_updateSigner](updateId, status);
+        value: function () {
+          let updateId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+          const hash = _this.hash;
+          return api.rpc.author.submitAndWatchExtrinsic(_this).pipe((0, _rxjs.switchMap)(status => (0, _classPrivateFieldLooseBase2.default)(_this, _observeStatus)[_observeStatus](hash, status)), (0, _rxjs.tap)(status => {
+            (0, _classPrivateFieldLooseBase2.default)(_this, _updateSigner)[_updateSigner](updateId, status);
           }));
         }
       });
       Object.defineProperty(this, _optionsOrNonce, {
         writable: true,
-        value: (optionsOrNonce = {}) => {
+        value: function () {
+          let optionsOrNonce = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
           return (0, _util.isBn)(optionsOrNonce) || (0, _util.isNumber)(optionsOrNonce) ? {
             nonce: optionsOrNonce
           } : optionsOrNonce;

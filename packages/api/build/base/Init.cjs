@@ -165,9 +165,12 @@ class Init extends _Decorate.Decorate {
 
   _getDefaultRegistry() {
     // get the default registry version
-    const thisRegistry = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(({
-      isDefault
-    }) => isDefault);
+    const thisRegistry = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(_ref => {
+      let {
+        isDefault
+      } = _ref;
+      return isDefault;
+    });
 
     (0, _util.assert)(thisRegistry, 'Initialization error, cannot find the default registry');
     return thisRegistry;
@@ -189,9 +192,12 @@ class Init extends _Decorate.Decorate {
 
 
   async getBlockRegistry(blockHash) {
-    const existingViaHash = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(({
-      lastBlockHash
-    }) => lastBlockHash && (0, _util.u8aEq)(lastBlockHash, blockHash));
+    const existingViaHash = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(_ref2 => {
+      let {
+        lastBlockHash
+      } = _ref2;
+      return lastBlockHash && (0, _util.u8aEq)(lastBlockHash, blockHash);
+    });
 
     if (existingViaHash) {
       return existingViaHash;
@@ -214,10 +220,13 @@ class Init extends _Decorate.Decorate {
     } : await (0, _rxjs.firstValueFrom)(this._rpcCore.state.getRuntimeVersion.json(header.parentHash))); // check for pre-existing registries. We also check specName, e.g. it
     // could be changed like in Westmint with upgrade from  shell -> westmint
 
-    const existingViaVersion = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(({
-      specName,
-      specVersion
-    }) => specName.eq(version.specName) && specVersion.eq(version.specVersion));
+    const existingViaVersion = (0, _classPrivateFieldLooseBase2.default)(this, _registries)[_registries].find(_ref3 => {
+      let {
+        specName,
+        specVersion
+      } = _ref3;
+      return specName.eq(version.specName) && specVersion.eq(version.specVersion);
+    });
 
     if (existingViaVersion) {
       existingViaVersion.lastBlockHash = blockHash;

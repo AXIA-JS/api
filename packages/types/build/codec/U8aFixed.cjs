@@ -37,7 +37,9 @@ function decodeU8aFixed(value, bitLength) {
 
 
 class U8aFixed extends _Raw.Raw {
-  constructor(registry, value = new Uint8Array(), bitLength = 256) {
+  constructor(registry) {
+    let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Uint8Array();
+    let bitLength = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 256;
     super(registry, decodeU8aFixed(value, bitLength));
   }
 

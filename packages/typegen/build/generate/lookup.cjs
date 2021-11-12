@@ -17,7 +17,7 @@ var defaultDefinitions = _interopRequireWildcard(require("@axia-js/types/interfa
 
 var _staticAxialunar = _interopRequireDefault(require("@axia-js/types-support/metadata/static-axialunar"));
 
-var _staticAXIA = _interopRequireDefault(require("@axia-js/types-support/metadata/static-axia"));
+var _staticAxia = _interopRequireDefault(require("@axia-js/types-support/metadata/static-axia"));
 
 var _staticSubstrate = _interopRequireDefault(require("@axia-js/types-support/metadata/static-substrate"));
 
@@ -46,10 +46,12 @@ const generateLookupIndexTmpl = _handlebars.default.compile((0, _index.readTempl
 
 const generateLookupTypesTmpl = _handlebars.default.compile((0, _index.readTemplate)('lookup/types'));
 
-function generateParamType(registry, {
-  name,
-  type
-}) {
+function generateParamType(registry, _ref) {
+  let {
+    name,
+    type
+  } = _ref;
+
   if (type.isSome) {
     const link = registry.lookup.types[type.unwrap().toNumber()];
 
@@ -71,7 +73,8 @@ function formatObject(lines) {
 }
 
 function expandSet(parsed) {
-  return formatObject(Object.entries(parsed).reduce((all, [k, v]) => {
+  return formatObject(Object.entries(parsed).reduce((all, _ref2) => {
+    let [k, v] = _ref2;
     all.push(`${k}: ${v}`);
     return all;
   }, []));
@@ -82,7 +85,8 @@ function expandObject(parsed) {
     return expandSet(parsed._set);
   }
 
-  return formatObject(Object.entries(parsed).reduce((all, [k, v]) => {
+  return formatObject(Object.entries(parsed).reduce((all, _ref3) => {
+    let [k, v] = _ref3;
     const inner = (0, _util.isString)(v) ? expandType(v) : Array.isArray(v) ? [`[${v.map(e => `'${e}'`).join(', ')}]`] : expandObject(v);
     inner.forEach((l, index) => {
       all.push(`${index === 0 ? `${k}: ${l}` : `${l}`}`);
@@ -99,10 +103,12 @@ function expandType(encoded) {
   return expandObject(JSON.parse(encoded));
 }
 
-function expandDefToString({
-  lookupNameRoot,
-  type
-}, indent) {
+function expandDefToString(_ref4, indent) {
+  let {
+    lookupNameRoot,
+    type
+  } = _ref4;
+
   if (lookupNameRoot) {
     return `'${lookupNameRoot}'`;
   }
@@ -127,13 +133,15 @@ function expandDefToString({
   }).join('\n');
 }
 
-function getFilteredTypes(lookup, exclude = []) {
-  const named = lookup.types.filter(({
-    id,
-    type: {
-      path
-    }
-  }) => {
+function getFilteredTypes(lookup) {
+  let exclude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  const named = lookup.types.filter(_ref5 => {
+    let {
+      id,
+      type: {
+        path
+      }
+    } = _ref5;
     const typeDef = lookup.getTypeDef(id);
     return (// We actually only want those with lookupName set
       !!typeDef.lookupName && !(path.length === 2 && ( // Ensure that we match {node, axialunar, *}_runtime
@@ -142,21 +150,28 @@ function getFilteredTypes(lookup, exclude = []) {
       MAP_ENUMS.includes(path[path.length - 1].toString().split('<')[0]))
     );
   });
-  const names = named.map(({
-    id
-  }) => lookup.getName(id));
-  return named.filter((_, index) => !names.some((n, iindex) => index > iindex && n === names[index])).map(p => [p, lookup.getTypeDef(p.id)]).filter(([, typeDef]) => !exclude.includes(typeDef.lookupName || '<invalid>'));
+  const names = named.map(_ref6 => {
+    let {
+      id
+    } = _ref6;
+    return lookup.getName(id);
+  });
+  return named.filter((_, index) => !names.some((n, iindex) => index > iindex && n === names[index])).map(p => [p, lookup.getTypeDef(p.id)]).filter(_ref7 => {
+    let [, typeDef] = _ref7;
+    return !exclude.includes(typeDef.lookupName || '<invalid>');
+  });
 }
 
 function generateLookupDefs(registry, filtered, destDir, subPath) {
   (0, _index.writeFile)(_path.default.join(destDir, `${subPath || 'definitions'}.ts`), () => {
-    const all = filtered.map(([{
-      id,
-      type: {
-        params,
-        path
-      }
-    }, typeDef]) => {
+    const all = filtered.map(_ref8 => {
+      let [{
+        id,
+        type: {
+          params,
+          path
+        }
+      }, typeDef] = _ref8;
       const typeLookup = registry.createLookupType(id);
       const def = expandDefToString(typeDef, subPath ? 2 : 4);
       return {
@@ -170,17 +185,21 @@ function generateLookupDefs(registry, filtered, destDir, subPath) {
     });
     const max = all.length - 1;
     return (subPath ? generateLookupDefsNamedTmpl : generateLookupDefsTmpl)({
-      defs: all.map(({
-        docs,
-        type
-      }, i) => {
+      defs: all.map((_ref9, i) => {
+        let {
+          docs,
+          type
+        } = _ref9;
         const {
           def,
           typeLookup,
           typeName
         } = type;
         return {
-          defs: [[typeName || typeLookup, `${def}${i !== max ? ',' : ''}`]].map(([n, t]) => `${n}: ${t}`),
+          defs: [[typeName || typeLookup, `${def}${i !== max ? ',' : ''}`]].map(_ref10 => {
+            let [n, t] = _ref10;
+            return `${n}: ${t}`;
+          }),
           docs
         };
       }),
@@ -198,7 +217,8 @@ function generateLookupTypes(registry, filtered, destDir, subPath) {
     interfaces: []
   });
 
-  const items = filtered.map(([, typeDef]) => {
+  const items = filtered.map(_ref11 => {
+    let [, typeDef] = _ref11;
     typeDef.name = typeDef.lookupName;
     return typeDef.lookupNameRoot && typeDef.lookupName ? (0, _index.exportType)(typeDef.lookupIndex, typeDef.lookupName, typeDef.lookupNameRoot) : _tsDef.typeEncoders[typeDef.info](registry, imports.definitions, typeDef, imports);
   }).filter(t => !!t);
@@ -217,7 +237,8 @@ function generateLookupTypes(registry, filtered, destDir, subPath) {
 }
 
 function generateLookup(destDir, entries) {
-  entries.reduce((exclude, [subPath, staticMeta]) => {
+  entries.reduce((exclude, _ref12) => {
+    let [subPath, staticMeta] = _ref12;
     const {
       lookup,
       registry
@@ -225,11 +246,16 @@ function generateLookup(destDir, entries) {
     const filtered = getFilteredTypes(lookup, exclude);
     generateLookupDefs(registry, filtered, destDir, subPath);
     generateLookupTypes(registry, filtered, destDir, subPath);
-    return exclude.concat(...filtered.map(([, typeDef]) => typeDef.lookupName).filter(n => !!n));
+    return exclude.concat(...filtered.map(_ref13 => {
+      let [, typeDef] = _ref13;
+      return typeDef.lookupName;
+    }).filter(n => !!n));
   }, []);
 } // Generate `packages/types/src/lookup/*s`, the registry of all lookup types
 
 
-function generateDefaultLookup(destDir = 'packages/types/src/augment/lookup', staticData) {
-  generateLookup(destDir, staticData ? [[undefined, staticData]] : [['substrate', _staticSubstrate.default], ['axia', _staticAXIA.default], ['axialunar', _staticAxialunar.default]]);
+function generateDefaultLookup() {
+  let destDir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/types/src/augment/lookup';
+  let staticData = arguments.length > 1 ? arguments[1] : undefined;
+  generateLookup(destDir, staticData ? [[undefined, staticData]] : [['substrate', _staticSubstrate.default], ['axia', _staticAxia.default], ['axialunar', _staticAxialunar.default]]);
 }

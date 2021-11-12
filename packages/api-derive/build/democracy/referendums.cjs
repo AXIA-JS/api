@@ -18,5 +18,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function referendums(instanceId, api) {
-  return (0, _index.memo)(instanceId, () => api.derive.democracy.referendumsActive().pipe((0, _rxjs.switchMap)(referendums => referendums.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(referendums), api.derive.democracy._referendumsVotes(referendums)]) : (0, _rxjs.of)([[], []])), (0, _rxjs.map)(([referendums, votes]) => referendums.map((referendum, index) => _objectSpread(_objectSpread({}, referendum), votes[index])))));
+  return (0, _index.memo)(instanceId, () => api.derive.democracy.referendumsActive().pipe((0, _rxjs.switchMap)(referendums => referendums.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(referendums), api.derive.democracy._referendumsVotes(referendums)]) : (0, _rxjs.of)([[], []])), (0, _rxjs.map)(_ref => {
+    let [referendums, votes] = _ref;
+    return referendums.map((referendum, index) => _objectSpread(_objectSpread({}, referendum), votes[index]));
+  })));
 }

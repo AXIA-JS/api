@@ -101,7 +101,8 @@ var _ValClass = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("ValClass"
 var _type = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("type");
 
 class CodecMap extends Map {
-  constructor(registry, keyType, valType, rawValue, type = 'HashMap') {
+  constructor(registry, keyType, valType, rawValue) {
+    let type = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'HashMap';
     const decoded = decodeMap(registry, keyType, valType, rawValue);
     super(type === 'BTreeMap' ? (0, _index.sortMap)(decoded) : decoded);
     this.registry = void 0;

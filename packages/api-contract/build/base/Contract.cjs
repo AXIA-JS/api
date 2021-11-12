@@ -31,11 +31,23 @@ const ERROR_NO_CALL = 'Your node does not expose the contracts.call RPC. This is
 const l = (0, _util.logger)('Contract');
 
 function createQuery(fn) {
-  return (origin, options, ...params) => (0, _util2.isOptions)(options) ? fn(origin, options, params) : fn(origin, ...(0, _util2.extractOptions)(options, params));
+  return function (origin, options) {
+    for (var _len = arguments.length, params = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      params[_key - 2] = arguments[_key];
+    }
+
+    return (0, _util2.isOptions)(options) ? fn(origin, options, params) : fn(origin, ...(0, _util2.extractOptions)(options, params));
+  };
 }
 
 function createTx(fn) {
-  return (options, ...params) => (0, _util2.isOptions)(options) ? fn(options, params) : fn(...(0, _util2.extractOptions)(options, params));
+  return function (options) {
+    for (var _len2 = arguments.length, params = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      params[_key2 - 1] = arguments[_key2];
+    }
+
+    return (0, _util2.isOptions)(options) ? fn(options, params) : fn(...(0, _util2.extractOptions)(options, params));
+  };
 }
 
 class ContractSubmittableResult extends _api.SubmittableResult {
@@ -64,7 +76,10 @@ class Contract extends _Base.Base {
    * @description The on-chain address for this contract
    */
   constructor(api, abi, address, decorateMethod) {
+    var _this;
+
     super(api, abi, decorateMethod);
+    _this = this;
     this.address = void 0;
     Object.defineProperty(this, _query, {
       writable: true,
@@ -76,23 +91,27 @@ class Contract extends _Base.Base {
     });
     Object.defineProperty(this, _getGas, {
       writable: true,
-      value: (_gasLimit, isCall = false) => {
+      value: function (_gasLimit) {
+        let isCall = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         const gasLimit = (0, _util.bnToBn)(_gasLimit);
-        return gasLimit.lte(_util.BN_ZERO) ? isCall ? MAX_CALL_GAS : (this.api.consts.system.blockWeights ? this.api.consts.system.blockWeights.maxBlock : this.api.consts.system.maximumBlockWeight).muln(64).div(_util.BN_HUNDRED) : gasLimit;
+        return gasLimit.lte(_util.BN_ZERO) ? isCall ? MAX_CALL_GAS : (_this.api.consts.system.blockWeights ? _this.api.consts.system.blockWeights.maxBlock : _this.api.consts.system.maximumBlockWeight).muln(64).div(_util.BN_HUNDRED) : gasLimit;
       }
     });
     Object.defineProperty(this, _exec, {
       writable: true,
-      value: (messageOrId, {
-        gasLimit = _util.BN_ZERO,
-        value = _util.BN_ZERO
-      }, params) => {
+      value: (messageOrId, _ref, params) => {
+        let {
+          gasLimit = _util.BN_ZERO,
+          value = _util.BN_ZERO
+        } = _ref;
         return this.api.tx.contracts.call(this.address, value, (0, _classPrivateFieldLooseBase2.default)(this, _getGas)[_getGas](gasLimit), this.abi.findMessage(messageOrId).toU8a(params)).withResultTransform(result => // ContractEmitted is the current generation, ContractExecution is the previous generation
-        new ContractSubmittableResult(result, (0, _util2.applyOnEvent)(result, ['ContractEmitted', 'ContractExecution'], records => records.map(({
-          event: {
-            data: [, data]
-          }
-        }) => {
+        new ContractSubmittableResult(result, (0, _util2.applyOnEvent)(result, ['ContractEmitted', 'ContractExecution'], records => records.map(_ref2 => {
+          let {
+            event: {
+              data: [, data]
+            }
+          } = _ref2;
+
           try {
             return this.abi.decodeEvent(data);
           } catch (error) {
@@ -104,10 +123,11 @@ class Contract extends _Base.Base {
     });
     Object.defineProperty(this, _read, {
       writable: true,
-      value: (messageOrId, {
-        gasLimit = _util.BN_ZERO,
-        value = _util.BN_ZERO
-      }, params) => {
+      value: (messageOrId, _ref3, params) => {
+        let {
+          gasLimit = _util.BN_ZERO,
+          value = _util.BN_ZERO
+        } = _ref3;
         (0, _util.assert)(this.hasRpcContractsCall, ERROR_NO_CALL);
         const message = this.abi.findMessage(messageOrId);
         return {
@@ -118,20 +138,23 @@ class Contract extends _Base.Base {
             inputData: message.toU8a(params),
             origin,
             value
-          }).pipe((0, _rxjs.map)(({
-            debugMessage,
-            gasConsumed,
-            gasRequired,
-            result
-          }) => ({
-            debugMessage,
-            gasConsumed,
-            gasRequired: gasRequired && !gasRequired.isZero() ? gasRequired : gasConsumed,
-            output: result.isOk && message.returnType ? (0, _types.createTypeUnsafe)(this.registry, message.returnType.type, [result.asOk.data.toU8a(true)], {
-              isPedantic: true
-            }) : null,
-            result
-          }))))
+          }).pipe((0, _rxjs.map)(_ref4 => {
+            let {
+              debugMessage,
+              gasConsumed,
+              gasRequired,
+              result
+            } = _ref4;
+            return {
+              debugMessage,
+              gasConsumed,
+              gasRequired: gasRequired && !gasRequired.isZero() ? gasRequired : gasConsumed,
+              output: result.isOk && message.returnType ? (0, _types.createTypeUnsafe)(this.registry, message.returnType.type, [result.asOk.data.toU8a(true)], {
+                isPedantic: true
+              }) : null,
+              result
+            };
+          })))
         };
       }
     });

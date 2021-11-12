@@ -27,10 +27,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  * @internal
  */
 function getArgsDef(registry, meta) {
-  return meta.fields.reduce((result, {
-    name,
-    type
-  }, index) => {
+  return meta.fields.reduce((result, _ref, index) => {
+    let {
+      name,
+      type
+    } = _ref;
     result[name.unwrapOr(`param${index}`).toString()] = registry.createLookupType(type);
     return result;
   }, {});
@@ -87,7 +88,11 @@ function decodeCallViaU8a(registry, value, _meta) {
  */
 
 
-function decodeCall(registry, value = new Uint8Array(), _meta) {
+function decodeCall(registry) {
+  let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Uint8Array();
+
+  let _meta = arguments.length > 2 ? arguments[2] : undefined;
+
   if ((0, _util.isHex)(value) || (0, _util.isU8a)(value)) {
     return decodeCallViaU8a(registry, (0, _util.u8aToU8a)(value), _meta);
   } else if ((0, _util.isObject)(value) && value.callIndex && value.args) {

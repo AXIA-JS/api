@@ -55,7 +55,8 @@ function findClosing(value, start) {
   throw new Error(`Unable to find closing matching <> on '${value}' (start ${start})`);
 }
 
-function alias(src, dest, withChecks = true) {
+function alias(src, dest) {
+  let withChecks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
   return value => value.replace(new RegExp(`(^${src}|${BOX_PRECEDING.map(box => `\\${box}${src}`).join('|')})`, 'g'), src => withChecks && BOX_PRECEDING.includes(src[0]) ? `${src[0]}${dest}` : dest);
 }
 
@@ -111,9 +112,10 @@ function removeExtensions(type, isSized) {
 }
 
 function removeColons() {
-  return (value, {
-    allowNamespaces
-  } = {}) => {
+  return function (value) {
+    let {
+      allowNamespaces
+    } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     let index = 0;
 
     while (index !== -1) {

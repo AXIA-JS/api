@@ -22,5 +22,8 @@ function subscribeNewBlocks(instanceId, api) {
   return (0, _index2.memo)(instanceId, () => api.derive.chain.subscribeNewHeads().pipe((0, _rxjs.switchMap)(header => {
     const blockHash = header.createdAtHash || header.hash;
     return (0, _rxjs.combineLatest)(api.rpc.chain.getBlock(blockHash), api.query.system.events.at(blockHash), (0, _rxjs.of)(header));
-  }), (0, _rxjs.map)(([block, events, header]) => (0, _index.createSignedBlockExtended)(block.registry, block, events, header.validators))));
+  }), (0, _rxjs.map)(_ref => {
+    let [block, events, header] = _ref;
+    return (0, _index.createSignedBlockExtended)(block.registry, block, events, header.validators);
+  })));
 }

@@ -43,7 +43,9 @@ class GenericSignerPayload extends _Struct.Struct {
     super(registry, _objectSpread(_objectSpread({}, extensionTypes), knownTypes), value); // add all extras that are not in the base types
 
     this._extraTypes = void 0;
-    this._extraTypes = Object.entries(extensionTypes).reduce((map, [key, type]) => {
+    this._extraTypes = Object.entries(extensionTypes).reduce((map, _ref) => {
+      let [key, type] = _ref;
+
       if (!knownTypes[key]) {
         map[key] = type;
       }

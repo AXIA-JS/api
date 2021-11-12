@@ -43,15 +43,19 @@ function getTypeClassMap(value) {
 
 
 function getTypeClassArray(value) {
-  return getSubDefArray(value).map(({
-    type
-  }) => type);
+  return getSubDefArray(value).map(_ref => {
+    let {
+      type
+    } = _ref;
+    return type;
+  });
 }
 
-function createInt({
-  displayName,
-  length
-}, Clazz) {
+function createInt(_ref2, Clazz) {
+  let {
+    displayName,
+    length
+  } = _ref2;
   (0, _util.assert)((0, _util.isNumber)(length), () => `Expected bitLength information for ${displayName || Clazz.constructor.name}<bitLength>`);
   return Clazz.with(length, displayName);
 }
@@ -68,12 +72,16 @@ const infoMapping = {
   [_types.TypeDefInfo.DoNotConstruct]: (registry, value) => _index.DoNotConstruct.with(value.displayName || value.type),
   [_types.TypeDefInfo.Enum]: (registry, value) => {
     const subs = getSubDefArray(value);
-    return _index.Enum.with(subs.every(({
-      type
-    }) => type === 'Null') ? subs.reduce((out, {
-      index,
-      name
-    }, count) => {
+    return _index.Enum.with(subs.every(_ref3 => {
+      let {
+        type
+      } = _ref3;
+      return type === 'Null';
+    }) ? subs.reduce((out, _ref4, count) => {
+      let {
+        index,
+        name
+      } = _ref4;
       out[name] = index || count;
       return out;
     }, {}) : getTypeClassMap(value));
@@ -112,10 +120,11 @@ const infoMapping = {
   },
   [_types.TypeDefInfo.Set]: (registry, value) => {
     const result = {};
-    return _index.CodecSet.with(getSubDefArray(value).reduce((result, {
-      index,
-      name
-    }) => {
+    return _index.CodecSet.with(getSubDefArray(value).reduce((result, _ref5) => {
+      let {
+        index,
+        name
+      } = _ref5;
       result[name] = index;
       return result;
     }, result), value.length);
@@ -128,11 +137,12 @@ const infoMapping = {
     const subType = getSubType(value);
     return subType === 'u8' ? _index2.Bytes : _index.Vec.with(subType);
   },
-  [_types.TypeDefInfo.VecFixed]: (registry, {
-    displayName,
-    length,
-    sub
-  }) => {
+  [_types.TypeDefInfo.VecFixed]: (registry, _ref6) => {
+    let {
+      displayName,
+      length,
+      sub
+    } = _ref6;
     (0, _util.assert)((0, _util.isNumber)(length) && !(0, _util.isUndefined)(sub), 'Expected length & type information for fixed vector');
     const subType = sub.type;
     return subType === 'u8' ? _index.U8aFixed.with(length * 8, displayName) : _index.VecFixed.with(subType, length);

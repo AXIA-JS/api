@@ -38,7 +38,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 // helper to generate a `readonly <Name>: <Type>;` getter
 
 /** @internal */
-function createGetter(definitions, name = '', type, imports) {
+function createGetter(definitions) {
+  let name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  let type = arguments.length > 2 ? arguments[2] : undefined;
+  let imports = arguments.length > 3 ? arguments[3] : undefined;
   (0, _index.setImports)(definitions, imports, [type]);
   return `  readonly ${name}: ${type};\n`;
 }
@@ -66,11 +69,12 @@ const tsPlain = tsExport;
 const tsTuple = tsExport;
 /** @internal */
 
-function tsEnum(registry, definitions, {
-  lookupIndex,
-  name: enumName,
-  sub
-}, imports) {
+function tsEnum(registry, definitions, _ref, imports) {
+  let {
+    lookupIndex,
+    name: enumName,
+    sub
+  } = _ref;
   (0, _index.setImports)(definitions, imports, ['Enum']);
   const keys = sub.map((def, index) => {
     const {
@@ -107,17 +111,19 @@ function tsEnum(registry, definitions, {
   return (0, _index.exportInterface)(lookupIndex, enumName, 'Enum', keys.join(''));
 }
 
-function tsInt(_, definitions, def, imports, type = 'Int') {
+function tsInt(_, definitions, def, imports) {
+  let type = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'Int';
   (0, _index.setImports)(definitions, imports, [type]);
   return (0, _index.exportInterface)(def.lookupIndex, def.name, type);
 }
 /** @internal */
 
 
-function tsNull(registry, definitions, {
-  lookupIndex = -1,
-  name
-}, imports) {
+function tsNull(registry, definitions, _ref2, imports) {
+  let {
+    lookupIndex = -1,
+    name
+  } = _ref2;
   (0, _index.setImports)(definitions, imports, ['Null']); // * @description extends [[${base}]]
 
   const doc = `/** @name ${name || ''}${lookupIndex !== -1 ? ` (${lookupIndex})` : ''} */\n`;
@@ -126,7 +132,11 @@ function tsNull(registry, definitions, {
 /** @internal */
 
 
-function tsResultGetter(registry, definitions, resultName = '', getter, def, imports) {
+function tsResultGetter(registry, definitions) {
+  let resultName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  let getter = arguments.length > 3 ? arguments[3] : undefined;
+  let def = arguments.length > 4 ? arguments[4] : undefined;
+  let imports = arguments.length > 5 ? arguments[5] : undefined;
   const {
     info,
     lookupName,
@@ -172,15 +182,17 @@ function tsSi(registry, definitions, typeDef, imports) {
 /** @internal */
 
 
-function tsSet(_, definitions, {
-  lookupIndex,
-  name: setName,
-  sub
-}, imports) {
+function tsSet(_, definitions, _ref3, imports) {
+  let {
+    lookupIndex,
+    name: setName,
+    sub
+  } = _ref3;
   (0, _index.setImports)(definitions, imports, ['Set']);
-  const types = sub.map(({
-    name
-  }) => {
+  const types = sub.map(_ref4 => {
+    let {
+      name
+    } = _ref4;
     (0, _util.assert)(name, 'Invalid TypeDef found, no name specified');
     return createGetter(definitions, `is${name}`, 'boolean', imports);
   });
@@ -189,11 +201,12 @@ function tsSet(_, definitions, {
 /** @internal */
 
 
-function tsStruct(registry, definitions, {
-  lookupIndex,
-  name: structName,
-  sub
-}, imports) {
+function tsStruct(registry, definitions, _ref5, imports) {
+  let {
+    lookupIndex,
+    name: structName,
+    sub
+  } = _ref5;
   (0, _index.setImports)(definitions, imports, ['Struct']);
   const keys = sub.map(def => {
     const fmtType = def.lookupName && def.name !== def.lookupName ? def.lookupName : (0, _index.formatType)(registry, definitions, def, imports, false);
@@ -256,10 +269,12 @@ const typeEncoders = {
 
 exports.typeEncoders = typeEncoders;
 
-function generateInterfaces(registry, definitions, {
-  types
-}, imports) {
-  return Object.entries(types).map(([name, type]) => {
+function generateInterfaces(registry, definitions, _ref6, imports) {
+  let {
+    types
+  } = _ref6;
+  return Object.entries(types).map(_ref7 => {
+    let [name, type] = _ref7;
     const def = (0, _create.getTypeDef)((0, _util.isString)(type) ? type : (0, _util.stringify)(type), {
       name
     });
@@ -281,9 +296,11 @@ const generateTsDefTypesTemplate = _handlebars.default.compile(templateTypes);
 /** @internal */
 
 
-function generateTsDefFor(registry, importDefinitions, defName, {
-  types
-}, outputDir) {
+function generateTsDefFor(registry, importDefinitions, defName, _ref8, outputDir) {
+  let {
+    types
+  } = _ref8;
+
   const imports = _objectSpread(_objectSpread({}, (0, _index.createImports)(importDefinitions, {
     types
   })), {}, {
@@ -294,7 +311,10 @@ function generateTsDefFor(registry, importDefinitions, defName, {
   const interfaces = generateInterfaces(registry, definitions, {
     types
   }, imports);
-  const items = interfaces.sort((a, b) => a[0].localeCompare(b[0])).map(([, definition]) => definition);
+  const items = interfaces.sort((a, b) => a[0].localeCompare(b[0])).map(_ref9 => {
+    let [, definition] = _ref9;
+    return definition;
+  });
   (0, _index.writeFile)(_path.default.join(outputDir, defName, 'types.ts'), () => generateTsDefModuleTypesTemplate({
     headerType: 'defs',
     imports,
@@ -316,7 +336,8 @@ function generateTsDef(importDefinitions, outputDir, generatingPackage) {
   const registry = new _create.TypeRegistry();
   (0, _index.writeFile)(_path.default.join(outputDir, 'types.ts'), () => {
     const definitions = importDefinitions[generatingPackage];
-    Object.entries(definitions).forEach(([defName, obj]) => {
+    Object.entries(definitions).forEach(_ref10 => {
+      let [defName, obj] = _ref10;
       console.log(`\tExtracting interfaces for ${defName}`);
       generateTsDefFor(registry, importDefinitions, defName, obj, outputDir);
     });

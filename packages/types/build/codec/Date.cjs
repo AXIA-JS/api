@@ -35,7 +35,8 @@ function decodeDate(value) {
 
 
 class CodecDate extends Date {
-  constructor(registry, value = 0) {
+  constructor(registry) {
+    let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     super(decodeDate(value));
     this.registry = void 0;
     this.createdAtHash = void 0;
@@ -102,7 +103,8 @@ class CodecDate extends Date {
    */
 
 
-  toHex(isLe = false) {
+  toHex() {
+    let isLe = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     return (0, _util.bnToHex)(this.toBn(), {
       bitLength: BITLENGTH,
       isLe,

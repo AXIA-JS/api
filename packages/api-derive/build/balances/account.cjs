@@ -23,7 +23,8 @@ function zeroBalance(api) {
   return api.registry.createType('Balance');
 }
 
-function getBalance(api, [freeBalance, reservedBalance, frozenFee, frozenMisc]) {
+function getBalance(api, _ref) {
+  let [freeBalance, reservedBalance, frozenFee, frozenMisc] = _ref;
   const votingBalance = api.registry.createType('Balance', freeBalance.toBn());
   return {
     freeBalance,
@@ -34,7 +35,8 @@ function getBalance(api, [freeBalance, reservedBalance, frozenFee, frozenMisc]) 
   };
 }
 
-function calcBalances(api, [accountId, [accountNonce, [primary, ...additional]]]) {
+function calcBalances(api, _ref2) {
+  let [accountId, [accountNonce, [primary, ...additional]]] = _ref2;
   return _objectSpread({
     accountId,
     accountNonce,
@@ -44,35 +46,51 @@ function calcBalances(api, [accountId, [accountNonce, [primary, ...additional]]]
 
 
 function queryBalancesFree(api, accountId) {
-  return api.queryMulti([[api.query.balances.freeBalance, accountId], [api.query.balances.reservedBalance, accountId], [api.query.system.accountNonce, accountId]]).pipe((0, _rxjs.map)(([freeBalance, reservedBalance, accountNonce]) => [accountNonce, [[freeBalance, reservedBalance, zeroBalance(api), zeroBalance(api)]]]));
+  return api.queryMulti([[api.query.balances.freeBalance, accountId], [api.query.balances.reservedBalance, accountId], [api.query.system.accountNonce, accountId]]).pipe((0, _rxjs.map)(_ref3 => {
+    let [freeBalance, reservedBalance, accountNonce] = _ref3;
+    return [accountNonce, [[freeBalance, reservedBalance, zeroBalance(api), zeroBalance(api)]]];
+  }));
 }
 
 function queryNonceOnly(api, accountId) {
   const fill = nonce => [nonce, [[zeroBalance(api), zeroBalance(api), zeroBalance(api), zeroBalance(api)]]];
 
-  return (0, _util.isFunction)(api.query.system.account) ? api.query.system.account(accountId).pipe((0, _rxjs.map)(({
-    nonce
-  }) => fill(nonce))) : (0, _util.isFunction)(api.query.system.accountNonce) ? api.query.system.accountNonce(accountId).pipe((0, _rxjs.map)(nonce => fill(nonce))) : (0, _rxjs.of)(fill(api.registry.createType('Index')));
+  return (0, _util.isFunction)(api.query.system.account) ? api.query.system.account(accountId).pipe((0, _rxjs.map)(_ref4 => {
+    let {
+      nonce
+    } = _ref4;
+    return fill(nonce);
+  })) : (0, _util.isFunction)(api.query.system.accountNonce) ? api.query.system.accountNonce(accountId).pipe((0, _rxjs.map)(nonce => fill(nonce))) : (0, _rxjs.of)(fill(api.registry.createType('Index')));
 }
 
-function queryBalancesAccount(api, accountId, modules = ['balances']) {
+function queryBalancesAccount(api, accountId) {
+  let modules = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['balances'];
   const balances = modules.map(m => {
     var _m, _api$query$m;
 
     return ((_m = api.derive[m]) === null || _m === void 0 ? void 0 : _m.customAccount) || ((_api$query$m = api.query[m]) === null || _api$query$m === void 0 ? void 0 : _api$query$m.account);
   }).filter(q => (0, _util.isFunction)(q)).map(q => [q, accountId]);
 
-  const extract = (nonce, data) => [nonce, data.map(({
-    feeFrozen,
-    free,
-    miscFrozen,
-    reserved
-  }) => [free, reserved, feeFrozen, miscFrozen])]; // NOTE this is for the first case where we do have instances specified
+  const extract = (nonce, data) => [nonce, data.map(_ref5 => {
+    let {
+      feeFrozen,
+      free,
+      miscFrozen,
+      reserved
+    } = _ref5;
+    return [free, reserved, feeFrozen, miscFrozen];
+  })]; // NOTE this is for the first case where we do have instances specified
 
 
-  return balances.length ? (0, _util.isFunction)(api.query.system.account) ? api.queryMulti([[api.query.system.account, accountId], ...balances]).pipe((0, _rxjs.map)(([{
-    nonce
-  }, ...balances]) => extract(nonce, balances))) : api.queryMulti([[api.query.system.accountNonce, accountId], ...balances]).pipe((0, _rxjs.map)(([nonce, ...balances]) => extract(nonce, balances))) : queryNonceOnly(api, accountId);
+  return balances.length ? (0, _util.isFunction)(api.query.system.account) ? api.queryMulti([[api.query.system.account, accountId], ...balances]).pipe((0, _rxjs.map)(_ref6 => {
+    let [{
+      nonce
+    }, ...balances] = _ref6;
+    return extract(nonce, balances);
+  })) : api.queryMulti([[api.query.system.accountNonce, accountId], ...balances]).pipe((0, _rxjs.map)(_ref7 => {
+    let [nonce, ...balances] = _ref7;
+    return extract(nonce, balances);
+  })) : queryNonceOnly(api, accountId);
 }
 
 function querySystemAccount(api, accountId) {

@@ -159,7 +159,8 @@ function injectFunctions(instanceId, api, allSections) {
   const specName = api.runtimeVersion.specName.toString();
   return Object.keys(allSections).filter(sectionName => !checks[sectionName] || checks[sectionName].instances.some(q => queryKeys.includes(q)) || checks[sectionName].withDetect && checks[sectionName].instances.some(q => (api.registry.getModuleInstances(specName, q) || []).some(q => queryKeys.includes(q)))).reduce((derives, sectionName) => {
     const section = allSections[sectionName];
-    derives[sectionName] = Object.entries(section).reduce((methods, [methodName, creator]) => {
+    derives[sectionName] = Object.entries(section).reduce((methods, _ref) => {
+      let [methodName, creator] = _ref;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
       methods[methodName] = creator(instanceId, api);
       return methods;
@@ -172,6 +173,7 @@ function injectFunctions(instanceId, api, allSections) {
 /** @internal */
 
 
-function decorateDerive(instanceId, api, custom = {}) {
+function decorateDerive(instanceId, api) {
+  let custom = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return _objectSpread(_objectSpread({}, injectFunctions(instanceId, api, derive)), injectFunctions(instanceId, api, custom));
 }

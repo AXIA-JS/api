@@ -157,7 +157,11 @@ class Decorate extends _Events.Events {
    */
 
 
-  createType(type, ...params) {
+  createType(type) {
+    for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      params[_key - 1] = arguments[_key];
+    }
+
     return (0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry].createType(type, ...params);
   }
   /**
@@ -293,13 +297,14 @@ class Decorate extends _Events.Events {
   _filterRpcMethods(exposed) {
     const hasResults = exposed.length !== 0;
     const allKnown = [...this._rpcCore.mapping.entries()];
-    const allKeys = allKnown.reduce((allKeys, [, {
-      alias,
-      endpoint,
-      method,
-      pubsub,
-      section
-    }]) => {
+    const allKeys = allKnown.reduce((allKeys, _ref) => {
+      let [, {
+        alias,
+        endpoint,
+        method,
+        pubsub,
+        section
+      }] = _ref;
       allKeys.push(`${section}_${method}`);
 
       if (pubsub) {
@@ -318,7 +323,10 @@ class Decorate extends _Events.Events {
       return allKeys;
     }, []);
     const unknown = exposed.filter(k => !allKeys.includes(k));
-    const deletion = allKnown.filter(([k]) => hasResults && !exposed.includes(k) && k !== 'rpc_methods');
+    const deletion = allKnown.filter(_ref2 => {
+      let [k] = _ref2;
+      return hasResults && !exposed.includes(k) && k !== 'rpc_methods';
+    });
 
     if (unknown.length) {
       l.warn(`RPC methods not decorated: ${unknown.join(', ')}`);
@@ -326,22 +334,26 @@ class Decorate extends _Events.Events {
     // only remove when we have results and method missing, or with no results if optional
 
 
-    deletion.forEach(([, {
-      method,
-      section
-    }]) => {
+    deletion.forEach(_ref3 => {
+      let [, {
+        method,
+        section
+      }] = _ref3;
       delete this._rpc[section][method];
       delete this._rx.rpc[section][method];
     });
   }
 
-  _decorateRpc(rpc, decorateMethod, input = {}) {
+  _decorateRpc(rpc, decorateMethod) {
+    let input = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     return rpc.sections.reduce((out, _sectionName) => {
       const sectionName = _sectionName;
 
       if (!out[sectionName]) {
         // out and section here are horrors to get right from a typing perspective :(
-        out[sectionName] = Object.entries(rpc[sectionName]).reduce((section, [methodName, method]) => {
+        out[sectionName] = Object.entries(rpc[sectionName]).reduce((section, _ref4) => {
+          let [methodName, method] = _ref4;
+
           //  skip subscriptions where we have a non-subscribe interface
           if (this.hasSubscriptions || !(methodName.startsWith('subscribe') || methodName.startsWith('unsubscribe'))) {
             section[methodName] = decorateMethod(method, {
@@ -373,12 +385,15 @@ class Decorate extends _Events.Events {
     return decorateMethod(calls => (this.hasSubscriptions ? this._rpcCore.state.subscribeStorage : this._rpcCore.state.queryStorageAt)(calls.map(arg => Array.isArray(arg) ? arg[0].creator.meta.type.asMap.hashers.length === 1 ? [arg[0].creator, arg.slice(1)] : [arg[0].creator, ...arg.slice(1)] : [arg.creator])));
   }
 
-  _decorateExtrinsics({
-    tx
-  }, decorateMethod) {
+  _decorateExtrinsics(_ref5, decorateMethod) {
+    let {
+      tx
+    } = _ref5;
     const creator = (0, _index.createSubmittable)(this._type, this._rx, decorateMethod);
-    return Object.entries(tx).reduce((out, [name, section]) => {
-      out[name] = Object.entries(section).reduce((out, [name, method]) => {
+    return Object.entries(tx).reduce((out, _ref6) => {
+      let [name, section] = _ref6;
+      out[name] = Object.entries(section).reduce((out, _ref7) => {
+        let [name, method] = _ref7;
         out[name] = this._decorateExtrinsicEntry(method, creator);
         return out;
       }, {});
@@ -387,7 +402,9 @@ class Decorate extends _Events.Events {
   }
 
   _decorateExtrinsicEntry(method, creator) {
-    const decorated = (...params) => creator(method(...params)); // pass through the `.is`
+    const decorated = function () {
+      return creator(method(...arguments));
+    }; // pass through the `.is`
 
 
     decorated.is = other => method.is(other); // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -396,11 +413,14 @@ class Decorate extends _Events.Events {
     return this._decorateFunctionMeta(method, decorated);
   }
 
-  _decorateStorage({
-    query
-  }, decorateMethod) {
-    return Object.entries(query).reduce((out, [name, section]) => {
-      out[name] = Object.entries(section).reduce((out, [name, method]) => {
+  _decorateStorage(_ref8, decorateMethod) {
+    let {
+      query
+    } = _ref8;
+    return Object.entries(query).reduce((out, _ref9) => {
+      let [name, section] = _ref9;
+      out[name] = Object.entries(section).reduce((out, _ref10) => {
+        let [name, method] = _ref10;
         out[name] = this._decorateStorageEntry(method, decorateMethod);
         return out;
       }, {});
@@ -408,11 +428,14 @@ class Decorate extends _Events.Events {
     }, {});
   }
 
-  _decorateStorageAt({
-    query
-  }, decorateMethod, blockHash) {
-    return Object.entries(query).reduce((out, [name, section]) => {
-      out[name] = Object.entries(section).reduce((out, [name, method]) => {
+  _decorateStorageAt(_ref11, decorateMethod, blockHash) {
+    let {
+      query
+    } = _ref11;
+    return Object.entries(query).reduce((out, _ref12) => {
+      let [name, section] = _ref12;
+      out[name] = Object.entries(section).reduce((out, _ref13) => {
+        let [name, method] = _ref13;
         out[name] = this._decorateStorageEntryAt(method, decorateMethod, blockHash);
         return out;
       }, {});
@@ -421,6 +444,8 @@ class Decorate extends _Events.Events {
   }
 
   _decorateStorageEntry(creator, decorateMethod) {
+    var _this = this;
+
     // get the storage arguments, with DoubleMap as an array entry, otherwise spread
     const getArgs = args => (0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], creator, args); // Disable this where it occurs for each field we are decorating
 
@@ -430,25 +455,83 @@ class Decorate extends _Events.Events {
     const decorated = this._decorateStorageCall(creator, decorateMethod);
 
     decorated.creator = creator;
-    decorated.at = decorateMethod((hash, ...args) => this._rpcCore.state.getStorage(getArgs(args), hash));
-    decorated.hash = decorateMethod((...args) => this._rpcCore.state.getStorageHash(getArgs(args)));
+    decorated.at = decorateMethod(function (hash) {
+      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      return _this._rpcCore.state.getStorage(getArgs(args), hash);
+    });
+    decorated.hash = decorateMethod(function () {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return _this._rpcCore.state.getStorageHash(getArgs(args));
+    });
 
     decorated.is = key => key.section === creator.section && key.method === creator.method;
 
-    decorated.key = (...args) => (0, _util.u8aToHex)((0, _util.compactStripLength)(creator(...args))[1]);
+    decorated.key = function () {
+      return (0, _util.u8aToHex)((0, _util.compactStripLength)(creator(...arguments))[1]);
+    };
 
-    decorated.keyPrefix = (...args) => (0, _util.u8aToHex)(creator.keyPrefix(...args));
+    decorated.keyPrefix = function () {
+      return (0, _util.u8aToHex)(creator.keyPrefix(...arguments));
+    };
 
-    decorated.range = decorateMethod((range, ...args) => this._decorateStorageRange(decorated, args, range));
-    decorated.size = decorateMethod((...args) => this._rpcCore.state.getStorageSize(getArgs(args)));
-    decorated.sizeAt = decorateMethod((hash, ...args) => this._rpcCore.state.getStorageSize(getArgs(args), hash)); // .keys() & .entries() only available on map types
+    decorated.range = decorateMethod(function (range) {
+      for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        args[_key4 - 1] = arguments[_key4];
+      }
+
+      return _this._decorateStorageRange(decorated, args, range);
+    });
+    decorated.size = decorateMethod(function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return _this._rpcCore.state.getStorageSize(getArgs(args));
+    });
+    decorated.sizeAt = decorateMethod(function (hash) {
+      for (var _len6 = arguments.length, args = new Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
+        args[_key6 - 1] = arguments[_key6];
+      }
+
+      return _this._rpcCore.state.getStorageSize(getArgs(args), hash);
+    }); // .keys() & .entries() only available on map types
 
     if (creator.iterKey && creator.meta.type.isMap) {
-      decorated.entries = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (...args) => this._retrieveMapEntries(creator, null, args)));
-      decorated.entriesAt = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (hash, ...args) => this._retrieveMapEntries(creator, hash, args)));
+      decorated.entries = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function () {
+        for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+          args[_key7] = arguments[_key7];
+        }
+
+        return _this._retrieveMapEntries(creator, null, args);
+      }));
+      decorated.entriesAt = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function (hash) {
+        for (var _len8 = arguments.length, args = new Array(_len8 > 1 ? _len8 - 1 : 0), _key8 = 1; _key8 < _len8; _key8++) {
+          args[_key8 - 1] = arguments[_key8];
+        }
+
+        return _this._retrieveMapEntries(creator, hash, args);
+      }));
       decorated.entriesPaged = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], opts => this._retrieveMapEntriesPaged(creator, opts)));
-      decorated.keys = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (...args) => this._retrieveMapKeys(creator, null, args)));
-      decorated.keysAt = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (hash, ...args) => this._retrieveMapKeys(creator, hash, args)));
+      decorated.keys = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function () {
+        for (var _len9 = arguments.length, args = new Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
+          args[_key9] = arguments[_key9];
+        }
+
+        return _this._retrieveMapKeys(creator, null, args);
+      }));
+      decorated.keysAt = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function (hash) {
+        for (var _len10 = arguments.length, args = new Array(_len10 > 1 ? _len10 - 1 : 0), _key10 = 1; _key10 < _len10; _key10++) {
+          args[_key10 - 1] = arguments[_key10];
+        }
+
+        return _this._retrieveMapKeys(creator, hash, args);
+      }));
       decorated.keysPaged = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], opts => this._retrieveMapKeysPaged(creator, opts)));
     }
 
@@ -463,28 +546,68 @@ class Decorate extends _Events.Events {
   }
 
   _decorateStorageEntryAt(creator, decorateMethod, blockHash) {
+    var _this2 = this;
+
     // get the storage arguments, with DoubleMap as an array entry, otherwise spread
     const getArgs = args => (0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], creator, args); // Disable this where it occurs for each field we are decorating
 
     /* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment */
 
 
-    const decorated = decorateMethod((...args) => this._rpcCore.state.getStorage(getArgs(args), blockHash));
+    const decorated = decorateMethod(function () {
+      for (var _len11 = arguments.length, args = new Array(_len11), _key11 = 0; _key11 < _len11; _key11++) {
+        args[_key11] = arguments[_key11];
+      }
+
+      return _this2._rpcCore.state.getStorage(getArgs(args), blockHash);
+    });
     decorated.creator = creator;
-    decorated.hash = decorateMethod((...args) => this._rpcCore.state.getStorageHash(getArgs(args), blockHash));
+    decorated.hash = decorateMethod(function () {
+      for (var _len12 = arguments.length, args = new Array(_len12), _key12 = 0; _key12 < _len12; _key12++) {
+        args[_key12] = arguments[_key12];
+      }
+
+      return _this2._rpcCore.state.getStorageHash(getArgs(args), blockHash);
+    });
 
     decorated.is = key => key.section === creator.section && key.method === creator.method;
 
-    decorated.key = (...args) => (0, _util.u8aToHex)((0, _util.compactStripLength)(creator(creator.meta.type.isPlain ? undefined : args))[1]);
+    decorated.key = function () {
+      for (var _len13 = arguments.length, args = new Array(_len13), _key13 = 0; _key13 < _len13; _key13++) {
+        args[_key13] = arguments[_key13];
+      }
 
-    decorated.keyPrefix = (...keys) => (0, _util.u8aToHex)(creator.keyPrefix(...keys));
+      return (0, _util.u8aToHex)((0, _util.compactStripLength)(creator(creator.meta.type.isPlain ? undefined : args))[1]);
+    };
 
-    decorated.size = decorateMethod((...args) => this._rpcCore.state.getStorageSize(getArgs(args), blockHash)); // FIXME NMap support
+    decorated.keyPrefix = function () {
+      return (0, _util.u8aToHex)(creator.keyPrefix(...arguments));
+    };
+
+    decorated.size = decorateMethod(function () {
+      for (var _len14 = arguments.length, args = new Array(_len14), _key14 = 0; _key14 < _len14; _key14++) {
+        args[_key14] = arguments[_key14];
+      }
+
+      return _this2._rpcCore.state.getStorageSize(getArgs(args), blockHash);
+    }); // FIXME NMap support
     // .keys() & .entries() only available on map types
 
     if (creator.iterKey && creator.meta.type.isMap) {
-      decorated.entries = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (...args) => this._retrieveMapEntries(creator, blockHash, args)));
-      decorated.keys = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], (...args) => this._retrieveMapKeys(creator, blockHash, args)));
+      decorated.entries = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function () {
+        for (var _len15 = arguments.length, args = new Array(_len15), _key15 = 0; _key15 < _len15; _key15++) {
+          args[_key15] = arguments[_key15];
+        }
+
+        return _this2._retrieveMapEntries(creator, blockHash, args);
+      }));
+      decorated.keys = decorateMethod((0, _rpcCore.memo)((0, _classPrivateFieldLooseBase2.default)(this, _instanceId)[_instanceId], function () {
+        for (var _len16 = arguments.length, args = new Array(_len16), _key16 = 0; _key16 < _len16; _key16++) {
+          args[_key16] = arguments[_key16];
+        }
+
+        return _this2._retrieveMapKeys(creator, blockHash, args);
+      }));
     }
     /* eslint-enable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment */
 
@@ -495,18 +618,36 @@ class Decorate extends _Events.Events {
 
 
   _decorateStorageCall(creator, decorateMethod) {
-    return decorateMethod((...args) => {
-      return this.hasSubscriptions ? this._rpcCore.state.subscribeStorage([(0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], creator, args)]).pipe((0, _rxjs.map)(([data]) => data) // extract first/only result from list
-      ) : this._rpcCore.state.getStorage((0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], creator, args));
+    var _this3 = this;
+
+    return decorateMethod(function () {
+      for (var _len17 = arguments.length, args = new Array(_len17), _key17 = 0; _key17 < _len17; _key17++) {
+        args[_key17] = arguments[_key17];
+      }
+
+      return _this3.hasSubscriptions ? _this3._rpcCore.state.subscribeStorage([(0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(_this3, _registry)[_registry], creator, args)]).pipe((0, _rxjs.map)(_ref14 => {
+        let [data] = _ref14;
+        return data;
+      }) // extract first/only result from list
+      ) : _this3._rpcCore.state.getStorage((0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(_this3, _registry)[_registry], creator, args));
     }, {
       methodName: creator.method,
-      overrideNoSub: (...args) => this._rpcCore.state.getStorage((0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], creator, args))
+      overrideNoSub: function () {
+        for (var _len18 = arguments.length, args = new Array(_len18), _key18 = 0; _key18 < _len18; _key18++) {
+          args[_key18] = arguments[_key18];
+        }
+
+        return _this3._rpcCore.state.getStorage((0, _validate.extractStorageArgs)((0, _classPrivateFieldLooseBase2.default)(_this3, _registry)[_registry], creator, args));
+      }
     });
   }
 
   _decorateStorageRange(decorated, args, range) {
     const outputType = (0, _types.unwrapStorageType)((0, _classPrivateFieldLooseBase2.default)(this, _registry)[_registry], decorated.creator.meta.type, decorated.creator.meta.modifier.isOptional);
-    return this._rpcCore.state.queryStorage([decorated.key(...args)], ...range).pipe((0, _rxjs.map)(result => result.map(([blockHash, [value]]) => [blockHash, this.createType(outputType, value.isSome ? value.unwrap().toHex() : undefined)])));
+    return this._rpcCore.state.queryStorage([decorated.key(...args)], ...range).pipe((0, _rxjs.map)(result => result.map(_ref15 => {
+      let [blockHash, [value]] = _ref15;
+      return [blockHash, this.createType(outputType, value.isSome ? value.unwrap().toHex() : undefined)];
+    })));
   } // retrieve a set of values for a specific set of keys - here we chunk the keys into PAGE_SIZE sizes
 
 
@@ -519,12 +660,13 @@ class Decorate extends _Events.Events {
     return (0, _rxjs.combineLatest)((0, _util.arrayChunk)(keys, PAGE_SIZE_V).map(keys => queryCall(keys))).pipe((0, _rxjs.map)(_util.arrayFlatten));
   }
 
-  _retrieveMapKeys({
-    iterKey,
-    meta,
-    method,
-    section
-  }, at, args) {
+  _retrieveMapKeys(_ref16, at, args) {
+    let {
+      iterKey,
+      meta,
+      method,
+      section
+    } = _ref16;
     (0, _util.assert)(iterKey && meta.type.isMap, 'keys can only be retrieved on maps');
     const headKey = iterKey(...args).toHex();
     const startSubject = new _rxjs.BehaviorSubject(headKey);
@@ -537,12 +679,13 @@ class Decorate extends _Events.Events {
     (0, _rxjs.map)(_util.arrayFlatten));
   }
 
-  _retrieveMapKeysPaged({
-    iterKey,
-    meta,
-    method,
-    section
-  }, opts) {
+  _retrieveMapKeysPaged(_ref17, opts) {
+    let {
+      iterKey,
+      meta,
+      method,
+      section
+    } = _ref17;
     (0, _util.assert)(iterKey && meta.type.isMap, 'keys can only be retrieved on maps');
     const headKey = iterKey(...opts.args).toHex();
     return this._rpcCore.state.getKeysPaged(headKey, opts.pageSize, opts.startKey || headKey).pipe((0, _rxjs.map)(keys => keys.map(key => key.setMeta(meta, section, method))));

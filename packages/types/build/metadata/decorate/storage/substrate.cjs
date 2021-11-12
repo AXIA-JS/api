@@ -37,10 +37,11 @@ function findSiType(registry, orig) {
 /** @internal */
 
 
-function createRuntimeFunction(method, key, {
-  docs,
-  type
-}) {
+function createRuntimeFunction(method, key, _ref) {
+  let {
+    docs,
+    type
+  } = _ref;
   return registry => {
     var _findSiType;
 

@@ -94,7 +94,11 @@ function decorateSubscribe(method, actualArgs, resultCb) {
 
 function decorateMethod(method, options) {
   const needsCallback = options && options.methodName && options.methodName.includes('subscribe');
-  return function (...args) {
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
     const [actualArgs, resultCb] = extractArgs(args, !!needsCallback);
     return resultCb ? decorateSubscribe(method, actualArgs, resultCb) : decorateCall((options === null || options === void 0 ? void 0 : options.overrideNoSub) || method, actualArgs);
   };

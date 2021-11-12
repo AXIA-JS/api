@@ -13,7 +13,8 @@ var _substrate = require("./substrate.cjs");
 /** @internal */
 function getStorage(registry) {
   return {
-    substrate: Object.entries(_substrate.substrate).reduce((storage, [key, fn]) => {
+    substrate: Object.entries(_substrate.substrate).reduce((storage, _ref) => {
+      let [key, fn] = _ref;
       storage[key] = fn(registry);
       return storage;
     }, {})

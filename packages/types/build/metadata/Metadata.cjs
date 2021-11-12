@@ -17,7 +17,9 @@ const VERSION_IDX = 4; // magic + lowest supported version
 const EMPTY_METADATA = new Uint8Array([0x6d, 0x65, 0x74, 0x61, 9]);
 const EMPTY_U8A = new Uint8Array();
 
-function toU8a(value = EMPTY_U8A) {
+function toU8a() {
+  let value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : EMPTY_U8A;
+
   if ((0, _util.isHex)(value)) {
     return toU8a((0, _util.u8aToU8a)(value));
   } else if ((0, _util.isU8a)(value)) {

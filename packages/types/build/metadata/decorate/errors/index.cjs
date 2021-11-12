@@ -18,23 +18,29 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function variantToMeta(lookup, variant) {
   return _objectSpread(_objectSpread({}, variant), {}, {
-    args: variant.fields.map(({
-      type
-    }) => lookup.getTypeDef(type).type)
+    args: variant.fields.map(_ref => {
+      let {
+        type
+      } = _ref;
+      return lookup.getTypeDef(type).type;
+    })
   });
 }
 /** @internal */
 
 
-function decorateErrors(registry, {
-  lookup,
-  pallets
-}, metaVersion) {
-  return pallets.reduce((result, {
-    errors,
-    index,
-    name
-  }, _sectionIndex) => {
+function decorateErrors(registry, _ref2, metaVersion) {
+  let {
+    lookup,
+    pallets
+  } = _ref2;
+  return pallets.reduce((result, _ref3, _sectionIndex) => {
+    let {
+      errors,
+      index,
+      name
+    } = _ref3;
+
     if (!errors.isSome) {
       return result;
     }
@@ -43,10 +49,13 @@ function decorateErrors(registry, {
     result[(0, _util.stringCamelCase)(name)] = lookup.getSiType(errors.unwrap().type).def.asVariant.variants.reduce((newModule, variant) => {
       // we don't camelCase the error name
       newModule[variant.name.toString()] = {
-        is: ({
-          error,
-          index
-        }) => index.eq(sectionIndex) && error.eq(variant.index),
+        is: _ref4 => {
+          let {
+            error,
+            index
+          } = _ref4;
+          return index.eq(sectionIndex) && error.eq(variant.index);
+        },
         meta: registry.createType('ErrorMetadataLatest', variantToMeta(lookup, variant))
       };
       return newModule;

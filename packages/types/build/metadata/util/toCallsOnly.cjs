@@ -23,32 +23,39 @@ function trimDocs(docs) {
 /** @internal */
 
 
-function toCallsOnly(registry, {
-  extrinsic,
-  lookup,
-  pallets
-}) {
+function toCallsOnly(registry, _ref) {
+  let {
+    extrinsic,
+    lookup,
+    pallets
+  } = _ref;
   return registry.createType('MetadataLatest', {
     extrinsic,
     lookup: {
-      types: lookup.types.map(({
-        id,
-        type
-      }) => registry.createType('PortableType', {
-        id,
-        type: _objectSpread(_objectSpread({}, type), {}, {
-          docs: trimDocs(type.docs)
-        })
-      }))
+      types: lookup.types.map(_ref2 => {
+        let {
+          id,
+          type
+        } = _ref2;
+        return registry.createType('PortableType', {
+          id,
+          type: _objectSpread(_objectSpread({}, type), {}, {
+            docs: trimDocs(type.docs)
+          })
+        });
+      })
     },
-    pallets: pallets.map(({
-      calls,
-      index,
-      name
-    }) => ({
-      calls: registry.createType('Option<PalletCallMetadataLatest>', calls.unwrapOr(null)),
-      index,
-      name
-    }))
+    pallets: pallets.map(_ref3 => {
+      let {
+        calls,
+        index,
+        name
+      } = _ref3;
+      return {
+        calls: registry.createType('Option<PalletCallMetadataLatest>', calls.unwrapOr(null)),
+        index,
+        name
+      };
+    })
   }).toJSON();
 }

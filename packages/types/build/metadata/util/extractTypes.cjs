@@ -36,9 +36,12 @@ function extractTypes(types) {
       case _types.TypeDefInfo.Set:
       case _types.TypeDefInfo.Struct:
       case _types.TypeDefInfo.Tuple:
-        return extractTypes(decoded.sub.map(({
-          type
-        }) => type));
+        return extractTypes(decoded.sub.map(_ref => {
+          let {
+            type
+          } = _ref;
+          return type;
+        }));
 
       default:
         throw new Error(`Unhandled: Unable to create and validate type from ${type} (info=${decoded.info})`);

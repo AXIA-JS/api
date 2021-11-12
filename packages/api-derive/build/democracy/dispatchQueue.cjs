@@ -22,12 +22,21 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 const DEMOCRACY_ID = (0, _util.stringToHex)('democrac');
 
 function queryQueue(api) {
-  return api.query.democracy.dispatchQueue().pipe((0, _rxjs.switchMap)(dispatches => (0, _rxjs.combineLatest)([(0, _rxjs.of)(dispatches), api.derive.democracy.preimages(dispatches.map(([, hash]) => hash))])), (0, _rxjs.map)(([dispatches, images]) => dispatches.map(([at, imageHash, index], dispatchIndex) => ({
-    at,
-    image: images[dispatchIndex],
-    imageHash,
-    index
-  }))));
+  return api.query.democracy.dispatchQueue().pipe((0, _rxjs.switchMap)(dispatches => (0, _rxjs.combineLatest)([(0, _rxjs.of)(dispatches), api.derive.democracy.preimages(dispatches.map(_ref => {
+    let [, hash] = _ref;
+    return hash;
+  }))])), (0, _rxjs.map)(_ref2 => {
+    let [dispatches, images] = _ref2;
+    return dispatches.map((_ref3, dispatchIndex) => {
+      let [at, imageHash, index] = _ref3;
+      return {
+        at,
+        image: images[dispatchIndex],
+        imageHash,
+        index
+      };
+    });
+  }));
 }
 
 function schedulerEntries(api) {
@@ -35,9 +44,12 @@ function schedulerEntries(api) {
   // the subscribe to those keys - this means we pickup when the schedulers actually executes
   // at a block, the entry for that block will become empty
   return api.derive.democracy.referendumsFinished().pipe((0, _rxjs.switchMap)(() => api.query.scheduler.agenda.keys()), (0, _rxjs.switchMap)(keys => {
-    const blockNumbers = keys.map(({
-      args: [blockNumber]
-    }) => blockNumber);
+    const blockNumbers = keys.map(_ref4 => {
+      let {
+        args: [blockNumber]
+      } = _ref4;
+      return blockNumber;
+    });
     return blockNumbers.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(blockNumbers), // this should simply be api.query.scheduler.agenda.multi<Vec<Option<Scheduled>>>,
     // however we have had cases on Darwinia where the indices have moved around after an
     // upgrade, which results in invalid on-chain data
@@ -47,7 +59,8 @@ function schedulerEntries(api) {
 }
 
 function queryScheduler(api) {
-  return schedulerEntries(api).pipe((0, _rxjs.switchMap)(([blockNumbers, agendas]) => {
+  return schedulerEntries(api).pipe((0, _rxjs.switchMap)(_ref5 => {
+    let [blockNumbers, agendas] = _ref5;
     const result = [];
     blockNumbers.forEach((at, index) => {
       (agendas[index] || []).filter(opt => opt.isSome).forEach(optScheduled => {
@@ -68,12 +81,18 @@ function queryScheduler(api) {
         }
       });
     });
-    return result.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(result), api.derive.democracy.preimages(result.map(({
-      imageHash
-    }) => imageHash))]) : (0, _rxjs.of)([[], []]);
-  }), (0, _rxjs.map)(([infos, images]) => infos.map((info, index) => _objectSpread(_objectSpread({}, info), {}, {
-    image: images[index]
-  }))));
+    return result.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(result), api.derive.democracy.preimages(result.map(_ref6 => {
+      let {
+        imageHash
+      } = _ref6;
+      return imageHash;
+    }))]) : (0, _rxjs.of)([[], []]);
+  }), (0, _rxjs.map)(_ref7 => {
+    let [infos, images] = _ref7;
+    return infos.map((info, index) => _objectSpread(_objectSpread({}, info), {}, {
+      image: images[index]
+    }));
+  }));
 }
 
 function dispatchQueue(instanceId, api) {

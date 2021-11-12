@@ -72,21 +72,29 @@ function generateForMeta(registry, meta, dest, extraTypes, isStrict) {
     }, extraTypes);
 
     const imports = (0, _index.createImports)(allTypes);
-    const allDefs = Object.entries(allTypes).reduce((defs, [path, obj]) => {
-      return Object.entries(obj).reduce((defs, [key, value]) => _objectSpread(_objectSpread({}, defs), {}, {
-        [`${path}/${key}`]: value
-      }), defs);
+    const allDefs = Object.entries(allTypes).reduce((defs, _ref) => {
+      let [path, obj] = _ref;
+      return Object.entries(obj).reduce((defs, _ref2) => {
+        let [key, value] = _ref2;
+        return _objectSpread(_objectSpread({}, defs), {}, {
+          [`${path}/${key}`]: value
+        });
+      }, defs);
     }, {});
     const {
       lookup,
       pallets
     } = meta.asLatest;
-    const modules = pallets.filter(({
-      storage
-    }) => storage.isSome).map(({
-      name,
-      storage
-    }) => {
+    const modules = pallets.filter(_ref3 => {
+      let {
+        storage
+      } = _ref3;
+      return storage.isSome;
+    }).map(_ref4 => {
+      let {
+        name,
+        storage
+      } = _ref4;
       const items = storage.unwrap().items.map(storageEntry => {
         const [isOptional, args, params, _returnType] = entrySignature(lookup, allDefs, registry, storageEntry, imports);
         const returnType = isOptional ? `Option<${_returnType}>` : _returnType;
@@ -124,7 +132,11 @@ function generateForMeta(registry, meta, dest, extraTypes, isStrict) {
 /** @internal */
 
 
-function generateDefaultQuery(dest = 'packages/api/src/augment/query.ts', data, extraTypes = {}, isStrict = false) {
+function generateDefaultQuery() {
+  let dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/api/src/augment/query.ts';
+  let data = arguments.length > 1 ? arguments[1] : undefined;
+  let extraTypes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  let isStrict = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   const {
     metadata,
     registry

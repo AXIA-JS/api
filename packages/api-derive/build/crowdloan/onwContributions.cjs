@@ -35,7 +35,10 @@ function _watchOwnChanges(api, paraId, childkey, keys) {
 }
 
 function _contributions(api, paraId, childKey, keys) {
-  return (0, _rxjs.combineLatest)([_getValues(api, childKey, keys), _watchOwnChanges(api, paraId, childKey, keys)]).pipe((0, _rxjs.map)(([all, latest]) => _objectSpread(_objectSpread({}, all), latest)));
+  return (0, _rxjs.combineLatest)([_getValues(api, childKey, keys), _watchOwnChanges(api, paraId, childKey, keys)]).pipe((0, _rxjs.map)(_ref => {
+    let [all, latest] = _ref;
+    return _objectSpread(_objectSpread({}, all), latest);
+  }));
 }
 
 function ownContributions(instanceId, api) {

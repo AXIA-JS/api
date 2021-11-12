@@ -21,11 +21,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  * @description Retrieve the staking overview, including elected and points earned
  */
 function overview(instanceId, api) {
-  return (0, _index.memo)(instanceId, () => (0, _rxjs.combineLatest)([api.derive.session.indexes(), api.derive.staking.validators()]).pipe((0, _rxjs.map)(([indexes, {
-    nextElected,
-    validators
-  }]) => _objectSpread(_objectSpread({}, indexes), {}, {
-    nextElected,
-    validators
-  }))));
+  return (0, _index.memo)(instanceId, () => (0, _rxjs.combineLatest)([api.derive.session.indexes(), api.derive.staking.validators()]).pipe((0, _rxjs.map)(_ref => {
+    let [indexes, {
+      nextElected,
+      validators
+    }] = _ref;
+    return _objectSpread(_objectSpread({}, indexes), {}, {
+      nextElected,
+      validators
+    });
+  })));
 }

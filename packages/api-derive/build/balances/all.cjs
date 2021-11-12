@@ -29,26 +29,44 @@ function calcLocked(api, bestNumber, locks) {
 
   if (Array.isArray(locks)) {
     // only get the locks that are valid until passed the current block
-    lockedBreakdown = locks.filter(({
-      until
-    }) => !until || bestNumber && until.gt(bestNumber));
-    allLocked = lockedBreakdown.some(({
-      amount
-    }) => amount && amount.isMax());
-    vestingLocked = api.registry.createType('Balance', lockedBreakdown.filter(({
-      id
-    }) => id.eq(VESTING_ID)).reduce((result, {
-      amount
-    }) => result.iadd(amount), new _util.BN(0))); // get the maximum of the locks according to https://github.com/axia-tech/substrate/blob/master/srml/balances/src/lib.rs#L699
+    lockedBreakdown = locks.filter(_ref => {
+      let {
+        until
+      } = _ref;
+      return !until || bestNumber && until.gt(bestNumber);
+    });
+    allLocked = lockedBreakdown.some(_ref2 => {
+      let {
+        amount
+      } = _ref2;
+      return amount && amount.isMax();
+    });
+    vestingLocked = api.registry.createType('Balance', lockedBreakdown.filter(_ref3 => {
+      let {
+        id
+      } = _ref3;
+      return id.eq(VESTING_ID);
+    }).reduce((result, _ref4) => {
+      let {
+        amount
+      } = _ref4;
+      return result.iadd(amount);
+    }, new _util.BN(0))); // get the maximum of the locks according to https://github.com/axia-tech/substrate/blob/master/srml/balances/src/lib.rs#L699
 
-    const notAll = lockedBreakdown.filter(({
-      amount
-    }) => amount && !amount.isMax());
+    const notAll = lockedBreakdown.filter(_ref5 => {
+      let {
+        amount
+      } = _ref5;
+      return amount && !amount.isMax();
+    });
 
     if (notAll.length) {
-      lockedBalance = api.registry.createType('Balance', (0, _util.bnMax)(...notAll.map(({
-        amount
-      }) => amount)));
+      lockedBalance = api.registry.createType('Balance', (0, _util.bnMax)(...notAll.map(_ref6 => {
+        let {
+          amount
+        } = _ref6;
+        return amount;
+      })));
     }
   }
 
@@ -75,7 +93,8 @@ function calcShared(api, bestNumber, data, locks) {
   });
 }
 
-function calcBalances(api, [data, bestNumber, [vesting, allLocks]]) {
+function calcBalances(api, _ref7) {
+  let [data, bestNumber, [vesting, allLocks]] = _ref7;
   const shared = calcShared(api, bestNumber, data, allLocks[0]); // Calculate the vesting balances,
   //  - offset = balance locked at startingBlock
   //  - perBlock is the unlock amount
@@ -105,7 +124,8 @@ function calcBalances(api, [data, bestNumber, [vesting, allLocks]]) {
 
 
 function queryOld(api, accountId) {
-  return api.queryMulti([[api.query.balances.locks, accountId], [api.query.balances.vesting, accountId]]).pipe((0, _rxjs.map)(([locks, optVesting]) => {
+  return api.queryMulti([[api.query.balances.locks, accountId], [api.query.balances.vesting, accountId]]).pipe((0, _rxjs.map)(_ref8 => {
+    let [locks, optVesting] = _ref8;
     let vestingNew = null;
 
     if (optVesting.isSome) {
@@ -128,9 +148,10 @@ function queryOld(api, accountId) {
 const isNonNullable = nullable => !!nullable; // current (balances, vesting)
 
 
-function queryCurrent(api, accountId, balanceInstances = ['balances']) {
+function queryCurrent(api, accountId) {
   var _api$query$vesting;
 
+  let balanceInstances = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['balances'];
   const calls = balanceInstances.map(m => {
     var _m, _api$query;
 
@@ -139,7 +160,8 @@ function queryCurrent(api, accountId, balanceInstances = ['balances']) {
   const lockEmpty = calls.map(c => !c);
   const queries = calls.filter(isNonNullable).map(c => [c, accountId]);
   return ((_api$query$vesting = api.query.vesting) !== null && _api$query$vesting !== void 0 && _api$query$vesting.vesting ? api.queryMulti([[api.query.vesting.vesting, accountId], ...queries]) // TODO We need to check module instances here as well, not only the balances module
-  : queries.length ? api.queryMulti(queries).pipe((0, _rxjs.map)(r => [api.registry.createType('Option<VestingInfo>'), ...r])) : (0, _rxjs.of)([api.registry.createType('Option<VestingInfo>')])).pipe((0, _rxjs.map)(([opt, ...locks]) => {
+  : queries.length ? api.queryMulti(queries).pipe((0, _rxjs.map)(r => [api.registry.createType('Option<VestingInfo>'), ...r])) : (0, _rxjs.of)([api.registry.createType('Option<VestingInfo>')])).pipe((0, _rxjs.map)(_ref9 => {
+    let [opt, ...locks] = _ref9;
     let offset = -1;
     return [opt.unwrapOr(null), lockEmpty.map(e => e ? api.registry.createType('Vec<BalanceLock>') : locks[++offset])];
   }));

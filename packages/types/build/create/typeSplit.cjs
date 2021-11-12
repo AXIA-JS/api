@@ -9,7 +9,11 @@ var _util = require("@axia-js/util");
 
 // Copyright 2017-2021 @axia-js/types authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-function isNotNested(...counters) {
+function isNotNested() {
+  for (var _len = arguments.length, counters = new Array(_len), _key = 0; _key < _len; _key++) {
+    counters[_key] = arguments[_key];
+  }
+
   return !counters.some(counter => counter !== 0);
 } // safely split a string on ', ' while taking care of any nested occurences
 

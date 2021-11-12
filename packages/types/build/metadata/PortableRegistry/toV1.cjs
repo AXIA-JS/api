@@ -7,10 +7,11 @@ exports.toV1 = toV1;
 
 // Copyright 2017-2021 @axia/types authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-function convertArray(registry, {
-  len,
-  type
-}) {
+function convertArray(registry, _ref) {
+  let {
+    len,
+    type
+  } = _ref;
   return registry.createType('Si1TypeDef', {
     Array: {
       len,
@@ -19,10 +20,11 @@ function convertArray(registry, {
   });
 }
 
-function convertBitSequence(registry, {
-  bitOrderType,
-  bitStoreType
-}) {
+function convertBitSequence(registry, _ref2) {
+  let {
+    bitOrderType,
+    bitStoreType
+  } = _ref2;
   return registry.createType('Si1TypeDef', {
     BitSequence: {
       bitOrderType: bitOrderType.toNumber(),
@@ -31,9 +33,10 @@ function convertBitSequence(registry, {
   });
 }
 
-function convertCompact(registry, {
-  type
-}) {
+function convertCompact(registry, _ref3) {
+  let {
+    type
+  } = _ref3;
   return registry.createType('Si1TypeDef', {
     Compact: {
       type: type.toNumber()
@@ -41,9 +44,10 @@ function convertCompact(registry, {
   });
 }
 
-function convertComposite(registry, {
-  fields
-}) {
+function convertComposite(registry, _ref4) {
+  let {
+    fields
+  } = _ref4;
   return registry.createType('Si1TypeDef', {
     Composite: {
       fields: convertFields(registry, fields)
@@ -52,17 +56,20 @@ function convertComposite(registry, {
 }
 
 function convertFields(registry, fields) {
-  return fields.map(({
-    docs,
-    name,
-    type,
-    typeName
-  }) => registry.createType('Si1Field', {
-    docs,
-    name,
-    type: type.toNumber(),
-    typeName
-  }));
+  return fields.map(_ref5 => {
+    let {
+      docs,
+      name,
+      type,
+      typeName
+    } = _ref5;
+    return registry.createType('Si1Field', {
+      docs,
+      name,
+      type: type.toNumber(),
+      typeName
+    });
+  });
 }
 
 function convertPhantom(registry, path) {
@@ -78,9 +85,10 @@ function convertPrimitive(registry, prim) {
   });
 }
 
-function convertSequence(registry, {
-  type
-}) {
+function convertSequence(registry, _ref6) {
+  let {
+    type
+  } = _ref6;
   return registry.createType('Si1TypeDef', {
     Sequence: {
       type: type.toNumber()
@@ -94,30 +102,36 @@ function convertTuple(registry, types) {
   });
 }
 
-function convertVariant(registry, {
-  variants
-}) {
+function convertVariant(registry, _ref7) {
+  let {
+    variants
+  } = _ref7;
   return registry.createType('Si1TypeDef', {
     Variant: {
-      variants: variants.map(({
-        discriminant,
-        docs,
-        fields,
-        name
-      }, index) => registry.createType('Si1Variant', {
-        docs,
-        fields: convertFields(registry, fields),
-        index: discriminant.isSome ? discriminant.unwrap().toNumber() : index,
-        name
-      }))
+      variants: variants.map((_ref8, index) => {
+        let {
+          discriminant,
+          docs,
+          fields,
+          name
+        } = _ref8;
+        return registry.createType('Si1Variant', {
+          docs,
+          fields: convertFields(registry, fields),
+          index: discriminant.isSome ? discriminant.unwrap().toNumber() : index,
+          name
+        });
+      })
     }
   });
 }
 
-function convertDef(registry, {
-  def,
-  path
-}) {
+function convertDef(registry, _ref9) {
+  let {
+    def,
+    path
+  } = _ref9;
+
   if (def.isArray) {
     return convertArray(registry, def.asArray);
   } else if (def.isBitSequence) {

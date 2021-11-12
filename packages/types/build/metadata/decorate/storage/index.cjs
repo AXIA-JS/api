@@ -21,9 +21,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 /** @internal */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function decorateStorage(registry, {
-  pallets
-}, _metaVersion) {
+function decorateStorage(registry, _ref, _metaVersion) {
+  let {
+    pallets
+  } = _ref;
   return pallets.reduce((result, moduleMetadata) => {
     if (moduleMetadata.storage.isNone) {
       return result;

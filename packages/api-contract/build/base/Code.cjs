@@ -54,14 +54,19 @@ class Code extends _Base.Base {
     });
     Object.defineProperty(this, _instantiate, {
       writable: true,
-      value: (constructorOrId, {
-        gasLimit = _util.BN_ZERO,
-        salt,
-        value = _util.BN_ZERO
-      }, params) => {
-        return this.api.tx.contracts.instantiateWithCode(value, gasLimit, (0, _util.compactAddLength)(this.code), this.abi.findConstructor(constructorOrId).toU8a(params), (0, _util3.encodeSalt)(salt)).withResultTransform(result => new CodeSubmittableResult(result, ...((0, _util2.applyOnEvent)(result, ['CodeStored', 'Instantiated'], records => records.reduce(([blueprint, contract], {
-          event
-        }) => this.api.events.contracts.Instantiated.is(event) ? [blueprint, new _Contract.Contract(this.api, this.abi, event.data[1], this._decorateMethod)] : this.api.events.contracts.CodeStored.is(event) ? [new _Blueprint.Blueprint(this.api, this.abi, event.data[0], this._decorateMethod), contract] : [blueprint, contract], [])) || [])));
+      value: (constructorOrId, _ref, params) => {
+        let {
+          gasLimit = _util.BN_ZERO,
+          salt,
+          value = _util.BN_ZERO
+        } = _ref;
+        return this.api.tx.contracts.instantiateWithCode(value, gasLimit, (0, _util.compactAddLength)(this.code), this.abi.findConstructor(constructorOrId).toU8a(params), (0, _util3.encodeSalt)(salt)).withResultTransform(result => new CodeSubmittableResult(result, ...((0, _util2.applyOnEvent)(result, ['CodeStored', 'Instantiated'], records => records.reduce((_ref2, _ref3) => {
+          let [blueprint, contract] = _ref2;
+          let {
+            event
+          } = _ref3;
+          return this.api.events.contracts.Instantiated.is(event) ? [blueprint, new _Contract.Contract(this.api, this.abi, event.data[1], this._decorateMethod)] : this.api.events.contracts.CodeStored.is(event) ? [new _Blueprint.Blueprint(this.api, this.abi, event.data[0], this._decorateMethod), contract] : [blueprint, contract];
+        }, [])) || [])));
       }
     });
     this.code = (0, _util.isWasm)(this.abi.project.source.wasm) ? this.abi.project.source.wasm : (0, _util.u8aToU8a)(wasm);

@@ -9,9 +9,10 @@ exports.registerDefinitions = registerDefinitions;
 // SPDX-License-Identifier: Apache-2.0
 function registerDefinitions(registry, extras) {
   Object.values(extras).forEach(def => {
-    Object.values(def).forEach(({
-      types
-    }) => {
+    Object.values(def).forEach(_ref => {
+      let {
+        types
+      } = _ref;
       registry.register(types);
     });
   });

@@ -46,7 +46,8 @@ function decodeStructFromObject(registry, Types, value, jsonMap) {
 
         if ((0, _util.isUndefined)(assign)) {
           if ((0, _util.isUndefined)(jsonObj)) {
-            jsonObj = Object.entries(value).reduce((all, [key, value]) => {
+            jsonObj = Object.entries(value).reduce((all, _ref) => {
+              let [key, value] = _ref;
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               all[(0, _util.stringCamelCase)(key)] = value;
               return all;
@@ -132,7 +133,9 @@ var _Types = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("Types");
 
 class Struct extends Map {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  constructor(registry, Types, value = {}, jsonMap = new Map()) {
+  constructor(registry, Types) {
+    let value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    let jsonMap = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Map();
     super(Object.entries(decodeStruct(registry, (0, _index.mapToTypeMap)(registry, Types), value, jsonMap)));
     this.registry = void 0;
     this.createdAtHash = void 0;
@@ -165,7 +168,8 @@ class Struct extends Map {
   }
 
   static typesToMap(registry, Types) {
-    return Object.entries(Types).reduce((result, [key, Type]) => {
+    return Object.entries(Types).reduce((result, _ref2) => {
+      let [key, Type] = _ref2;
       result[key] = registry.getClassName(Type) || new Type(registry).toRawType();
       return result;
     }, {});
@@ -200,7 +204,8 @@ class Struct extends Map {
 
 
   get Type() {
-    return Object.entries((0, _classPrivateFieldLooseBase2.default)(this, _Types)[_Types]).reduce((result, [key, Type]) => {
+    return Object.entries((0, _classPrivateFieldLooseBase2.default)(this, _Types)[_Types]).reduce((result, _ref3) => {
+      let [key, Type] = _ref3;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       result[key] = new Type(this.registry).toRawType();
       return result;
@@ -317,7 +322,13 @@ class Struct extends Map {
     // we have keyof S here, cast to string to make it compatible with isBare
     const entries = [...this.entries()];
     return (0, _util.u8aConcat)(...entries // eslint-disable-next-line @typescript-eslint/unbound-method
-    .filter(([, value]) => (0, _util.isFunction)(value === null || value === void 0 ? void 0 : value.toU8a)).map(([key, value]) => value.toU8a(!isBare || (0, _util.isBoolean)(isBare) ? isBare : isBare[key])));
+    .filter(_ref4 => {
+      let [, value] = _ref4;
+      return (0, _util.isFunction)(value === null || value === void 0 ? void 0 : value.toU8a);
+    }).map(_ref5 => {
+      let [key, value] = _ref5;
+      return value.toU8a(!isBare || (0, _util.isBoolean)(isBare) ? isBare : isBare[key]);
+    }));
   }
 
 }

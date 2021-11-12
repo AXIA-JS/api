@@ -36,7 +36,10 @@ class ApiBase extends _Getters.Getters {
    * });
    * ```
    */
-  constructor(options = {}, type, decorateMethod) {
+  constructor() {
+    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let type = arguments.length > 1 ? arguments[1] : undefined;
+    let decorateMethod = arguments.length > 2 ? arguments[2] : undefined;
     super(options, type, decorateMethod);
   }
   /**
@@ -86,9 +89,11 @@ class ApiBase extends _Getters.Getters {
    */
 
 
-  async sign(address, data, {
-    signer
-  } = {}) {
+  async sign(address, data) {
+    let {
+      signer
+    } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
     if ((0, _util.isString)(address)) {
       const _signer = signer || this._rx.signer;
 

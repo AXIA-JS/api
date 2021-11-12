@@ -11,7 +11,8 @@ var _util = require("@axia-js/util");
 // SPDX-License-Identifier: Apache-2.0
 const l = (0, _util.logger)('api/augment');
 
-function logLength(type, values, and = []) {
+function logLength(type, values) {
+  let and = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   return values.length ? ` ${values.length} ${type}${and.length ? ' and' : ''}` : '';
 }
 
@@ -20,7 +21,9 @@ function logValues(type, values) {
 } // log details to console
 
 
-function warn(prefix, type, [added, removed]) {
+function warn(prefix, type, _ref) {
+  let [added, removed] = _ref;
+
   if (added.length || removed.length) {
     l.warn(`api.${prefix}: Found${logLength('added', added, removed)}${logLength('removed', removed)} ${type}:${logValues('added', added)}${logValues('removed', removed)}`);
   }
@@ -58,7 +61,9 @@ function extractMethods(src, dst) {
  */
 
 
-function augmentObject(prefix, src, dst, fromEmpty = false) {
+function augmentObject(prefix, src, dst) {
+  let fromEmpty = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   if (fromEmpty) {
     Object.keys(dst).forEach(key => {
       delete dst[key];

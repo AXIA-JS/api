@@ -58,11 +58,12 @@ function compareRationals(n1, d1, n2, d2) {
   }
 }
 
-function calcPassingOther(threshold, sqrtElectorate, {
-  votedAye,
-  votedNay,
-  votedTotal
-}) {
+function calcPassingOther(threshold, sqrtElectorate, _ref) {
+  let {
+    votedAye,
+    votedNay,
+    votedTotal
+  } = _ref;
   const sqrtVoters = (0, _util.bnSqrt)(votedTotal);
   return sqrtVoters.isZero() ? false : threshold.isSupermajorityapproval ? compareRationals(votedNay, sqrtVoters, votedAye, sqrtElectorate) : compareRationals(votedNay, sqrtElectorate, votedAye, sqrtVoters);
 }
@@ -152,7 +153,8 @@ function getStatus(info) {
   return null;
 }
 
-function constructProposal(api, [bytes, proposer, balance, at]) {
+function constructProposal(api, _ref2) {
+  let [bytes, proposer, balance, at] = _ref2;
   let proposal;
 
   try {

@@ -63,9 +63,10 @@ function convertModule(registry, mod) {
 /** @internal */
 
 
-function toV10(registry, {
-  modules
-}) {
+function toV10(registry, _ref) {
+  let {
+    modules
+  } = _ref;
   return registry.createType('MetadataV10', {
     modules: modules.map(mod => convertModule(registry, mod))
   });

@@ -54,18 +54,24 @@ function _decodeEnum(value, details, count) {
       type: 'Null'
     }));
   } else if (isRustEnum(details)) {
-    value.sub = Object.entries(details).map(([name, typeOrObj], index) => _objectSpread(_objectSpread({}, getTypeDef(getTypeString(typeOrObj || 'Null'), {
-      name
-    }, count)), {}, {
-      index
-    }));
+    value.sub = Object.entries(details).map((_ref, index) => {
+      let [name, typeOrObj] = _ref;
+      return _objectSpread(_objectSpread({}, getTypeDef(getTypeString(typeOrObj || 'Null'), {
+        name
+      }, count)), {}, {
+        index
+      });
+    });
   } else {
-    value.sub = Object.entries(details).map(([name, index]) => ({
-      index,
-      info: _types.TypeDefInfo.Plain,
-      name,
-      type: 'Null'
-    }));
+    value.sub = Object.entries(details).map(_ref2 => {
+      let [name, index] = _ref2;
+      return {
+        index,
+        info: _types.TypeDefInfo.Plain,
+        name,
+        type: 'Null'
+      };
+    });
   }
 
   return value;
@@ -76,12 +82,18 @@ function _decodeEnum(value, details, count) {
 function _decodeSet(value, details) {
   value.info = _types.TypeDefInfo.Set;
   value.length = details._bitLength;
-  value.sub = Object.entries(details).filter(([name]) => !name.startsWith('_')).map(([name, index]) => ({
-    index,
-    info: _types.TypeDefInfo.Plain,
-    name,
-    type: 'Null'
-  }));
+  value.sub = Object.entries(details).filter(_ref3 => {
+    let [name] = _ref3;
+    return !name.startsWith('_');
+  }).map(_ref4 => {
+    let [name, index] = _ref4;
+    return {
+      index,
+      info: _types.TypeDefInfo.Plain,
+      name,
+      type: 'Null'
+    };
+  });
   return value;
 } // decode a struct, set or enum
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -174,7 +186,8 @@ function _decodeDoNotConstruct(value, type, _) {
   return value;
 }
 
-function hasWrapper(type, [start, end]) {
+function hasWrapper(type, _ref5) {
+  let [start, end] = _ref5;
   return type.substr(0, start.length) === start && type.substr(-1 * end.length) === end;
 }
 
@@ -183,15 +196,18 @@ const nestedExtraction = [['[', ']', _types.TypeDefInfo.VecFixed, _decodeFixedVe
 ['Range<', '>', _types.TypeDefInfo.Tuple, _decodeRange], ['RangeInclusive<', '>', _types.TypeDefInfo.Tuple, _decodeRange], ['Result<', '>', _types.TypeDefInfo.Result, _decodeTuple], ['UInt<', '>', _types.TypeDefInfo.UInt, _decodeUInt], ['DoNotConstruct<', '>', _types.TypeDefInfo.DoNotConstruct, _decodeDoNotConstruct]];
 const wrappedExtraction = [['BTreeSet<', '>', _types.TypeDefInfo.BTreeSet], ['Compact<', '>', _types.TypeDefInfo.Compact], ['Linkage<', '>', _types.TypeDefInfo.Linkage], ['Option<', '>', _types.TypeDefInfo.Option], ['Vec<', '>', _types.TypeDefInfo.Vec]];
 
-function extractSubType(type, [start, end]) {
+function extractSubType(type, _ref6) {
+  let [start, end] = _ref6;
   return type.substr(start.length, type.length - start.length - end.length);
 } // eslint-disable-next-line @typescript-eslint/ban-types
 
 
-function getTypeDef(_type, {
-  displayName,
-  name
-} = {}, count = 0) {
+function getTypeDef(_type) {
+  let {
+    displayName,
+    name
+  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  let count = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
   // create the type via Type, allowing types to be sanitized
   const type = (0, _sanitize.sanitize)(_type);
   const value = {

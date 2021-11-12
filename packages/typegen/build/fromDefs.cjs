@@ -44,14 +44,17 @@ function main() {
   const userDefs = require(_path.default.join(process.cwd(), input, 'definitions.ts'));
 
   const userKeys = Object.keys(userDefs);
-  const filteredBase = Object.entries(substrateDefs).filter(([key]) => {
+  const filteredBase = Object.entries(substrateDefs).filter(_ref => {
+    let [key] = _ref;
+
     if (userKeys.includes(key)) {
       console.warn(`Override found for ${key} in user types, ignoring in @axia-js/types`);
       return false;
     }
 
     return true;
-  }).reduce((defs, [key, value]) => {
+  }).reduce((defs, _ref2) => {
+    let [key, value] = _ref2;
     defs[key] = value;
     return defs;
   }, {});

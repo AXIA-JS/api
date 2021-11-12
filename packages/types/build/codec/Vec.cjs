@@ -24,7 +24,8 @@ const l = (0, _util.logger)('Vec');
  */
 
 class Vec extends _AbstractArray.AbstractArray {
-  constructor(registry, Type, value = []) {
+  constructor(registry, Type) {
+    let value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
     const Clazz = (0, _index.typeToConstructor)(registry, Type);
     super(registry, Vec.decodeVec(registry, Clazz, value));
     this._Type = void 0;

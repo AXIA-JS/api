@@ -35,7 +35,8 @@ function decodeVecFixed(registry, Type, allocLength, value) {
 
 
 class VecFixed extends _AbstractArray.AbstractArray {
-  constructor(registry, Type, length, value = []) {
+  constructor(registry, Type, length) {
+    let value = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
     const Clazz = (0, _index.typeToConstructor)(registry, Type);
     super(registry, decodeVecFixed(registry, Clazz, length, value));
     this._Type = void 0;

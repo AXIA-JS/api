@@ -26,6 +26,6 @@
     "rxjs": "^7.3.0"
   },
   "devDependencies": {
-    "@axia-js/keyring": "0.1.0"
+    "@axia-js/keyring": "0.1.1"
   }
 }

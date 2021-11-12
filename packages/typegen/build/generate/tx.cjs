@@ -53,43 +53,57 @@ function generateForMeta(registry, meta, dest, extraTypes, isStrict) {
     }, extraTypes);
 
     const imports = (0, _index.createImports)(allTypes);
-    const allDefs = Object.entries(allTypes).reduce((defs, [path, obj]) => {
-      return Object.entries(obj).reduce((defs, [key, value]) => _objectSpread(_objectSpread({}, defs), {}, {
-        [`${path}/${key}`]: value
-      }), defs);
+    const allDefs = Object.entries(allTypes).reduce((defs, _ref) => {
+      let [path, obj] = _ref;
+      return Object.entries(obj).reduce((defs, _ref2) => {
+        let [key, value] = _ref2;
+        return _objectSpread(_objectSpread({}, defs), {}, {
+          [`${path}/${key}`]: value
+        });
+      }, defs);
     }, {});
     const {
       lookup,
       pallets
     } = meta.asLatest;
-    const modules = pallets.sort(_index.compareName).filter(({
-      calls
-    }) => calls.isSome).map(({
-      calls,
-      name
-    }) => {
+    const modules = pallets.sort(_index.compareName).filter(_ref3 => {
+      let {
+        calls
+      } = _ref3;
+      return calls.isSome;
+    }).map(_ref4 => {
+      let {
+        calls,
+        name
+      } = _ref4;
       (0, _index.setImports)(allDefs, imports, ['Call', 'Extrinsic', 'SubmittableExtrinsic']);
       const sectionName = (0, _util.stringCamelCase)(name);
-      const items = lookup.getSiType(calls.unwrap().type).def.asVariant.variants.map(({
-        docs,
-        fields,
-        name
-      }) => {
-        const typesInfo = fields.map(({
-          name,
-          type,
-          typeName
-        }, index) => {
+      const items = lookup.getSiType(calls.unwrap().type).def.asVariant.variants.map(_ref5 => {
+        let {
+          docs,
+          fields,
+          name
+        } = _ref5;
+        const typesInfo = fields.map((_ref6, index) => {
+          let {
+            name,
+            type,
+            typeName
+          } = _ref6;
           const typeDef = registry.lookup.getTypeDef(type);
           return [name.isSome ? mapName(name.unwrap()) : `param${index}`, typeName.isSome ? typeName.toString() : typeDef.type, typeDef.isFromSi ? typeDef.type : typeDef.lookupName || typeDef.type];
         });
-        const params = typesInfo.map(([name,, typeStr]) => {
+        const params = typesInfo.map(_ref7 => {
+          let [name,, typeStr] = _ref7;
           const similarTypes = (0, _index.getSimilarTypes)(registry, allDefs, typeStr, imports);
           (0, _index.setImports)(allDefs, imports, [typeStr, ...similarTypes]);
           return `${name}: ${similarTypes.join(' | ')}`;
         }).join(', ');
         return {
-          args: typesInfo.map(([,, typeStr]) => (0, _index.formatType)(registry, allDefs, typeStr, imports)).join(', '),
+          args: typesInfo.map(_ref8 => {
+            let [,, typeStr] = _ref8;
+            return (0, _index.formatType)(registry, allDefs, typeStr, imports);
+          }).join(', '),
           docs,
           name: (0, _util.stringCamelCase)(name),
           params
@@ -119,7 +133,11 @@ function generateForMeta(registry, meta, dest, extraTypes, isStrict) {
 /** @internal */
 
 
-function generateDefaultTx(dest = 'packages/api/src/augment/tx.ts', data, extraTypes = {}, isStrict = false) {
+function generateDefaultTx() {
+  let dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/api/src/augment/tx.ts';
+  let data = arguments.length > 1 ? arguments[1] : undefined;
+  let extraTypes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  let isStrict = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   const {
     metadata,
     registry

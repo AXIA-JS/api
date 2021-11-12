@@ -66,9 +66,12 @@ function getSimilarTypes(registry, definitions, _type, imports) {
       if (subDef.info === _types.TypeDefInfo.Plain) {
         possibleTypes.push(`(${getSimilarTypes(registry, definitions, subDef.type, imports).join(' | ')})[]`);
       } else if (subDef.info === _types.TypeDefInfo.Tuple) {
-        const subs = subDef.sub.map(({
-          type
-        }) => getSimilarTypes(registry, definitions, type, imports).join(' | '));
+        const subs = subDef.sub.map(_ref => {
+          let {
+            type
+          } = _ref;
+          return getSimilarTypes(registry, definitions, type, imports).join(' | ');
+        });
         possibleTypes.push(`([${subs.join(', ')}])[]`);
       } else {
         throw new Error(`Unhandled subtype in Vec, ${(0, _util.stringify)(subDef)}`);
@@ -113,9 +116,12 @@ function getSimilarTypes(registry, definitions, _type, imports) {
     const subDef = tupDef.sub; // this could be that we define a Tuple type and refer to it by name
 
     if (Array.isArray(subDef)) {
-      const subs = subDef.map(({
-        type
-      }) => getSimilarTypes(registry, definitions, type, imports).join(' | '));
+      const subs = subDef.map(_ref2 => {
+        let {
+          type
+        } = _ref2;
+        return getSimilarTypes(registry, definitions, type, imports).join(' | ');
+      });
       possibleTypes.push(`[${subs.join(', ')}]`);
     }
   }

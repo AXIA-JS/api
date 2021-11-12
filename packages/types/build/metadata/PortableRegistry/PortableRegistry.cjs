@@ -54,9 +54,10 @@ function splitNamespace(values) {
   return values.map(v => v.split('::'));
 }
 
-function createNamespace({
-  path
-}) {
+function createNamespace(_ref) {
+  let {
+    path
+  } = _ref;
   return sanitizeDocs(path).join('::');
 }
 
@@ -98,31 +99,49 @@ function getAliasPath(path) {
 
 function removeDuplicateNames(lookup, names) {
   const rewrite = {};
-  return names.map(([lookupIndex, name, params]) => {
+  return names.map(_ref2 => {
+    let [lookupIndex, name, params] = _ref2;
+
     if (!name) {
       return [lookupIndex, null, params];
     } // those where the name is matching
 
 
-    const allSame = names.filter(([, oName]) => name === oName); // are there among matching names
+    const allSame = names.filter(_ref3 => {
+      let [, oName] = _ref3;
+      return name === oName;
+    }); // are there among matching names
 
-    const anyDiff = allSame.some(([oIndex,, oParams]) => lookupIndex !== oIndex && (params.length !== oParams.length || params.some((p, index) => !p.name.eq(oParams[index].name) || p.type.unwrapOr(TYPE_UNWRAP).toNumber() !== oParams[index].type.unwrapOr(TYPE_UNWRAP).toNumber()))); // everything matches, we can combine these
+    const anyDiff = allSame.some(_ref4 => {
+      let [oIndex,, oParams] = _ref4;
+      return lookupIndex !== oIndex && (params.length !== oParams.length || params.some((p, index) => !p.name.eq(oParams[index].name) || p.type.unwrapOr(TYPE_UNWRAP).toNumber() !== oParams[index].type.unwrapOr(TYPE_UNWRAP).toNumber()));
+    }); // everything matches, we can combine these
 
     if (!anyDiff || !allSame[0][2].length) {
       return [lookupIndex, name, params];
     } // find the first parameter that yields differences
 
 
-    const paramIdx = allSame[0][2].findIndex(({
-      type
-    }, index) => allSame.every(([,, params]) => params[index].type.isSome) && allSame.every(([,, params], aIndex) => aIndex === 0 || !params[index].type.eq(type))); // No param found that is different
+    const paramIdx = allSame[0][2].findIndex((_ref5, index) => {
+      let {
+        type
+      } = _ref5;
+      return allSame.every(_ref6 => {
+        let [,, params] = _ref6;
+        return params[index].type.isSome;
+      }) && allSame.every((_ref7, aIndex) => {
+        let [,, params] = _ref7;
+        return aIndex === 0 || !params[index].type.eq(type);
+      });
+    }); // No param found that is different
 
     if (paramIdx === -1) {
       return [lookupIndex, name, params];
     } // see if using the param type helps
 
 
-    const adjusted = allSame.map(([oIndex, oName, oParams]) => {
+    const adjusted = allSame.map(_ref8 => {
+      let [oIndex, oName, oParams] = _ref8;
       const {
         def,
         path
@@ -135,26 +154,37 @@ function removeDuplicateNames(lookup, names) {
       return [oIndex, def.isPrimitive ? `${oName}${def.asPrimitive.toString()}` : `${oName}${path[path.length - 1].toString()}`, params];
     }); // any dupes remaining?
 
-    const noDupes = adjusted.every(([i, n]) => !!n && !adjusted.some(([ai, an]) => i !== ai && n === an));
+    const noDupes = adjusted.every(_ref9 => {
+      let [i, n] = _ref9;
+      return !!n && !adjusted.some(_ref10 => {
+        let [ai, an] = _ref10;
+        return i !== ai && n === an;
+      });
+    });
 
     if (noDupes) {
       // we filtered above for null names
-      adjusted.forEach(([index, name]) => {
+      adjusted.forEach(_ref11 => {
+        let [index, name] = _ref11;
         rewrite[index] = name;
       });
     }
 
     return noDupes ? [lookupIndex, name, params] : [lookupIndex, null, params];
-  }).filter(n => !!n[1]).map(([lookupIndex, name, params]) => [lookupIndex, rewrite[lookupIndex] || name, params]);
+  }).filter(n => !!n[1]).map(_ref12 => {
+    let [lookupIndex, name, params] = _ref12;
+    return [lookupIndex, rewrite[lookupIndex] || name, params];
+  });
 }
 
-function extractName(types, {
-  id,
-  type: {
-    params,
-    path
-  }
-}) {
+function extractName(types, _ref13) {
+  let {
+    id,
+    type: {
+      params,
+      path
+    }
+  } = _ref13;
   const lookupIndex = id.toNumber();
 
   if (!path.length || WRAPPERS.includes(path[path.length - 1].toString())) {
@@ -494,10 +524,11 @@ function _extract2(type, lookupIndex) {
   }, typeDef);
 }
 
-function _extractArray2(_, {
-  len: length,
-  type
-}) {
+function _extractArray2(_, _ref14) {
+  let {
+    len: length,
+    type
+  } = _ref14;
   (0, _util.assert)(!length || length.toNumber() <= 256, 'Only support for [Type; <length>], where length <= 256');
   return (0, _encodeTypes.withTypeString)(this.registry, {
     info: _index.TypeDefInfo.VecFixed,
@@ -506,10 +537,12 @@ function _extractArray2(_, {
   });
 }
 
-function _extractBitSequence2(_, {
-  bitOrderType,
-  bitStoreType
-}) {
+function _extractBitSequence2(_, _ref15) {
+  let {
+    bitOrderType,
+    bitStoreType
+  } = _ref15;
+
   const bitOrder = (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](bitOrderType);
 
   const bitStore = (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](bitStoreType); // NOTE: Currently the BitVec type is one-way only, i.e. we only use it to decode, not
@@ -525,42 +558,51 @@ function _extractBitSequence2(_, {
   };
 }
 
-function _extractCompact2(_, {
-  type
-}) {
+function _extractCompact2(_, _ref16) {
+  let {
+    type
+  } = _ref16;
   return (0, _encodeTypes.withTypeString)(this.registry, {
     info: _index.TypeDefInfo.Compact,
     sub: (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type)
   });
 }
 
-function _extractComposite2(lookupIndex, {
-  params,
-  path
-}, {
-  fields
-}) {
+function _extractComposite2(lookupIndex, _ref17, _ref18) {
+  let {
+    params,
+    path
+  } = _ref17;
+  let {
+    fields
+  } = _ref18;
   const specialVariant = path[0].toString();
 
   if (path.length === 1 && specialVariant === 'BTreeMap') {
     return (0, _encodeTypes.withTypeString)(this.registry, {
       info: _index.TypeDefInfo.BTreeMap,
-      sub: params.map(({
-        type
-      }) => (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type.unwrap()))
+      sub: params.map(_ref19 => {
+        let {
+          type
+        } = _ref19;
+        return (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type.unwrap());
+      })
     });
   } else if (['Range', 'RangeInclusive'].includes(specialVariant)) {
     return (0, _encodeTypes.withTypeString)(this.registry, {
       info: _index.TypeDefInfo.Range,
-      sub: fields.map(({
-        name,
-        type,
-        typeName
-      }, index) => (0, _util.objectSpread)({
-        name: name.isSome ? name.unwrap().toString() : ['start', 'end'][index]
-      }, (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type), typeName.isSome ? {
-        typeName: (0, _sanitize.sanitize)(typeName.unwrap())
-      } : null))
+      sub: fields.map((_ref20, index) => {
+        let {
+          name,
+          type,
+          typeName
+        } = _ref20;
+        return (0, _util.objectSpread)({
+          name: name.isSome ? name.unwrap().toString() : ['start', 'end'][index]
+        }, (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type), typeName.isSome ? {
+          typeName: (0, _sanitize.sanitize)(typeName.unwrap())
+        } : null);
+      })
     });
   } else if (path.length) {
     if (path[path.length - 1].toString() === 'WrapperOpaque') {
@@ -584,16 +626,19 @@ function _extractCompositeSet2(_, params, fields) {
   return (0, _encodeTypes.withTypeString)(this.registry, {
     info: _index.TypeDefInfo.Set,
     length: this.registry.createType(this.registry.createLookupType(fields[0].type)).bitLength(),
-    sub: this.getSiType(params[0].type.unwrap()).def.asVariant.variants.map(({
-      index,
-      name
-    }) => ({
-      // This will be an issue > 2^53 - 1 ... don't have those (yet)
-      index: index.toNumber(),
-      info: _index.TypeDefInfo.Plain,
-      name: name.toString(),
-      type: 'Null'
-    }))
+    sub: this.getSiType(params[0].type.unwrap()).def.asVariant.variants.map(_ref21 => {
+      let {
+        index,
+        name
+      } = _ref21;
+      return {
+        // This will be an issue > 2^53 - 1 ... don't have those (yet)
+        index: index.toNumber(),
+        info: _index.TypeDefInfo.Plain,
+        name: name.toString(),
+        type: 'Null'
+      };
+    })
   });
 }
 
@@ -709,9 +754,11 @@ function _extractAliasPath2(_, type) {
   };
 }
 
-function _extractSequence2(lookupIndex, {
-  type
-}) {
+function _extractSequence2(lookupIndex, _ref22) {
+  let {
+    type
+  } = _ref22;
+
   const sub = (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type);
 
   if (sub.type === 'u8') {
@@ -748,12 +795,14 @@ function _extractTuple2(lookupIndex, ids) {
   });
 }
 
-function _extractVariant2(lookupIndex, {
-  params,
-  path
-}, {
-  variants
-}) {
+function _extractVariant2(lookupIndex, _ref23, _ref24) {
+  let {
+    params,
+    path
+  } = _ref23;
+  let {
+    variants
+  } = _ref24;
   const specialVariant = path[0].toString();
 
   if (specialVariant === 'Option') {
@@ -764,11 +813,14 @@ function _extractVariant2(lookupIndex, {
   } else if (specialVariant === 'Result') {
     return (0, _encodeTypes.withTypeString)(this.registry, {
       info: _index.TypeDefInfo.Result,
-      sub: params.map(({
-        type
-      }, index) => (0, _util.objectSpread)({
-        name: ['Ok', 'Error'][index]
-      }, (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type.unwrap())))
+      sub: params.map((_ref25, index) => {
+        let {
+          type
+        } = _ref25;
+        return (0, _util.objectSpread)({
+          name: ['Ok', 'Error'][index]
+        }, (0, _classPrivateFieldLooseBase2.default)(this, _createSiDef)[_createSiDef](type.unwrap()));
+      })
     });
   } else if (variants.length === 0) {
     return {
@@ -784,11 +836,12 @@ function _extractVariantEnum2(lookupIndex, variants) {
   const sub = []; // we may get entries out of order, arrange them first before creating with gaps filled
   // NOTE: Since we mutate, use a copy of the array as an input
 
-  [...variants].sort((a, b) => a.index.cmp(b.index)).forEach(({
-    fields,
-    index,
-    name
-  }) => {
+  [...variants].sort((a, b) => a.index.cmp(b.index)).forEach(_ref26 => {
+    let {
+      fields,
+      index,
+      name
+    } = _ref26;
     const desired = index.toNumber();
 
     while (sub.length !== desired) {

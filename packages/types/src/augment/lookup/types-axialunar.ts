@@ -18,30 +18,30 @@ declare module '@axia-js/types/lookup' {
     readonly isAuction: boolean;
   }
 
-  /** @name AXIAPrimitivesV1CandidateReceipt (86) */
-  export interface AXIAPrimitivesV1CandidateReceipt extends Struct {
-    readonly descriptor: AXIAPrimitivesV1CandidateDescriptor;
+  /** @name PolkadotPrimitivesV1CandidateReceipt (86) */
+  export interface PolkadotPrimitivesV1CandidateReceipt extends Struct {
+    readonly descriptor: PolkadotPrimitivesV1CandidateDescriptor;
     readonly commitmentsHash: H256;
   }
 
-  /** @name AXIAPrimitivesV1CandidateDescriptor (87) */
-  export interface AXIAPrimitivesV1CandidateDescriptor extends Struct {
+  /** @name PolkadotPrimitivesV1CandidateDescriptor (87) */
+  export interface PolkadotPrimitivesV1CandidateDescriptor extends Struct {
     readonly paraId: u32;
     readonly relayParent: H256;
-    readonly collator: AXIAPrimitivesV0CollatorAppPublic;
+    readonly collator: PolkadotPrimitivesV0CollatorAppPublic;
     readonly persistedValidationDataHash: H256;
     readonly povHash: H256;
     readonly erasureRoot: H256;
-    readonly signature: AXIAPrimitivesV0CollatorAppSignature;
+    readonly signature: PolkadotPrimitivesV0CollatorAppSignature;
     readonly paraHead: H256;
     readonly validationCodeHash: H256;
   }
 
-  /** @name AXIAPrimitivesV0CollatorAppPublic (89) */
-  export interface AXIAPrimitivesV0CollatorAppPublic extends SpCoreSr25519Public {}
+  /** @name PolkadotPrimitivesV0CollatorAppPublic (89) */
+  export interface PolkadotPrimitivesV0CollatorAppPublic extends SpCoreSr25519Public {}
 
-  /** @name AXIAPrimitivesV0CollatorAppSignature (90) */
-  export interface AXIAPrimitivesV0CollatorAppSignature extends SpCoreSr25519Signature {}
+  /** @name PolkadotPrimitivesV0CollatorAppSignature (90) */
+  export interface PolkadotPrimitivesV0CollatorAppSignature extends SpCoreSr25519Signature {}
 
   /** @name XcmV2TraitsOutcome (99) */
   export interface XcmV2TraitsOutcome extends Enum {
@@ -93,8 +93,8 @@ declare module '@axia-js/types/lookup' {
     readonly isInvalidLocation: boolean;
   }
 
-  /** @name AXIAParachainPrimitivesHrmpChannelId (102) */
-  export interface AXIAParachainPrimitivesHrmpChannelId extends Struct {
+  /** @name PolkadotParachainPrimitivesHrmpChannelId (102) */
+  export interface PolkadotParachainPrimitivesHrmpChannelId extends Struct {
     readonly sender: u32;
     readonly recipient: u32;
   }
@@ -164,7 +164,7 @@ declare module '@axia-js/types/lookup' {
     readonly isAny: boolean;
     readonly isNamed: boolean;
     readonly asNamed: Bytes;
-    readonly isAXIA: boolean;
+    readonly isPolkadot: boolean;
     readonly isKusama: boolean;
   }
 
@@ -540,8 +540,8 @@ declare module '@axia-js/types/lookup' {
     readonly grandpa: SpFinalityGrandpaAppPublic;
     readonly babe: SpConsensusBabeAppPublic;
     readonly imOnline: PalletImOnlineSr25519AppSr25519Public;
-    readonly paraValidator: AXIAPrimitivesV0ValidatorAppPublic;
-    readonly paraAssignment: AXIAPrimitivesV1AssignmentAppPublic;
+    readonly paraValidator: PolkadotPrimitivesV0ValidatorAppPublic;
+    readonly paraAssignment: PolkadotPrimitivesV1AssignmentAppPublic;
     readonly authorityDiscovery: SpAuthorityDiscoveryAppPublic;
   }
 
@@ -573,82 +573,82 @@ declare module '@axia-js/types/lookup' {
     readonly votes24: Vec<ITuple<[Compact<u32>, Vec<ITuple<[Compact<u16>, Compact<PerU16>]>>, Compact<u16>]>>;
   }
 
-  /** @name AXIAPrimitivesV1InherentData (448) */
-  export interface AXIAPrimitivesV1InherentData extends Struct {
-    readonly bitfields: Vec<AXIAPrimitivesV1SignedUncheckedSigned>;
-    readonly backedCandidates: Vec<AXIAPrimitivesV1BackedCandidate>;
-    readonly disputes: Vec<AXIAPrimitivesV1DisputeStatementSet>;
+  /** @name PolkadotPrimitivesV1InherentData (448) */
+  export interface PolkadotPrimitivesV1InherentData extends Struct {
+    readonly bitfields: Vec<PolkadotPrimitivesV1SignedUncheckedSigned>;
+    readonly backedCandidates: Vec<PolkadotPrimitivesV1BackedCandidate>;
+    readonly disputes: Vec<PolkadotPrimitivesV1DisputeStatementSet>;
     readonly parentHeader: SpRuntimeGenericHeader;
   }
 
-  /** @name AXIAPrimitivesV1SignedUncheckedSigned (450) */
-  export interface AXIAPrimitivesV1SignedUncheckedSigned extends Struct {
+  /** @name PolkadotPrimitivesV1SignedUncheckedSigned (450) */
+  export interface PolkadotPrimitivesV1SignedUncheckedSigned extends Struct {
     readonly payload: BitVec;
     readonly validatorIndex: u32;
-    readonly signature: AXIAPrimitivesV0ValidatorAppSignature;
+    readonly signature: PolkadotPrimitivesV0ValidatorAppSignature;
   }
 
   /** @name BitvecOrderLsb0 (453) */
   export type BitvecOrderLsb0 = Null;
 
-  /** @name AXIAPrimitivesV0ValidatorAppSignature (455) */
-  export interface AXIAPrimitivesV0ValidatorAppSignature extends SpCoreSr25519Signature {}
+  /** @name PolkadotPrimitivesV0ValidatorAppSignature (455) */
+  export interface PolkadotPrimitivesV0ValidatorAppSignature extends SpCoreSr25519Signature {}
 
-  /** @name AXIAPrimitivesV1BackedCandidate (457) */
-  export interface AXIAPrimitivesV1BackedCandidate extends Struct {
-    readonly candidate: AXIAPrimitivesV1CommittedCandidateReceipt;
-    readonly validityVotes: Vec<AXIAPrimitivesV0ValidityAttestation>;
+  /** @name PolkadotPrimitivesV1BackedCandidate (457) */
+  export interface PolkadotPrimitivesV1BackedCandidate extends Struct {
+    readonly candidate: PolkadotPrimitivesV1CommittedCandidateReceipt;
+    readonly validityVotes: Vec<PolkadotPrimitivesV0ValidityAttestation>;
     readonly validatorIndices: BitVec;
   }
 
-  /** @name AXIAPrimitivesV1CommittedCandidateReceipt (458) */
-  export interface AXIAPrimitivesV1CommittedCandidateReceipt extends Struct {
-    readonly descriptor: AXIAPrimitivesV1CandidateDescriptor;
-    readonly commitments: AXIAPrimitivesV1CandidateCommitments;
+  /** @name PolkadotPrimitivesV1CommittedCandidateReceipt (458) */
+  export interface PolkadotPrimitivesV1CommittedCandidateReceipt extends Struct {
+    readonly descriptor: PolkadotPrimitivesV1CandidateDescriptor;
+    readonly commitments: PolkadotPrimitivesV1CandidateCommitments;
   }
 
-  /** @name AXIAPrimitivesV1CandidateCommitments (459) */
-  export interface AXIAPrimitivesV1CandidateCommitments extends Struct {
+  /** @name PolkadotPrimitivesV1CandidateCommitments (459) */
+  export interface PolkadotPrimitivesV1CandidateCommitments extends Struct {
     readonly upwardMessages: Vec<Bytes>;
-    readonly horizontalMessages: Vec<AXIACorePrimitivesOutboundHrmpMessage>;
+    readonly horizontalMessages: Vec<PolkadotCorePrimitivesOutboundHrmpMessage>;
     readonly newValidationCode: Option<Bytes>;
     readonly headData: Bytes;
     readonly processedDownwardMessages: u32;
     readonly hrmpWatermark: u32;
   }
 
-  /** @name AXIACorePrimitivesOutboundHrmpMessage (461) */
-  export interface AXIACorePrimitivesOutboundHrmpMessage extends Struct {
+  /** @name PolkadotCorePrimitivesOutboundHrmpMessage (461) */
+  export interface PolkadotCorePrimitivesOutboundHrmpMessage extends Struct {
     readonly recipient: u32;
     readonly data: Bytes;
   }
 
-  /** @name AXIAPrimitivesV0ValidityAttestation (465) */
-  export interface AXIAPrimitivesV0ValidityAttestation extends Enum {
+  /** @name PolkadotPrimitivesV0ValidityAttestation (465) */
+  export interface PolkadotPrimitivesV0ValidityAttestation extends Enum {
     readonly isUnused0: boolean;
     readonly isImplicit: boolean;
-    readonly asImplicit: AXIAPrimitivesV0ValidatorAppSignature;
+    readonly asImplicit: PolkadotPrimitivesV0ValidatorAppSignature;
     readonly isExplicit: boolean;
-    readonly asExplicit: AXIAPrimitivesV0ValidatorAppSignature;
+    readonly asExplicit: PolkadotPrimitivesV0ValidatorAppSignature;
   }
 
-  /** @name AXIAPrimitivesV1DisputeStatementSet (467) */
-  export interface AXIAPrimitivesV1DisputeStatementSet extends Struct {
+  /** @name PolkadotPrimitivesV1DisputeStatementSet (467) */
+  export interface PolkadotPrimitivesV1DisputeStatementSet extends Struct {
     readonly candidateHash: H256;
     readonly session: u32;
-    readonly statements: Vec<ITuple<[AXIAPrimitivesV1DisputeStatement, u32, AXIAPrimitivesV0ValidatorAppSignature]>>;
+    readonly statements: Vec<ITuple<[PolkadotPrimitivesV1DisputeStatement, u32, PolkadotPrimitivesV0ValidatorAppSignature]>>;
   }
 
-  /** @name AXIAPrimitivesV1DisputeStatement (471) */
-  export interface AXIAPrimitivesV1DisputeStatement extends Enum {
+  /** @name PolkadotPrimitivesV1DisputeStatement (471) */
+  export interface PolkadotPrimitivesV1DisputeStatement extends Enum {
     readonly isValid: boolean;
-    readonly asValid: AXIAPrimitivesV1ValidDisputeStatementKind;
+    readonly asValid: PolkadotPrimitivesV1ValidDisputeStatementKind;
     readonly isInvalid: boolean;
-    readonly asInvalid: AXIAPrimitivesV1InvalidDisputeStatementKind;
+    readonly asInvalid: PolkadotPrimitivesV1InvalidDisputeStatementKind;
   }
 
-  /** @name AXIAPrimitivesV1ValidDisputeStatementKind (472) */
-  export interface AXIAPrimitivesV1ValidDisputeStatementKind extends Enum {
+  /** @name PolkadotPrimitivesV1ValidDisputeStatementKind (472) */
+  export interface PolkadotPrimitivesV1ValidDisputeStatementKind extends Enum {
     readonly isExplicit: boolean;
     readonly isBackingSeconded: boolean;
     readonly asBackingSeconded: H256;
@@ -657,8 +657,8 @@ declare module '@axia-js/types/lookup' {
     readonly isApprovalChecking: boolean;
   }
 
-  /** @name AXIAPrimitivesV1InvalidDisputeStatementKind (473) */
-  export interface AXIAPrimitivesV1InvalidDisputeStatementKind extends Enum {
+  /** @name PolkadotPrimitivesV1InvalidDisputeStatementKind (473) */
+  export interface PolkadotPrimitivesV1InvalidDisputeStatementKind extends Enum {
     readonly isExplicit: boolean;
   }
 
@@ -981,7 +981,7 @@ declare module '@axia-js/types/lookup' {
     readonly isUnused48: boolean;
     readonly isUnused49: boolean;
     readonly isParachainsOrigin: boolean;
-    readonly asParachainsOrigin: AXIARuntimeParachainsOriginPalletOrigin;
+    readonly asParachainsOrigin: PolkadotRuntimeParachainsOriginPalletOrigin;
     readonly isUnused51: boolean;
     readonly isUnused52: boolean;
     readonly isUnused53: boolean;
@@ -1034,8 +1034,8 @@ declare module '@axia-js/types/lookup' {
     readonly asXcmPallet: PalletXcmOrigin;
   }
 
-  /** @name AXIARuntimeParachainsOriginPalletOrigin (567) */
-  export interface AXIARuntimeParachainsOriginPalletOrigin extends Enum {
+  /** @name PolkadotRuntimeParachainsOriginPalletOrigin (567) */
+  export interface PolkadotRuntimeParachainsOriginPalletOrigin extends Enum {
     readonly isParachain: boolean;
     readonly asParachain: u32;
   }
@@ -1048,8 +1048,8 @@ declare module '@axia-js/types/lookup' {
     readonly asResponse: XcmV1MultiLocation;
   }
 
-  /** @name AXIARuntimeParachainsConfigurationHostConfiguration (607) */
-  export interface AXIARuntimeParachainsConfigurationHostConfiguration extends Struct {
+  /** @name PolkadotRuntimeParachainsConfigurationHostConfiguration (607) */
+  export interface PolkadotRuntimeParachainsConfigurationHostConfiguration extends Struct {
     readonly maxCodeSize: u32;
     readonly maxHeadDataSize: u32;
     readonly maxUpwardQueueCount: u32;
@@ -1092,17 +1092,17 @@ declare module '@axia-js/types/lookup' {
     readonly umpMaxIndividualWeight: u64;
   }
 
-  /** @name AXIARuntimeParachainsInclusionAvailabilityBitfieldRecord (611) */
-  export interface AXIARuntimeParachainsInclusionAvailabilityBitfieldRecord extends Struct {
+  /** @name PolkadotRuntimeParachainsInclusionAvailabilityBitfieldRecord (611) */
+  export interface PolkadotRuntimeParachainsInclusionAvailabilityBitfieldRecord extends Struct {
     readonly bitfield: BitVec;
     readonly submittedAt: u32;
   }
 
-  /** @name AXIARuntimeParachainsInclusionCandidatePendingAvailability (612) */
-  export interface AXIARuntimeParachainsInclusionCandidatePendingAvailability extends Struct {
+  /** @name PolkadotRuntimeParachainsInclusionCandidatePendingAvailability (612) */
+  export interface PolkadotRuntimeParachainsInclusionCandidatePendingAvailability extends Struct {
     readonly core: u32;
     readonly hash_: H256;
-    readonly descriptor: AXIAPrimitivesV1CandidateDescriptor;
+    readonly descriptor: PolkadotPrimitivesV1CandidateDescriptor;
     readonly availabilityVotes: BitVec;
     readonly backers: BitVec;
     readonly relayParentNumber: u32;
@@ -1110,51 +1110,51 @@ declare module '@axia-js/types/lookup' {
     readonly backingGroup: u32;
   }
 
-  /** @name AXIARuntimeParachainsSchedulerParathreadClaimQueue (616) */
-  export interface AXIARuntimeParachainsSchedulerParathreadClaimQueue extends Struct {
-    readonly queue: Vec<AXIARuntimeParachainsSchedulerQueuedParathread>;
+  /** @name PolkadotRuntimeParachainsSchedulerParathreadClaimQueue (616) */
+  export interface PolkadotRuntimeParachainsSchedulerParathreadClaimQueue extends Struct {
+    readonly queue: Vec<PolkadotRuntimeParachainsSchedulerQueuedParathread>;
     readonly nextCoreOffset: u32;
   }
 
-  /** @name AXIARuntimeParachainsSchedulerQueuedParathread (618) */
-  export interface AXIARuntimeParachainsSchedulerQueuedParathread extends Struct {
-    readonly claim: AXIAPrimitivesV1ParathreadEntry;
+  /** @name PolkadotRuntimeParachainsSchedulerQueuedParathread (618) */
+  export interface PolkadotRuntimeParachainsSchedulerQueuedParathread extends Struct {
+    readonly claim: PolkadotPrimitivesV1ParathreadEntry;
     readonly coreOffset: u32;
   }
 
-  /** @name AXIAPrimitivesV1ParathreadEntry (619) */
-  export interface AXIAPrimitivesV1ParathreadEntry extends Struct {
-    readonly claim: AXIAPrimitivesV1ParathreadClaim;
+  /** @name PolkadotPrimitivesV1ParathreadEntry (619) */
+  export interface PolkadotPrimitivesV1ParathreadEntry extends Struct {
+    readonly claim: PolkadotPrimitivesV1ParathreadClaim;
     readonly retries: u32;
   }
 
-  /** @name AXIAPrimitivesV1ParathreadClaim (620) */
-  export interface AXIAPrimitivesV1ParathreadClaim extends ITuple<[u32, AXIAPrimitivesV0CollatorAppPublic]> {}
+  /** @name PolkadotPrimitivesV1ParathreadClaim (620) */
+  export interface PolkadotPrimitivesV1ParathreadClaim extends ITuple<[u32, PolkadotPrimitivesV0CollatorAppPublic]> {}
 
-  /** @name AXIAPrimitivesV1CoreOccupied (623) */
-  export interface AXIAPrimitivesV1CoreOccupied extends Enum {
+  /** @name PolkadotPrimitivesV1CoreOccupied (623) */
+  export interface PolkadotPrimitivesV1CoreOccupied extends Enum {
     readonly isParathread: boolean;
-    readonly asParathread: AXIAPrimitivesV1ParathreadEntry;
+    readonly asParathread: PolkadotPrimitivesV1ParathreadEntry;
     readonly isParachain: boolean;
   }
 
-  /** @name AXIARuntimeParachainsSchedulerCoreAssignment (626) */
-  export interface AXIARuntimeParachainsSchedulerCoreAssignment extends Struct {
+  /** @name PolkadotRuntimeParachainsSchedulerCoreAssignment (626) */
+  export interface PolkadotRuntimeParachainsSchedulerCoreAssignment extends Struct {
     readonly core: u32;
     readonly paraId: u32;
-    readonly kind: AXIARuntimeParachainsSchedulerAssignmentKind;
+    readonly kind: PolkadotRuntimeParachainsSchedulerAssignmentKind;
     readonly groupIdx: u32;
   }
 
-  /** @name AXIARuntimeParachainsSchedulerAssignmentKind (627) */
-  export interface AXIARuntimeParachainsSchedulerAssignmentKind extends Enum {
+  /** @name PolkadotRuntimeParachainsSchedulerAssignmentKind (627) */
+  export interface PolkadotRuntimeParachainsSchedulerAssignmentKind extends Enum {
     readonly isParachain: boolean;
     readonly isParathread: boolean;
-    readonly asParathread: ITuple<[AXIAPrimitivesV0CollatorAppPublic, u32]>;
+    readonly asParathread: ITuple<[PolkadotPrimitivesV0CollatorAppPublic, u32]>;
   }
 
-  /** @name AXIARuntimeParachainsParasParaLifecycle (628) */
-  export interface AXIARuntimeParachainsParasParaLifecycle extends Enum {
+  /** @name PolkadotRuntimeParachainsParasParaLifecycle (628) */
+  export interface PolkadotRuntimeParachainsParasParaLifecycle extends Enum {
     readonly isOnboarding: boolean;
     readonly isParathread: boolean;
     readonly isParachain: boolean;
@@ -1164,51 +1164,51 @@ declare module '@axia-js/types/lookup' {
     readonly isOffboardingParachain: boolean;
   }
 
-  /** @name AXIARuntimeParachainsParasParaPastCodeMeta (630) */
-  export interface AXIARuntimeParachainsParasParaPastCodeMeta extends Struct {
-    readonly upgradeTimes: Vec<AXIARuntimeParachainsParasReplacementTimes>;
+  /** @name PolkadotRuntimeParachainsParasParaPastCodeMeta (630) */
+  export interface PolkadotRuntimeParachainsParasParaPastCodeMeta extends Struct {
+    readonly upgradeTimes: Vec<PolkadotRuntimeParachainsParasReplacementTimes>;
     readonly lastPruned: Option<u32>;
   }
 
-  /** @name AXIARuntimeParachainsParasReplacementTimes (632) */
-  export interface AXIARuntimeParachainsParasReplacementTimes extends Struct {
+  /** @name PolkadotRuntimeParachainsParasReplacementTimes (632) */
+  export interface PolkadotRuntimeParachainsParasReplacementTimes extends Struct {
     readonly expectedAt: u32;
     readonly activatedAt: u32;
   }
 
-  /** @name AXIAPrimitivesV1UpgradeGoAhead (634) */
-  export interface AXIAPrimitivesV1UpgradeGoAhead extends Enum {
+  /** @name PolkadotPrimitivesV1UpgradeGoAhead (634) */
+  export interface PolkadotPrimitivesV1UpgradeGoAhead extends Enum {
     readonly isAbort: boolean;
     readonly isGoAhead: boolean;
   }
 
-  /** @name AXIAPrimitivesV1UpgradeRestriction (635) */
-  export interface AXIAPrimitivesV1UpgradeRestriction extends Enum {
+  /** @name PolkadotPrimitivesV1UpgradeRestriction (635) */
+  export interface PolkadotPrimitivesV1UpgradeRestriction extends Enum {
     readonly isPresent: boolean;
   }
 
-  /** @name AXIARuntimeParachainsParasParaGenesisArgs (636) */
-  export interface AXIARuntimeParachainsParasParaGenesisArgs extends Struct {
+  /** @name PolkadotRuntimeParachainsParasParaGenesisArgs (636) */
+  export interface PolkadotRuntimeParachainsParasParaGenesisArgs extends Struct {
     readonly genesisHead: Bytes;
     readonly validationCode: Bytes;
     readonly parachain: bool;
   }
 
-  /** @name AXIARuntimeParachainsInitializerBufferedSessionChange (639) */
-  export interface AXIARuntimeParachainsInitializerBufferedSessionChange extends Struct {
-    readonly validators: Vec<AXIAPrimitivesV0ValidatorAppPublic>;
-    readonly queued: Vec<AXIAPrimitivesV0ValidatorAppPublic>;
+  /** @name PolkadotRuntimeParachainsInitializerBufferedSessionChange (639) */
+  export interface PolkadotRuntimeParachainsInitializerBufferedSessionChange extends Struct {
+    readonly validators: Vec<PolkadotPrimitivesV0ValidatorAppPublic>;
+    readonly queued: Vec<PolkadotPrimitivesV0ValidatorAppPublic>;
     readonly sessionIndex: u32;
   }
 
-  /** @name AXIACorePrimitivesInboundDownwardMessage (641) */
-  export interface AXIACorePrimitivesInboundDownwardMessage extends Struct {
+  /** @name PolkadotCorePrimitivesInboundDownwardMessage (641) */
+  export interface PolkadotCorePrimitivesInboundDownwardMessage extends Struct {
     readonly sentAt: u32;
     readonly msg: Bytes;
   }
 
-  /** @name AXIARuntimeParachainsHrmpHrmpOpenChannelRequest (644) */
-  export interface AXIARuntimeParachainsHrmpHrmpOpenChannelRequest extends Struct {
+  /** @name PolkadotRuntimeParachainsHrmpHrmpOpenChannelRequest (644) */
+  export interface PolkadotRuntimeParachainsHrmpHrmpOpenChannelRequest extends Struct {
     readonly confirmed: bool;
     readonly age: u32;
     readonly senderDeposit: u128;
@@ -1217,8 +1217,8 @@ declare module '@axia-js/types/lookup' {
     readonly maxTotalSize: u32;
   }
 
-  /** @name AXIARuntimeParachainsHrmpHrmpChannel (646) */
-  export interface AXIARuntimeParachainsHrmpHrmpChannel extends Struct {
+  /** @name PolkadotRuntimeParachainsHrmpHrmpChannel (646) */
+  export interface PolkadotRuntimeParachainsHrmpHrmpChannel extends Struct {
     readonly maxCapacity: u32;
     readonly maxTotalSize: u32;
     readonly maxMessageSize: u32;
@@ -1229,17 +1229,17 @@ declare module '@axia-js/types/lookup' {
     readonly recipientDeposit: u128;
   }
 
-  /** @name AXIACorePrimitivesInboundHrmpMessage (649) */
-  export interface AXIACorePrimitivesInboundHrmpMessage extends Struct {
+  /** @name PolkadotCorePrimitivesInboundHrmpMessage (649) */
+  export interface PolkadotCorePrimitivesInboundHrmpMessage extends Struct {
     readonly sentAt: u32;
     readonly data: Bytes;
   }
 
-  /** @name AXIAPrimitivesV1SessionInfo (654) */
-  export interface AXIAPrimitivesV1SessionInfo extends Struct {
-    readonly validators: Vec<AXIAPrimitivesV0ValidatorAppPublic>;
+  /** @name PolkadotPrimitivesV1SessionInfo (654) */
+  export interface PolkadotPrimitivesV1SessionInfo extends Struct {
+    readonly validators: Vec<PolkadotPrimitivesV0ValidatorAppPublic>;
     readonly discoveryKeys: Vec<SpAuthorityDiscoveryAppPublic>;
-    readonly assignmentKeys: Vec<AXIAPrimitivesV1AssignmentAppPublic>;
+    readonly assignmentKeys: Vec<PolkadotPrimitivesV1AssignmentAppPublic>;
     readonly validatorGroups: Vec<Vec<u32>>;
     readonly nCores: u32;
     readonly zerothDelayTrancheWidth: u32;
@@ -1249,29 +1249,29 @@ declare module '@axia-js/types/lookup' {
     readonly neededApprovals: u32;
   }
 
-  /** @name AXIARuntimeCommonParasRegistrarParaInfo (656) */
-  export interface AXIARuntimeCommonParasRegistrarParaInfo extends Struct {
+  /** @name PolkadotRuntimeCommonParasRegistrarParaInfo (656) */
+  export interface PolkadotRuntimeCommonParasRegistrarParaInfo extends Struct {
     readonly manager: AccountId32;
     readonly deposit: u128;
     readonly locked: bool;
   }
 
-  /** @name AXIARuntimeCommonCrowdloanFundInfo (666) */
-  export interface AXIARuntimeCommonCrowdloanFundInfo extends Struct {
+  /** @name PolkadotRuntimeCommonCrowdloanFundInfo (666) */
+  export interface PolkadotRuntimeCommonCrowdloanFundInfo extends Struct {
     readonly depositor: AccountId32;
     readonly verifier: Option<SpRuntimeMultiSigner>;
     readonly deposit: u128;
     readonly raised: u128;
     readonly end: u32;
     readonly cap: u128;
-    readonly lastContribution: AXIARuntimeCommonCrowdloanLastContribution;
+    readonly lastContribution: PolkadotRuntimeCommonCrowdloanLastContribution;
     readonly firstPeriod: u32;
     readonly lastPeriod: u32;
     readonly trieIndex: u32;
   }
 
-  /** @name AXIARuntimeCommonCrowdloanLastContribution (667) */
-  export interface AXIARuntimeCommonCrowdloanLastContribution extends Enum {
+  /** @name PolkadotRuntimeCommonCrowdloanLastContribution (667) */
+  export interface PolkadotRuntimeCommonCrowdloanLastContribution extends Enum {
     readonly isNever: boolean;
     readonly isPreEnding: boolean;
     readonly asPreEnding: u32;

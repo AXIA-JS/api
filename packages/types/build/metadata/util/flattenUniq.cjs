@@ -9,7 +9,8 @@ exports.flattenUniq = flattenUniq;
 // SPDX-License-Identifier: Apache-2.0
 
 /** @internal */
-function flattenUniq(list, start = []) {
+function flattenUniq(list) {
+  let start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   return [...new Set(list.reduce((result, entry) => {
     if (Array.isArray(entry)) {
       return flattenUniq(entry, result);

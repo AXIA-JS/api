@@ -40,7 +40,8 @@ const DESC_RPC = 'The following sections contain RPC methods that are Remote Cal
 const DESC_STORAGE = `The following sections contain Storage methods are part of the default Substrate runtime. On the api, these are exposed via \`api.query.<module>.<method>\`. ${STATIC_TEXT}`;
 /** @internal */
 
-function docsVecToMarkdown(docLines, indent = 0) {
+function docsVecToMarkdown(docLines) {
+  let indent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   const md = docLines.map(docLine => docLine.toString().trimStart().replace(/^r"/g, '').trimStart()).reduce((md, docLine) => // generate paragraphs
   !docLine.length ? `${md}\n\n` // empty line
   : /^[*-]/.test(docLine.trimStart()) && !md.endsWith('\n\n') ? `${md}\n\n${docLine}` // line calling for a preceding linebreak
@@ -105,9 +106,12 @@ function addRpc() {
         const method = section.rpc[methodName];
         const sectionName = method.aliasSection || _sectionName;
         const topName = method.aliasSection ? `${_sectionName}/${method.aliasSection}` : _sectionName;
-        let container = all.find(({
-          name
-        }) => name === topName);
+        let container = all.find(_ref => {
+          let {
+            name
+          } = _ref;
+          return name === topName;
+        });
 
         if (!container) {
           container = {
@@ -117,11 +121,12 @@ function addRpc() {
           all.push(container);
         }
 
-        const args = method.params.map(({
-          isOptional,
-          name,
-          type
-        }) => {
+        const args = method.params.map(_ref2 => {
+          let {
+            isOptional,
+            name,
+            type
+          } = _ref2;
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           return name + (isOptional ? '?' : '') + ': `' + type + '`';
         }).join(', ');
@@ -144,25 +149,31 @@ function addRpc() {
 /** @internal */
 
 
-function addConstants({
-  lookup,
-  pallets
-}) {
+function addConstants(_ref3) {
+  let {
+    lookup,
+    pallets
+  } = _ref3;
   return renderPage({
     description: DESC_CONSTANTS,
-    sections: pallets.sort(sortByName).filter(({
-      constants
-    }) => !constants.isEmpty).map(({
-      constants,
-      name
-    }) => {
+    sections: pallets.sort(sortByName).filter(_ref4 => {
+      let {
+        constants
+      } = _ref4;
+      return !constants.isEmpty;
+    }).map(_ref5 => {
+      let {
+        constants,
+        name
+      } = _ref5;
       const sectionName = (0, _util.stringLowerFirst)(name);
       return {
-        items: constants.sort(sortByName).map(({
-          docs,
-          name,
-          type
-        }) => {
+        items: constants.sort(sortByName).map(_ref6 => {
+          let {
+            docs,
+            name,
+            type
+          } = _ref6;
           const methodName = (0, _util.stringCamelCase)(name);
           return _objectSpread({
             interface: '`' + `api.consts.${sectionName}.${methodName}` + '`',
@@ -180,11 +191,12 @@ function addConstants({
 /** @internal */
 
 
-function addStorage({
-  lookup,
-  pallets,
-  registry
-}) {
+function addStorage(_ref7) {
+  let {
+    lookup,
+    pallets,
+    registry
+  } = _ref7;
   const {
     substrate
   } = (0, _getStorage.getStorage)(registry);
@@ -218,9 +230,10 @@ function addStorage({
     description: DESC_STORAGE,
     sections: moduleSections.concat([{
       description: 'These are well-known keys that are always available to the runtime implementation of any Substrate-based network.',
-      items: Object.entries(substrate).map(([name, {
-        meta
-      }]) => {
+      items: Object.entries(substrate).map(_ref8 => {
+        let [name, {
+          meta
+        }] = _ref8;
         const arg = meta.type.isMap ? '`' + getSiName(lookup, meta.type.asMap.key) + '`' : '';
         const methodName = (0, _util.stringLowerFirst)(name);
         const outputType = (0, _StorageKey.unwrapStorageType)(registry, meta.type, meta.modifier.isOptional);
@@ -238,30 +251,39 @@ function addStorage({
 /** @internal */
 
 
-function addExtrinsics({
-  lookup,
-  pallets
-}) {
+function addExtrinsics(_ref9) {
+  let {
+    lookup,
+    pallets
+  } = _ref9;
   return renderPage({
     description: DESC_EXTRINSICS,
-    sections: pallets.sort(sortByName).filter(({
-      calls
-    }) => calls.isSome).map(({
-      calls,
-      name
-    }) => {
+    sections: pallets.sort(sortByName).filter(_ref10 => {
+      let {
+        calls
+      } = _ref10;
+      return calls.isSome;
+    }).map(_ref11 => {
+      let {
+        calls,
+        name
+      } = _ref11;
       const sectionName = (0, _util.stringCamelCase)(name);
       return {
-        items: lookup.getSiType(calls.unwrap().type).def.asVariant.variants.sort(sortByName).map(({
-          docs,
-          fields,
-          name
-        }, index) => {
+        items: lookup.getSiType(calls.unwrap().type).def.asVariant.variants.sort(sortByName).map((_ref12, index) => {
+          let {
+            docs,
+            fields,
+            name
+          } = _ref12;
           const methodName = (0, _util.stringCamelCase)(name);
-          const args = fields.map(({
-            name,
-            type
-          }) => `${name.isSome ? name.toString() : `param${index}`}: ` + '`' + getSiName(lookup, type) + '`').join(', ');
+          const args = fields.map(_ref13 => {
+            let {
+              name,
+              type
+            } = _ref13;
+            return `${name.isSome ? name.toString() : `param${index}`}: ` + '`' + getSiName(lookup, type) + '`';
+          }).join(', ');
           return _objectSpread({
             interface: '`' + `api.tx.${sectionName}.${methodName}` + '`',
             name: `${methodName}(${args})`
@@ -278,24 +300,32 @@ function addExtrinsics({
 /** @internal */
 
 
-function addEvents({
-  lookup,
-  pallets
-}) {
+function addEvents(_ref14) {
+  let {
+    lookup,
+    pallets
+  } = _ref14;
   return renderPage({
     description: DESC_EVENTS,
-    sections: pallets.sort(sortByName).filter(({
-      events
-    }) => events.isSome).map(meta => ({
-      items: lookup.getSiType(meta.events.unwrap().type).def.asVariant.variants.sort(sortByName).map(({
-        docs,
-        fields,
-        name
-      }) => {
+    sections: pallets.sort(sortByName).filter(_ref15 => {
+      let {
+        events
+      } = _ref15;
+      return events.isSome;
+    }).map(meta => ({
+      items: lookup.getSiType(meta.events.unwrap().type).def.asVariant.variants.sort(sortByName).map(_ref16 => {
+        let {
+          docs,
+          fields,
+          name
+        } = _ref16;
         const methodName = name.toString();
-        const args = fields.map(({
-          type
-        }) => '`' + getSiName(lookup, type) + '`').join(', ');
+        const args = fields.map(_ref17 => {
+          let {
+            type
+          } = _ref17;
+          return '`' + getSiName(lookup, type) + '`';
+        }).join(', ');
         return _objectSpread({
           interface: '`' + `api.events.${(0, _util.stringCamelCase)(meta.name)}.${methodName}.is` + '`',
           name: `${methodName}(${args})`
@@ -311,15 +341,19 @@ function addEvents({
 /** @internal */
 
 
-function addErrors({
-  lookup,
-  pallets
-}) {
+function addErrors(_ref18) {
+  let {
+    lookup,
+    pallets
+  } = _ref18;
   return renderPage({
     description: DESC_ERRORS,
-    sections: pallets.sort(sortByName).filter(({
-      errors
-    }) => errors.isSome).map(moduleMetadata => ({
+    sections: pallets.sort(sortByName).filter(_ref19 => {
+      let {
+        errors
+      } = _ref19;
+      return errors.isSome;
+    }).map(moduleMetadata => ({
       items: lookup.getSiType(moduleMetadata.errors.unwrap().type).def.asVariant.variants.sort(sortByName).map(error => _objectSpread({
         interface: '`' + `api.errors.${(0, _util.stringCamelCase)(moduleMetadata.name)}.${error.name.toString()}.is` + '`',
         name: error.name.toString()
@@ -334,7 +368,7 @@ function addErrors({
 /** @internal */
 
 
-function writeFile(name, ...chunks) {
+function writeFile(name) {
   const writeStream = _fs.default.createWriteStream(name, {
     encoding: 'utf8',
     flags: 'w'
@@ -343,6 +377,11 @@ function writeFile(name, ...chunks) {
   writeStream.on('finish', () => {
     console.log(`Completed writing ${name}`);
   });
+
+  for (var _len = arguments.length, chunks = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    chunks[_key - 1] = arguments[_key];
+  }
+
   chunks.forEach(chunk => {
     writeStream.write(chunk);
   });

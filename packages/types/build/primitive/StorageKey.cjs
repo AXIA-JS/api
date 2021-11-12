@@ -79,7 +79,8 @@ function decodeStorageKey(value) {
 function decodeHashers(registry, value, hashers) {
   // the storage entry is xxhashAsU8a(prefix, 128) + xxhashAsU8a(method, 128), 256 bits total
   let offset = 32;
-  return hashers.reduce((result, [hasher, type]) => {
+  return hashers.reduce((result, _ref) => {
+    let [hasher, type] = _ref;
     const [hashLen, canDecode] = HASHER_MAP[hasher.type];
     const decoded = canDecode ? registry.createType(registry.createLookupType(type), value.subarray(offset + hashLen)) : registry.createType('Raw', value.subarray(offset, offset + hashLen));
     offset += hashLen + (canDecode ? decoded.encodedLength : 0);
@@ -147,7 +148,8 @@ function getType(registry, value) {
 class StorageKey extends _Bytes.Bytes {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore This is assigned via this.decodeArgsFromMeta()
-  constructor(registry, value, override = {}) {
+  constructor(registry, value) {
+    let override = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     const {
       key,
       method,

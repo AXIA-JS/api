@@ -53,12 +53,16 @@ class Blueprint extends _Base.Base {
     });
     Object.defineProperty(this, _deploy, {
       writable: true,
-      value: (constructorOrId, {
-        gasLimit = _util.BN_ZERO,
-        salt,
-        value = _util.BN_ZERO
-      }, params) => {
-        return this.api.tx.contracts.instantiate(value, gasLimit, this.codeHash, this.abi.findConstructor(constructorOrId).toU8a(params), (0, _util3.encodeSalt)(salt)).withResultTransform(result => new BlueprintSubmittableResult(result, (0, _util2.applyOnEvent)(result, ['Instantiated'], ([record]) => new _Contract.Contract(this.api, this.abi, record.event.data[1], this._decorateMethod))));
+      value: (constructorOrId, _ref, params) => {
+        let {
+          gasLimit = _util.BN_ZERO,
+          salt,
+          value = _util.BN_ZERO
+        } = _ref;
+        return this.api.tx.contracts.instantiate(value, gasLimit, this.codeHash, this.abi.findConstructor(constructorOrId).toU8a(params), (0, _util3.encodeSalt)(salt)).withResultTransform(result => new BlueprintSubmittableResult(result, (0, _util2.applyOnEvent)(result, ['Instantiated'], _ref2 => {
+          let [record] = _ref2;
+          return new _Contract.Contract(this.api, this.abi, record.event.data[1], this._decorateMethod);
+        })));
       }
     });
     this.codeHash = this.registry.createType('Hash', codeHash);

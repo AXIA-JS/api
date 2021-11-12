@@ -7,11 +7,11 @@ import type { ITuple } from '@axia-js/types/types';
 
 declare module '@axia-js/types/lookup' {
 
-  /** @name AXIARuntimeCommonClaimsEthereumAddress (66) */
-  export interface AXIARuntimeCommonClaimsEthereumAddress extends U8aFixed {}
+  /** @name PolkadotRuntimeCommonClaimsEthereumAddress (66) */
+  export interface PolkadotRuntimeCommonClaimsEthereumAddress extends U8aFixed {}
 
-  /** @name AXIARuntimeProxyType (72) */
-  export interface AXIARuntimeProxyType extends Enum {
+  /** @name PolkadotRuntimeProxyType (72) */
+  export interface PolkadotRuntimeProxyType extends Enum {
     readonly isAny: boolean;
     readonly isNonTransfer: boolean;
     readonly isGovernance: boolean;
@@ -21,33 +21,33 @@ declare module '@axia-js/types/lookup' {
     readonly isCancelProxy: boolean;
   }
 
-  /** @name AXIARuntimeSessionKeys (139) */
-  export interface AXIARuntimeSessionKeys extends Struct {
+  /** @name PolkadotRuntimeSessionKeys (139) */
+  export interface PolkadotRuntimeSessionKeys extends Struct {
     readonly grandpa: SpFinalityGrandpaAppPublic;
     readonly babe: SpConsensusBabeAppPublic;
     readonly imOnline: PalletImOnlineSr25519AppSr25519Public;
-    readonly paraValidator: AXIAPrimitivesV0ValidatorAppPublic;
-    readonly paraAssignment: AXIAPrimitivesV1AssignmentAppPublic;
+    readonly paraValidator: PolkadotPrimitivesV0ValidatorAppPublic;
+    readonly paraAssignment: PolkadotPrimitivesV1AssignmentAppPublic;
     readonly authorityDiscovery: SpAuthorityDiscoveryAppPublic;
   }
 
-  /** @name AXIAPrimitivesV0ValidatorAppPublic (140) */
-  export interface AXIAPrimitivesV0ValidatorAppPublic extends SpCoreSr25519Public {}
+  /** @name PolkadotPrimitivesV0ValidatorAppPublic (140) */
+  export interface PolkadotPrimitivesV0ValidatorAppPublic extends SpCoreSr25519Public {}
 
-  /** @name AXIAPrimitivesV1AssignmentAppPublic (141) */
-  export interface AXIAPrimitivesV1AssignmentAppPublic extends SpCoreSr25519Public {}
+  /** @name PolkadotPrimitivesV1AssignmentAppPublic (141) */
+  export interface PolkadotPrimitivesV1AssignmentAppPublic extends SpCoreSr25519Public {}
 
-  /** @name AXIARuntimeCommonClaimsEcdsaSignature (175) */
-  export interface AXIARuntimeCommonClaimsEcdsaSignature extends U8aFixed {}
+  /** @name PolkadotRuntimeCommonClaimsEcdsaSignature (175) */
+  export interface PolkadotRuntimeCommonClaimsEcdsaSignature extends U8aFixed {}
 
-  /** @name AXIARuntimeCommonClaimsStatementKind (180) */
-  export interface AXIARuntimeCommonClaimsStatementKind extends Enum {
+  /** @name PolkadotRuntimeCommonClaimsStatementKind (180) */
+  export interface PolkadotRuntimeCommonClaimsStatementKind extends Enum {
     readonly isRegular: boolean;
     readonly isSaft: boolean;
   }
 
-  /** @name AXIARuntimeNposCompactSolution16 (233) */
-  export interface AXIARuntimeNposCompactSolution16 extends Struct {
+  /** @name PolkadotRuntimeNposCompactSolution16 (233) */
+  export interface PolkadotRuntimeNposCompactSolution16 extends Struct {
     readonly votes1: Vec<ITuple<[Compact<u32>, Compact<u16>]>>;
     readonly votes2: Vec<ITuple<[Compact<u32>, ITuple<[Compact<u16>, Compact<PerU16>]>, Compact<u16>]>>;
     readonly votes3: Vec<ITuple<[Compact<u32>, Vec<ITuple<[Compact<u16>, Compact<PerU16>]>>, Compact<u16>]>>;
@@ -66,8 +66,8 @@ declare module '@axia-js/types/lookup' {
     readonly votes16: Vec<ITuple<[Compact<u32>, Vec<ITuple<[Compact<u16>, Compact<PerU16>]>>, Compact<u16>]>>;
   }
 
-  /** @name AXIARuntimeOriginCaller (290) */
-  export interface AXIARuntimeOriginCaller extends Enum {
+  /** @name PolkadotRuntimeOriginCaller (290) */
+  export interface PolkadotRuntimeOriginCaller extends Enum {
     readonly isSystem: boolean;
     readonly asSystem: FrameSystemRawOrigin;
     readonly isUnused1: boolean;
@@ -90,10 +90,10 @@ declare module '@axia-js/types/lookup' {
     readonly asTechnicalCommittee: PalletCollectiveRawOrigin;
   }
 
-  /** @name AXIARuntimeCommonClaimsPrevalidateAttests (441) */
-  export type AXIARuntimeCommonClaimsPrevalidateAttests = Null;
+  /** @name PolkadotRuntimeCommonClaimsPrevalidateAttests (441) */
+  export type PolkadotRuntimeCommonClaimsPrevalidateAttests = Null;
 
-  /** @name AXIARuntimeRuntime (442) */
-  export type AXIARuntimeRuntime = Null;
+  /** @name PolkadotRuntimeRuntime (442) */
+  export type PolkadotRuntimeRuntime = Null;
 
 }

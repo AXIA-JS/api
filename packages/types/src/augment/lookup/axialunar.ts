@@ -13,34 +13,34 @@ export default {
     _enum: ['Any', 'NonTransfer', 'Governance', 'Staking', 'IdentityJudgement', 'CancelProxy', 'Auction']
   },
   /**
-   * Lookup86: axia_primitives::v1::CandidateReceipt<primitive_types::H256>
+   * Lookup86: polkadot_primitives::v1::CandidateReceipt<primitive_types::H256>
    **/
-  AXIAPrimitivesV1CandidateReceipt: {
-    descriptor: 'AXIAPrimitivesV1CandidateDescriptor',
+  PolkadotPrimitivesV1CandidateReceipt: {
+    descriptor: 'PolkadotPrimitivesV1CandidateDescriptor',
     commitmentsHash: 'H256'
   },
   /**
-   * Lookup87: axia_primitives::v1::CandidateDescriptor<primitive_types::H256>
+   * Lookup87: polkadot_primitives::v1::CandidateDescriptor<primitive_types::H256>
    **/
-  AXIAPrimitivesV1CandidateDescriptor: {
+  PolkadotPrimitivesV1CandidateDescriptor: {
     paraId: 'u32',
     relayParent: 'H256',
-    collator: 'AXIAPrimitivesV0CollatorAppPublic',
+    collator: 'PolkadotPrimitivesV0CollatorAppPublic',
     persistedValidationDataHash: 'H256',
     povHash: 'H256',
     erasureRoot: 'H256',
-    signature: 'AXIAPrimitivesV0CollatorAppSignature',
+    signature: 'PolkadotPrimitivesV0CollatorAppSignature',
     paraHead: 'H256',
     validationCodeHash: 'H256'
   },
   /**
-   * Lookup89: axia_primitives::v0::collator_app::Public
+   * Lookup89: polkadot_primitives::v0::collator_app::Public
    **/
-  AXIAPrimitivesV0CollatorAppPublic: 'SpCoreSr25519Public',
+  PolkadotPrimitivesV0CollatorAppPublic: 'SpCoreSr25519Public',
   /**
-   * Lookup90: axia_primitives::v0::collator_app::Signature
+   * Lookup90: polkadot_primitives::v0::collator_app::Signature
    **/
-  AXIAPrimitivesV0CollatorAppSignature: 'SpCoreSr25519Signature',
+  PolkadotPrimitivesV0CollatorAppSignature: 'SpCoreSr25519Signature',
   /**
    * Lookup99: xcm::v2::traits::Outcome
    **/
@@ -93,9 +93,9 @@ export default {
     }
   },
   /**
-   * Lookup102: axia_parachain::primitives::HrmpChannelId
+   * Lookup102: polkadot_parachain::primitives::HrmpChannelId
    **/
-  AXIAParachainPrimitivesHrmpChannelId: {
+  PolkadotParachainPrimitivesHrmpChannelId: {
     sender: 'u32',
     recipient: 'u32'
   },
@@ -157,7 +157,7 @@ export default {
     _enum: {
       Any: 'Null',
       Named: 'Bytes',
-      AXIA: 'Null',
+      Polkadot: 'Null',
       Kusama: 'Null'
     }
   },
@@ -514,8 +514,8 @@ export default {
     grandpa: 'SpFinalityGrandpaAppPublic',
     babe: 'SpConsensusBabeAppPublic',
     imOnline: 'PalletImOnlineSr25519AppSr25519Public',
-    paraValidator: 'AXIAPrimitivesV0ValidatorAppPublic',
-    paraAssignment: 'AXIAPrimitivesV1AssignmentAppPublic',
+    paraValidator: 'PolkadotPrimitivesV0ValidatorAppPublic',
+    paraAssignment: 'PolkadotPrimitivesV1AssignmentAppPublic',
     authorityDiscovery: 'SpAuthorityDiscoveryAppPublic'
   },
   /**
@@ -548,94 +548,94 @@ export default {
     votes24: 'Vec<(Compact<u32>,[(Compact<u16>,Compact<PerU16>);23],Compact<u16>)>'
   },
   /**
-   * Lookup448: axia_primitives::v1::InherentData<sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>>
+   * Lookup448: polkadot_primitives::v1::InherentData<sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>>
    **/
-  AXIAPrimitivesV1InherentData: {
-    bitfields: 'Vec<AXIAPrimitivesV1SignedUncheckedSigned>',
-    backedCandidates: 'Vec<AXIAPrimitivesV1BackedCandidate>',
-    disputes: 'Vec<AXIAPrimitivesV1DisputeStatementSet>',
+  PolkadotPrimitivesV1InherentData: {
+    bitfields: 'Vec<PolkadotPrimitivesV1SignedUncheckedSigned>',
+    backedCandidates: 'Vec<PolkadotPrimitivesV1BackedCandidate>',
+    disputes: 'Vec<PolkadotPrimitivesV1DisputeStatementSet>',
     parentHeader: 'SpRuntimeGenericHeader'
   },
   /**
-   * Lookup450: axia_primitives::v1::signed::UncheckedSigned<axia_primitives::v1::AvailabilityBitfield, axia_primitives::v1::AvailabilityBitfield>
+   * Lookup450: polkadot_primitives::v1::signed::UncheckedSigned<polkadot_primitives::v1::AvailabilityBitfield, polkadot_primitives::v1::AvailabilityBitfield>
    **/
-  AXIAPrimitivesV1SignedUncheckedSigned: {
+  PolkadotPrimitivesV1SignedUncheckedSigned: {
     payload: 'BitVec',
     validatorIndex: 'u32',
-    signature: 'AXIAPrimitivesV0ValidatorAppSignature'
+    signature: 'PolkadotPrimitivesV0ValidatorAppSignature'
   },
   /**
    * Lookup453: bitvec::order::Lsb0
    **/
   BitvecOrderLsb0: 'Null',
   /**
-   * Lookup455: axia_primitives::v0::validator_app::Signature
+   * Lookup455: polkadot_primitives::v0::validator_app::Signature
    **/
-  AXIAPrimitivesV0ValidatorAppSignature: 'SpCoreSr25519Signature',
+  PolkadotPrimitivesV0ValidatorAppSignature: 'SpCoreSr25519Signature',
   /**
-   * Lookup457: axia_primitives::v1::BackedCandidate<primitive_types::H256>
+   * Lookup457: polkadot_primitives::v1::BackedCandidate<primitive_types::H256>
    **/
-  AXIAPrimitivesV1BackedCandidate: {
-    candidate: 'AXIAPrimitivesV1CommittedCandidateReceipt',
-    validityVotes: 'Vec<AXIAPrimitivesV0ValidityAttestation>',
+  PolkadotPrimitivesV1BackedCandidate: {
+    candidate: 'PolkadotPrimitivesV1CommittedCandidateReceipt',
+    validityVotes: 'Vec<PolkadotPrimitivesV0ValidityAttestation>',
     validatorIndices: 'BitVec'
   },
   /**
-   * Lookup458: axia_primitives::v1::CommittedCandidateReceipt<primitive_types::H256>
+   * Lookup458: polkadot_primitives::v1::CommittedCandidateReceipt<primitive_types::H256>
    **/
-  AXIAPrimitivesV1CommittedCandidateReceipt: {
-    descriptor: 'AXIAPrimitivesV1CandidateDescriptor',
-    commitments: 'AXIAPrimitivesV1CandidateCommitments'
+  PolkadotPrimitivesV1CommittedCandidateReceipt: {
+    descriptor: 'PolkadotPrimitivesV1CandidateDescriptor',
+    commitments: 'PolkadotPrimitivesV1CandidateCommitments'
   },
   /**
-   * Lookup459: axia_primitives::v1::CandidateCommitments<N>
+   * Lookup459: polkadot_primitives::v1::CandidateCommitments<N>
    **/
-  AXIAPrimitivesV1CandidateCommitments: {
+  PolkadotPrimitivesV1CandidateCommitments: {
     upwardMessages: 'Vec<Bytes>',
-    horizontalMessages: 'Vec<AXIACorePrimitivesOutboundHrmpMessage>',
+    horizontalMessages: 'Vec<PolkadotCorePrimitivesOutboundHrmpMessage>',
     newValidationCode: 'Option<Bytes>',
     headData: 'Bytes',
     processedDownwardMessages: 'u32',
     hrmpWatermark: 'u32'
   },
   /**
-   * Lookup461: axia_core_primitives::OutboundHrmpMessage<axia_parachain::primitives::Id>
+   * Lookup461: polkadot_core_primitives::OutboundHrmpMessage<polkadot_parachain::primitives::Id>
    **/
-  AXIACorePrimitivesOutboundHrmpMessage: {
+  PolkadotCorePrimitivesOutboundHrmpMessage: {
     recipient: 'u32',
     data: 'Bytes'
   },
   /**
-   * Lookup465: axia_primitives::v0::ValidityAttestation
+   * Lookup465: polkadot_primitives::v0::ValidityAttestation
    **/
-  AXIAPrimitivesV0ValidityAttestation: {
+  PolkadotPrimitivesV0ValidityAttestation: {
     _enum: {
       Unused0: 'Null',
-      Implicit: 'AXIAPrimitivesV0ValidatorAppSignature',
-      Explicit: 'AXIAPrimitivesV0ValidatorAppSignature'
+      Implicit: 'PolkadotPrimitivesV0ValidatorAppSignature',
+      Explicit: 'PolkadotPrimitivesV0ValidatorAppSignature'
     }
   },
   /**
-   * Lookup467: axia_primitives::v1::DisputeStatementSet
+   * Lookup467: polkadot_primitives::v1::DisputeStatementSet
    **/
-  AXIAPrimitivesV1DisputeStatementSet: {
+  PolkadotPrimitivesV1DisputeStatementSet: {
     candidateHash: 'H256',
     session: 'u32',
-    statements: 'Vec<(AXIAPrimitivesV1DisputeStatement,u32,AXIAPrimitivesV0ValidatorAppSignature)>'
+    statements: 'Vec<(PolkadotPrimitivesV1DisputeStatement,u32,PolkadotPrimitivesV0ValidatorAppSignature)>'
   },
   /**
-   * Lookup471: axia_primitives::v1::DisputeStatement
+   * Lookup471: polkadot_primitives::v1::DisputeStatement
    **/
-  AXIAPrimitivesV1DisputeStatement: {
+  PolkadotPrimitivesV1DisputeStatement: {
     _enum: {
-      Valid: 'AXIAPrimitivesV1ValidDisputeStatementKind',
-      Invalid: 'AXIAPrimitivesV1InvalidDisputeStatementKind'
+      Valid: 'PolkadotPrimitivesV1ValidDisputeStatementKind',
+      Invalid: 'PolkadotPrimitivesV1InvalidDisputeStatementKind'
     }
   },
   /**
-   * Lookup472: axia_primitives::v1::ValidDisputeStatementKind
+   * Lookup472: polkadot_primitives::v1::ValidDisputeStatementKind
    **/
-  AXIAPrimitivesV1ValidDisputeStatementKind: {
+  PolkadotPrimitivesV1ValidDisputeStatementKind: {
     _enum: {
       Explicit: 'Null',
       BackingSeconded: 'H256',
@@ -644,9 +644,9 @@ export default {
     }
   },
   /**
-   * Lookup473: axia_primitives::v1::InvalidDisputeStatementKind
+   * Lookup473: polkadot_primitives::v1::InvalidDisputeStatementKind
    **/
-  AXIAPrimitivesV1InvalidDisputeStatementKind: {
+  PolkadotPrimitivesV1InvalidDisputeStatementKind: {
     _enum: ['Explicit']
   },
   /**
@@ -952,7 +952,7 @@ export default {
       Unused47: 'Null',
       Unused48: 'Null',
       Unused49: 'Null',
-      ParachainsOrigin: 'AXIARuntimeParachainsOriginPalletOrigin',
+      ParachainsOrigin: 'PolkadotRuntimeParachainsOriginPalletOrigin',
       Unused51: 'Null',
       Unused52: 'Null',
       Unused53: 'Null',
@@ -1005,9 +1005,9 @@ export default {
     }
   },
   /**
-   * Lookup567: axia_runtime_parachains::origin::pallet::Origin
+   * Lookup567: polkadot_runtime_parachains::origin::pallet::Origin
    **/
-  AXIARuntimeParachainsOriginPalletOrigin: {
+  PolkadotRuntimeParachainsOriginPalletOrigin: {
     _enum: {
       Parachain: 'u32'
     }
@@ -1022,9 +1022,9 @@ export default {
     }
   },
   /**
-   * Lookup607: axia_runtime_parachains::configuration::HostConfiguration<BlockNumber>
+   * Lookup607: polkadot_runtime_parachains::configuration::HostConfiguration<BlockNumber>
    **/
-  AXIARuntimeParachainsConfigurationHostConfiguration: {
+  PolkadotRuntimeParachainsConfigurationHostConfiguration: {
     maxCodeSize: 'u32',
     maxHeadDataSize: 'u32',
     maxUpwardQueueCount: 'u32',
@@ -1067,22 +1067,22 @@ export default {
     umpMaxIndividualWeight: 'u64'
   },
   /**
-   * Lookup611: axia_runtime_parachains::inclusion::AvailabilityBitfieldRecord<N>
+   * Lookup611: polkadot_runtime_parachains::inclusion::AvailabilityBitfieldRecord<N>
    **/
-  AXIARuntimeParachainsInclusionAvailabilityBitfieldRecord: {
+  PolkadotRuntimeParachainsInclusionAvailabilityBitfieldRecord: {
     bitfield: 'BitVec',
     submittedAt: 'u32'
   },
   /**
-   * Lookup612: axia_runtime_parachains::inclusion::CandidatePendingAvailability<primitive_types::H256, N>
+   * Lookup612: polkadot_runtime_parachains::inclusion::CandidatePendingAvailability<primitive_types::H256, N>
    **/
-  AXIARuntimeParachainsInclusionCandidatePendingAvailability: {
+  PolkadotRuntimeParachainsInclusionCandidatePendingAvailability: {
     _alias: {
       hash_: 'hash'
     },
     core: 'u32',
     hash_: 'H256',
-    descriptor: 'AXIAPrimitivesV1CandidateDescriptor',
+    descriptor: 'PolkadotPrimitivesV1CandidateDescriptor',
     availabilityVotes: 'BitVec',
     backers: 'BitVec',
     relayParentNumber: 'u32',
@@ -1090,116 +1090,116 @@ export default {
     backingGroup: 'u32'
   },
   /**
-   * Lookup616: axia_runtime_parachains::scheduler::ParathreadClaimQueue
+   * Lookup616: polkadot_runtime_parachains::scheduler::ParathreadClaimQueue
    **/
-  AXIARuntimeParachainsSchedulerParathreadClaimQueue: {
-    queue: 'Vec<AXIARuntimeParachainsSchedulerQueuedParathread>',
+  PolkadotRuntimeParachainsSchedulerParathreadClaimQueue: {
+    queue: 'Vec<PolkadotRuntimeParachainsSchedulerQueuedParathread>',
     nextCoreOffset: 'u32'
   },
   /**
-   * Lookup618: axia_runtime_parachains::scheduler::QueuedParathread
+   * Lookup618: polkadot_runtime_parachains::scheduler::QueuedParathread
    **/
-  AXIARuntimeParachainsSchedulerQueuedParathread: {
-    claim: 'AXIAPrimitivesV1ParathreadEntry',
+  PolkadotRuntimeParachainsSchedulerQueuedParathread: {
+    claim: 'PolkadotPrimitivesV1ParathreadEntry',
     coreOffset: 'u32'
   },
   /**
-   * Lookup619: axia_primitives::v1::ParathreadEntry
+   * Lookup619: polkadot_primitives::v1::ParathreadEntry
    **/
-  AXIAPrimitivesV1ParathreadEntry: {
-    claim: 'AXIAPrimitivesV1ParathreadClaim',
+  PolkadotPrimitivesV1ParathreadEntry: {
+    claim: 'PolkadotPrimitivesV1ParathreadClaim',
     retries: 'u32'
   },
   /**
-   * Lookup620: axia_primitives::v1::ParathreadClaim
+   * Lookup620: polkadot_primitives::v1::ParathreadClaim
    **/
-  AXIAPrimitivesV1ParathreadClaim: '(u32,AXIAPrimitivesV0CollatorAppPublic)',
+  PolkadotPrimitivesV1ParathreadClaim: '(u32,PolkadotPrimitivesV0CollatorAppPublic)',
   /**
-   * Lookup623: axia_primitives::v1::CoreOccupied
+   * Lookup623: polkadot_primitives::v1::CoreOccupied
    **/
-  AXIAPrimitivesV1CoreOccupied: {
+  PolkadotPrimitivesV1CoreOccupied: {
     _enum: {
-      Parathread: 'AXIAPrimitivesV1ParathreadEntry',
+      Parathread: 'PolkadotPrimitivesV1ParathreadEntry',
       Parachain: 'Null'
     }
   },
   /**
-   * Lookup626: axia_runtime_parachains::scheduler::CoreAssignment
+   * Lookup626: polkadot_runtime_parachains::scheduler::CoreAssignment
    **/
-  AXIARuntimeParachainsSchedulerCoreAssignment: {
+  PolkadotRuntimeParachainsSchedulerCoreAssignment: {
     core: 'u32',
     paraId: 'u32',
-    kind: 'AXIARuntimeParachainsSchedulerAssignmentKind',
+    kind: 'PolkadotRuntimeParachainsSchedulerAssignmentKind',
     groupIdx: 'u32'
   },
   /**
-   * Lookup627: axia_runtime_parachains::scheduler::AssignmentKind
+   * Lookup627: polkadot_runtime_parachains::scheduler::AssignmentKind
    **/
-  AXIARuntimeParachainsSchedulerAssignmentKind: {
+  PolkadotRuntimeParachainsSchedulerAssignmentKind: {
     _enum: {
       Parachain: 'Null',
-      Parathread: '(AXIAPrimitivesV0CollatorAppPublic,u32)'
+      Parathread: '(PolkadotPrimitivesV0CollatorAppPublic,u32)'
     }
   },
   /**
-   * Lookup628: axia_runtime_parachains::paras::ParaLifecycle
+   * Lookup628: polkadot_runtime_parachains::paras::ParaLifecycle
    **/
-  AXIARuntimeParachainsParasParaLifecycle: {
+  PolkadotRuntimeParachainsParasParaLifecycle: {
     _enum: ['Onboarding', 'Parathread', 'Parachain', 'UpgradingParathread', 'DowngradingParachain', 'OffboardingParathread', 'OffboardingParachain']
   },
   /**
-   * Lookup630: axia_runtime_parachains::paras::ParaPastCodeMeta<N>
+   * Lookup630: polkadot_runtime_parachains::paras::ParaPastCodeMeta<N>
    **/
-  AXIARuntimeParachainsParasParaPastCodeMeta: {
-    upgradeTimes: 'Vec<AXIARuntimeParachainsParasReplacementTimes>',
+  PolkadotRuntimeParachainsParasParaPastCodeMeta: {
+    upgradeTimes: 'Vec<PolkadotRuntimeParachainsParasReplacementTimes>',
     lastPruned: 'Option<u32>'
   },
   /**
-   * Lookup632: axia_runtime_parachains::paras::ReplacementTimes<N>
+   * Lookup632: polkadot_runtime_parachains::paras::ReplacementTimes<N>
    **/
-  AXIARuntimeParachainsParasReplacementTimes: {
+  PolkadotRuntimeParachainsParasReplacementTimes: {
     expectedAt: 'u32',
     activatedAt: 'u32'
   },
   /**
-   * Lookup634: axia_primitives::v1::UpgradeGoAhead
+   * Lookup634: polkadot_primitives::v1::UpgradeGoAhead
    **/
-  AXIAPrimitivesV1UpgradeGoAhead: {
+  PolkadotPrimitivesV1UpgradeGoAhead: {
     _enum: ['Abort', 'GoAhead']
   },
   /**
-   * Lookup635: axia_primitives::v1::UpgradeRestriction
+   * Lookup635: polkadot_primitives::v1::UpgradeRestriction
    **/
-  AXIAPrimitivesV1UpgradeRestriction: {
+  PolkadotPrimitivesV1UpgradeRestriction: {
     _enum: ['Present']
   },
   /**
-   * Lookup636: axia_runtime_parachains::paras::ParaGenesisArgs
+   * Lookup636: polkadot_runtime_parachains::paras::ParaGenesisArgs
    **/
-  AXIARuntimeParachainsParasParaGenesisArgs: {
+  PolkadotRuntimeParachainsParasParaGenesisArgs: {
     genesisHead: 'Bytes',
     validationCode: 'Bytes',
     parachain: 'bool'
   },
   /**
-   * Lookup639: axia_runtime_parachains::initializer::BufferedSessionChange
+   * Lookup639: polkadot_runtime_parachains::initializer::BufferedSessionChange
    **/
-  AXIARuntimeParachainsInitializerBufferedSessionChange: {
-    validators: 'Vec<AXIAPrimitivesV0ValidatorAppPublic>',
-    queued: 'Vec<AXIAPrimitivesV0ValidatorAppPublic>',
+  PolkadotRuntimeParachainsInitializerBufferedSessionChange: {
+    validators: 'Vec<PolkadotPrimitivesV0ValidatorAppPublic>',
+    queued: 'Vec<PolkadotPrimitivesV0ValidatorAppPublic>',
     sessionIndex: 'u32'
   },
   /**
-   * Lookup641: axia_core_primitives::InboundDownwardMessage<BlockNumber>
+   * Lookup641: polkadot_core_primitives::InboundDownwardMessage<BlockNumber>
    **/
-  AXIACorePrimitivesInboundDownwardMessage: {
+  PolkadotCorePrimitivesInboundDownwardMessage: {
     sentAt: 'u32',
     msg: 'Bytes'
   },
   /**
-   * Lookup644: axia_runtime_parachains::hrmp::HrmpOpenChannelRequest
+   * Lookup644: polkadot_runtime_parachains::hrmp::HrmpOpenChannelRequest
    **/
-  AXIARuntimeParachainsHrmpHrmpOpenChannelRequest: {
+  PolkadotRuntimeParachainsHrmpHrmpOpenChannelRequest: {
     confirmed: 'bool',
     age: 'u32',
     senderDeposit: 'u128',
@@ -1208,9 +1208,9 @@ export default {
     maxTotalSize: 'u32'
   },
   /**
-   * Lookup646: axia_runtime_parachains::hrmp::HrmpChannel
+   * Lookup646: polkadot_runtime_parachains::hrmp::HrmpChannel
    **/
-  AXIARuntimeParachainsHrmpHrmpChannel: {
+  PolkadotRuntimeParachainsHrmpHrmpChannel: {
     maxCapacity: 'u32',
     maxTotalSize: 'u32',
     maxMessageSize: 'u32',
@@ -1221,19 +1221,19 @@ export default {
     recipientDeposit: 'u128'
   },
   /**
-   * Lookup649: axia_core_primitives::InboundHrmpMessage<BlockNumber>
+   * Lookup649: polkadot_core_primitives::InboundHrmpMessage<BlockNumber>
    **/
-  AXIACorePrimitivesInboundHrmpMessage: {
+  PolkadotCorePrimitivesInboundHrmpMessage: {
     sentAt: 'u32',
     data: 'Bytes'
   },
   /**
-   * Lookup654: axia_primitives::v1::SessionInfo
+   * Lookup654: polkadot_primitives::v1::SessionInfo
    **/
-  AXIAPrimitivesV1SessionInfo: {
-    validators: 'Vec<AXIAPrimitivesV0ValidatorAppPublic>',
+  PolkadotPrimitivesV1SessionInfo: {
+    validators: 'Vec<PolkadotPrimitivesV0ValidatorAppPublic>',
     discoveryKeys: 'Vec<SpAuthorityDiscoveryAppPublic>',
-    assignmentKeys: 'Vec<AXIAPrimitivesV1AssignmentAppPublic>',
+    assignmentKeys: 'Vec<PolkadotPrimitivesV1AssignmentAppPublic>',
     validatorGroups: 'Vec<Vec<u32>>',
     nCores: 'u32',
     zerothDelayTrancheWidth: 'u32',
@@ -1243,32 +1243,32 @@ export default {
     neededApprovals: 'u32'
   },
   /**
-   * Lookup656: axia_runtime_common::paras_registrar::ParaInfo<sp_core::crypto::AccountId32, Balance>
+   * Lookup656: polkadot_runtime_common::paras_registrar::ParaInfo<sp_core::crypto::AccountId32, Balance>
    **/
-  AXIARuntimeCommonParasRegistrarParaInfo: {
+  PolkadotRuntimeCommonParasRegistrarParaInfo: {
     manager: 'AccountId32',
     deposit: 'u128',
     locked: 'bool'
   },
   /**
-   * Lookup666: axia_runtime_common::crowdloan::FundInfo<sp_core::crypto::AccountId32, Balance, BlockNumber, LeasePeriod>
+   * Lookup666: polkadot_runtime_common::crowdloan::FundInfo<sp_core::crypto::AccountId32, Balance, BlockNumber, LeasePeriod>
    **/
-  AXIARuntimeCommonCrowdloanFundInfo: {
+  PolkadotRuntimeCommonCrowdloanFundInfo: {
     depositor: 'AccountId32',
     verifier: 'Option<SpRuntimeMultiSigner>',
     deposit: 'u128',
     raised: 'u128',
     end: 'u32',
     cap: 'u128',
-    lastContribution: 'AXIARuntimeCommonCrowdloanLastContribution',
+    lastContribution: 'PolkadotRuntimeCommonCrowdloanLastContribution',
     firstPeriod: 'u32',
     lastPeriod: 'u32',
     trieIndex: 'u32'
   },
   /**
-   * Lookup667: axia_runtime_common::crowdloan::LastContribution<BlockNumber>
+   * Lookup667: polkadot_runtime_common::crowdloan::LastContribution<BlockNumber>
    **/
-  AXIARuntimeCommonCrowdloanLastContribution: {
+  PolkadotRuntimeCommonCrowdloanLastContribution: {
     _enum: {
       Never: 'Null',
       PreEnding: 'u32',

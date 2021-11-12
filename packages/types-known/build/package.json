@@ -63,13 +63,13 @@
       "require": "./spec/alphanet.cjs",
       "default": "./spec/alphanet.js"
     },
-    "./spec/axialunar": {
-      "require": "./spec/axialunar.cjs",
-      "default": "./spec/axialunar.js"
-    },
     "./spec/axia": {
       "require": "./spec/axia.cjs",
       "default": "./spec/axia.js"
+    },
+    "./spec/axialunar": {
+      "require": "./spec/axialunar.cjs",
+      "default": "./spec/axialunar.js"
     },
     "./spec/betanet": {
       "require": "./spec/betanet.cjs",
@@ -103,13 +103,13 @@
       "require": "./upgrades/alphanet.cjs",
       "default": "./upgrades/alphanet.js"
     },
-    "./upgrades/axialunar": {
-      "require": "./upgrades/axialunar.cjs",
-      "default": "./upgrades/axialunar.js"
-    },
     "./upgrades/axia": {
       "require": "./upgrades/axia.cjs",
       "default": "./upgrades/axia.js"
+    },
+    "./upgrades/axialunar": {
+      "require": "./upgrades/axialunar.cjs",
+      "default": "./upgrades/axialunar.js"
     },
     "./upgrades/types": {
       "require": "./upgrades/types.cjs",

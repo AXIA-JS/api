@@ -9,12 +9,13 @@ var _logging = require("./logging.cjs");
 
 // Copyright 2017-2021 @axia-js/api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-function filterEvents(extHash, {
-  block: {
-    extrinsics,
-    header
-  }
-}, allEvents, status) {
+function filterEvents(extHash, _ref, allEvents, status) {
+  let {
+    block: {
+      extrinsics,
+      header
+    }
+  } = _ref;
   // extrinsics to hashes
   const myHash = extHash.toHex();
   const allHashes = extrinsics.map(ext => ext.hash.toHex()); // find the index of our extrinsic in the block
@@ -30,8 +31,12 @@ function filterEvents(extHash, {
     return;
   }
 
-  return allEvents.filter(({
-    phase
-  }) => // only ApplyExtrinsic has the extrinsic index
-  phase.isApplyExtrinsic && phase.asApplyExtrinsic.eqn(index));
+  return allEvents.filter(_ref2 => {
+    let {
+      phase
+    } = _ref2;
+    return (// only ApplyExtrinsic has the extrinsic index
+      phase.isApplyExtrinsic && phase.asApplyExtrinsic.eqn(index)
+    );
+  });
 }

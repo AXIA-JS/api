@@ -33,7 +33,8 @@ class Json extends Map {
     this.registry = void 0;
     this.createdAtHash = void 0;
     this.registry = registry;
-    decoded.forEach(([key]) => {
+    decoded.forEach(_ref => {
+      let [key] = _ref;
       (0, _util.isUndefined)(this[key]) && Object.defineProperty(this, key, {
         enumerable: true,
         get: () => this.get(key)
@@ -86,7 +87,8 @@ class Json extends Map {
 
 
   toHuman() {
-    return [...this.entries()].reduce((json, [key, value]) => {
+    return [...this.entries()].reduce((json, _ref2) => {
+      let [key, value] = _ref2;
       json[key] = (0, _util.isFunction)(value.toHuman) ? value.toHuman() : value;
       return json;
     }, {});
@@ -97,7 +99,8 @@ class Json extends Map {
 
 
   toJSON() {
-    return [...this.entries()].reduce((json, [key, value]) => {
+    return [...this.entries()].reduce((json, _ref3) => {
+      let [key, value] = _ref3;
       json[key] = value;
       return json;
     }, {});

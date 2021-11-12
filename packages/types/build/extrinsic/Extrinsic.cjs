@@ -182,9 +182,10 @@ class ExtrinsicBase extends _Base.Base {
 
 
 class GenericExtrinsic extends ExtrinsicBase {
-  constructor(registry, value, {
-    version
-  } = {}) {
+  constructor(registry, value) {
+    let {
+      version
+    } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     super(registry, GenericExtrinsic._decodeExtrinsic(registry, value, version));
   }
   /** @internal */
@@ -207,7 +208,9 @@ class GenericExtrinsic extends ExtrinsicBase {
   /** @internal */
 
 
-  static _decodeExtrinsic(registry, value, version = _constants.DEFAULT_VERSION) {
+  static _decodeExtrinsic(registry, value) {
+    let version = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _constants.DEFAULT_VERSION;
+
     if ((0, _util.isU8a)(value) || Array.isArray(value) || (0, _util.isHex)(value)) {
       return GenericExtrinsic._decodeU8a(registry, (0, _util.u8aToU8a)(value), version);
     } else if (value instanceof registry.createClass('Call')) {

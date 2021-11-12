@@ -14,7 +14,8 @@ var _typeToConstructor = require("./typeToConstructor.cjs");
  * @description takes an input map of the form `{ [string]: string | Constructor }` and returns a map of `{ [string]: Constructor }`
  */
 function mapToTypeMap(registry, input) {
-  return Object.entries(input).reduce((output, [key, type]) => {
+  return Object.entries(input).reduce((output, _ref) => {
+    let [key, type] = _ref;
     output[key] = (0, _typeToConstructor.typeToConstructor)(registry, type);
     return output;
   }, {});

@@ -28,21 +28,30 @@ function generateForMeta(meta, dest, isStrict) {
       lookup,
       pallets
     } = meta.asLatest;
-    const modules = pallets.filter(({
-      errors
-    }) => errors.isSome).map(({
-      errors,
-      name
-    }) => ({
-      items: lookup.getSiType(errors.unwrap().type).def.asVariant.variants.map(({
-        docs,
+    const modules = pallets.filter(_ref => {
+      let {
+        errors
+      } = _ref;
+      return errors.isSome;
+    }).map(_ref2 => {
+      let {
+        errors,
         name
-      }) => ({
-        docs,
-        name: name.toString()
-      })).sort(_index.compareName),
-      name: (0, _util.stringCamelCase)(name)
-    })).sort(_index.compareName);
+      } = _ref2;
+      return {
+        items: lookup.getSiType(errors.unwrap().type).def.asVariant.variants.map(_ref3 => {
+          let {
+            docs,
+            name
+          } = _ref3;
+          return {
+            docs,
+            name: name.toString()
+          };
+        }).sort(_index.compareName),
+        name: (0, _util.stringCamelCase)(name)
+      };
+    }).sort(_index.compareName);
     return generateForMetaTemplate({
       headerType: 'chain',
       imports,
@@ -59,7 +68,11 @@ function generateForMeta(meta, dest, isStrict) {
 /** @internal */
 
 
-function generateDefaultErrors(dest = 'packages/api/src/augment/errors.ts', data, extraTypes = {}, isStrict = false) {
+function generateDefaultErrors() {
+  let dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/api/src/augment/errors.ts';
+  let data = arguments.length > 1 ? arguments[1] : undefined;
+  let extraTypes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  let isStrict = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   const {
     metadata
   } = (0, _index.initMeta)(data, extraTypes);

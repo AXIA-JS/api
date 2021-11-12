@@ -30,7 +30,8 @@ var _raw = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("raw");
  * a number and making the compact representation thereof
  */
 class Compact {
-  constructor(registry, Type, value = 0) {
+  constructor(registry, Type) {
+    let value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     this.registry = void 0;
     this.createdAtHash = void 0;
     Object.defineProperty(this, _Type, {

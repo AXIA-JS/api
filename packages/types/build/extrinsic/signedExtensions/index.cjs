@@ -38,12 +38,14 @@ exports.allExtensions = allExtensions;
 const fallbackExtensions = ['CheckVersion', 'CheckGenesis', 'CheckEra', 'CheckNonce', 'CheckWeight', 'ChargeTransactionPayment', 'CheckBlockGasLimit'];
 exports.fallbackExtensions = fallbackExtensions;
 
-function findUnknownExtensions(extensions, userExtensions = {}) {
+function findUnknownExtensions(extensions) {
+  let userExtensions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const names = [...Object.keys(allExtensions), ...Object.keys(userExtensions)];
   return extensions.filter(key => !names.includes(key));
 }
 
-function expandExtensionTypes(extensions, type, userExtensions = {}) {
+function expandExtensionTypes(extensions, type) {
+  let userExtensions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return extensions // Always allow user extensions first - these should provide overrides
   .map(key => userExtensions[key] || allExtensions[key]).filter(info => !!info).reduce((result, info) => _objectSpread(_objectSpread({}, result), info[type]), {});
 }

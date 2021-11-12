@@ -11,55 +11,55 @@ exports.default = void 0;
 /* eslint-disable sort-keys */
 var _default = {
   /**
-   * Lookup66: axia_runtime_common::claims::EthereumAddress
+   * Lookup66: polkadot_runtime_common::claims::EthereumAddress
    **/
-  AXIARuntimeCommonClaimsEthereumAddress: '[u8;20]',
+  PolkadotRuntimeCommonClaimsEthereumAddress: '[u8;20]',
 
   /**
-   * Lookup72: axia_runtime::ProxyType
+   * Lookup72: polkadot_runtime::ProxyType
    **/
-  AXIARuntimeProxyType: {
+  PolkadotRuntimeProxyType: {
     _enum: ['Any', 'NonTransfer', 'Governance', 'Staking', 'Unused4', 'IdentityJudgement', 'CancelProxy']
   },
 
   /**
-   * Lookup139: axia_runtime::SessionKeys
+   * Lookup139: polkadot_runtime::SessionKeys
    **/
-  AXIARuntimeSessionKeys: {
+  PolkadotRuntimeSessionKeys: {
     grandpa: 'SpFinalityGrandpaAppPublic',
     babe: 'SpConsensusBabeAppPublic',
     imOnline: 'PalletImOnlineSr25519AppSr25519Public',
-    paraValidator: 'AXIAPrimitivesV0ValidatorAppPublic',
-    paraAssignment: 'AXIAPrimitivesV1AssignmentAppPublic',
+    paraValidator: 'PolkadotPrimitivesV0ValidatorAppPublic',
+    paraAssignment: 'PolkadotPrimitivesV1AssignmentAppPublic',
     authorityDiscovery: 'SpAuthorityDiscoveryAppPublic'
   },
 
   /**
-   * Lookup140: axia_primitives::v0::validator_app::Public
+   * Lookup140: polkadot_primitives::v0::validator_app::Public
    **/
-  AXIAPrimitivesV0ValidatorAppPublic: 'SpCoreSr25519Public',
+  PolkadotPrimitivesV0ValidatorAppPublic: 'SpCoreSr25519Public',
 
   /**
-   * Lookup141: axia_primitives::v1::assignment_app::Public
+   * Lookup141: polkadot_primitives::v1::assignment_app::Public
    **/
-  AXIAPrimitivesV1AssignmentAppPublic: 'SpCoreSr25519Public',
+  PolkadotPrimitivesV1AssignmentAppPublic: 'SpCoreSr25519Public',
 
   /**
-   * Lookup175: axia_runtime_common::claims::EcdsaSignature
+   * Lookup175: polkadot_runtime_common::claims::EcdsaSignature
    **/
-  AXIARuntimeCommonClaimsEcdsaSignature: '[u8;65]',
+  PolkadotRuntimeCommonClaimsEcdsaSignature: '[u8;65]',
 
   /**
-   * Lookup180: axia_runtime_common::claims::StatementKind
+   * Lookup180: polkadot_runtime_common::claims::StatementKind
    **/
-  AXIARuntimeCommonClaimsStatementKind: {
+  PolkadotRuntimeCommonClaimsStatementKind: {
     _enum: ['Regular', 'Saft']
   },
 
   /**
-   * Lookup233: axia_runtime::NposCompactSolution16
+   * Lookup233: polkadot_runtime::NposCompactSolution16
    **/
-  AXIARuntimeNposCompactSolution16: {
+  PolkadotRuntimeNposCompactSolution16: {
     votes1: 'Vec<(Compact<u32>,Compact<u16>)>',
     votes2: 'Vec<(Compact<u32>,(Compact<u16>,Compact<PerU16>),Compact<u16>)>',
     votes3: 'Vec<(Compact<u32>,[(Compact<u16>,Compact<PerU16>);2],Compact<u16>)>',
@@ -79,9 +79,9 @@ var _default = {
   },
 
   /**
-   * Lookup290: axia_runtime::OriginCaller
+   * Lookup290: polkadot_runtime::OriginCaller
    **/
-  AXIARuntimeOriginCaller: {
+  PolkadotRuntimeOriginCaller: {
     _enum: {
       system: 'FrameSystemRawOrigin',
       Unused1: 'Null',
@@ -104,13 +104,13 @@ var _default = {
   },
 
   /**
-   * Lookup441: axia_runtime_common::claims::PrevalidateAttests<T>
+   * Lookup441: polkadot_runtime_common::claims::PrevalidateAttests<T>
    **/
-  AXIARuntimeCommonClaimsPrevalidateAttests: 'Null',
+  PolkadotRuntimeCommonClaimsPrevalidateAttests: 'Null',
 
   /**
-   * Lookup442: axia_runtime::Runtime
+   * Lookup442: polkadot_runtime::Runtime
    **/
-  AXIARuntimeRuntime: 'Null'
+  PolkadotRuntimeRuntime: 'Null'
 };
 exports.default = _default;

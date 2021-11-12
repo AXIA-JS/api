@@ -22,7 +22,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 const jsonrpc = {};
 Object.keys(definitions).filter(key => Object.keys(definitions[key].rpc || {}).length !== 0).forEach(_section => {
   jsonrpc[_section] = {};
-  Object.entries(definitions[_section].rpc).forEach(([method, def]) => {
+  Object.entries(definitions[_section].rpc).forEach(_ref => {
+    let [method, def] = _ref;
     const isSubscription = !!def.pubsub;
     const section = def.aliasSection || _section; // allow for section overrides
 

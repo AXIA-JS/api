@@ -31,7 +31,8 @@ const generateRpcTypesTemplate = _handlebars.default.compile(template);
 /** @internal */
 
 
-function generateRpcTypes(registry, importDefinitions, dest, extraTypes = {}) {
+function generateRpcTypes(registry, importDefinitions, dest) {
+  let extraTypes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   (0, _index.writeFile)(dest, () => {
     const allTypes = _objectSpread({
       '@axia-js/types/interfaces': importDefinitions
@@ -39,10 +40,14 @@ function generateRpcTypes(registry, importDefinitions, dest, extraTypes = {}) {
 
     const imports = (0, _index.createImports)(allTypes);
     const definitions = imports.definitions;
-    const allDefs = Object.entries(allTypes).reduce((defs, [path, obj]) => {
-      return Object.entries(obj).reduce((defs, [key, value]) => _objectSpread(_objectSpread({}, defs), {}, {
-        [`${path}/${key}`]: value
-      }), defs);
+    const allDefs = Object.entries(allTypes).reduce((defs, _ref) => {
+      let [path, obj] = _ref;
+      return Object.entries(obj).reduce((defs, _ref2) => {
+        let [key, value] = _ref2;
+        return _objectSpread(_objectSpread({}, defs), {}, {
+          [`${path}/${key}`]: value
+        });
+      }, defs);
     }, {});
     const rpcKeys = Object.keys(definitions).filter(key => Object.keys(definitions[key].rpc || {}).length !== 0).sort();
     const additional = {};
@@ -128,7 +133,9 @@ function generateRpcTypes(registry, importDefinitions, dest, extraTypes = {}) {
   });
 }
 
-function generateDefaultRpc(dest = 'packages/api/src/augment/rpc.ts', extraTypes = {}) {
+function generateDefaultRpc() {
+  let dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/api/src/augment/rpc.ts';
+  let extraTypes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const {
     registry
   } = (0, _index.initMeta)(undefined, extraTypes);

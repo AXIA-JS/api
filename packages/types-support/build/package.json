@@ -49,13 +49,13 @@
     "./json/SignedBlock.004.mortal.json": "./json/SignedBlock.004.mortal.json",
     "./json/SignedBlock.005.json": "./json/SignedBlock.005.json",
     "./json/StorageChangeSet.001.json": "./json/StorageChangeSet.001.json",
-    "./metadata/static-axialunar": {
-      "require": "./metadata/static-axialunar.cjs",
-      "default": "./metadata/static-axialunar.js"
-    },
     "./metadata/static-axia": {
       "require": "./metadata/static-axia.cjs",
       "default": "./metadata/static-axia.js"
+    },
+    "./metadata/static-axialunar": {
+      "require": "./metadata/static-axialunar.cjs",
+      "default": "./metadata/static-axialunar.js"
     },
     "./metadata/static-substrate": {
       "require": "./metadata/static-substrate.cjs",
@@ -76,33 +76,33 @@
       "default": "./metadata/v12/substrate-hex.js"
     },
     "./metadata/v12/substrate-json.json": "./metadata/v12/substrate-json.json",
-    "./metadata/v13/axialunar-hex": {
-      "require": "./metadata/v13/axialunar-hex.cjs",
-      "default": "./metadata/v13/axialunar-hex.js"
-    },
-    "./metadata/v13/axialunar-json.json": "./metadata/v13/axialunar-json.json",
     "./metadata/v13/axia-hex": {
       "require": "./metadata/v13/axia-hex.cjs",
       "default": "./metadata/v13/axia-hex.js"
     },
     "./metadata/v13/axia-json.json": "./metadata/v13/axia-json.json",
+    "./metadata/v13/axialunar-hex": {
+      "require": "./metadata/v13/axialunar-hex.cjs",
+      "default": "./metadata/v13/axialunar-hex.js"
+    },
+    "./metadata/v13/axialunar-json.json": "./metadata/v13/axialunar-json.json",
     "./metadata/v13/substrate-hex": {
       "require": "./metadata/v13/substrate-hex.cjs",
       "default": "./metadata/v13/substrate-hex.js"
     },
     "./metadata/v13/substrate-json.json": "./metadata/v13/substrate-json.json",
-    "./metadata/v14/axialunar-hex": {
-      "require": "./metadata/v14/axialunar-hex.cjs",
-      "default": "./metadata/v14/axialunar-hex.js"
-    },
-    "./metadata/v14/axialunar-json.json": "./metadata/v14/axialunar-json.json",
-    "./metadata/v14/axialunar-types.json": "./metadata/v14/axialunar-types.json",
     "./metadata/v14/axia-hex": {
       "require": "./metadata/v14/axia-hex.cjs",
       "default": "./metadata/v14/axia-hex.js"
     },
     "./metadata/v14/axia-json.json": "./metadata/v14/axia-json.json",
     "./metadata/v14/axia-types.json": "./metadata/v14/axia-types.json",
+    "./metadata/v14/axialunar-hex": {
+      "require": "./metadata/v14/axialunar-hex.cjs",
+      "default": "./metadata/v14/axialunar-hex.js"
+    },
+    "./metadata/v14/axialunar-json.json": "./metadata/v14/axialunar-json.json",
+    "./metadata/v14/axialunar-types.json": "./metadata/v14/axialunar-types.json",
     "./metadata/v14/substrate-hex": {
       "require": "./metadata/v14/substrate-hex.cjs",
       "default": "./metadata/v14/substrate-hex.js"

@@ -43,9 +43,10 @@ function toAddress(registry, address) {
 var _fakePrefix = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("fakePrefix");
 
 class GenericExtrinsicSignatureV4 extends _Struct.Struct {
-  constructor(registry, value, {
-    isSigned
-  } = {}) {
+  constructor(registry, value) {
+    let {
+      isSigned
+    } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     super(registry, _objectSpread({
       signer: 'Address',
       // eslint-disable-next-line sort-keys
@@ -60,7 +61,9 @@ class GenericExtrinsicSignatureV4 extends _Struct.Struct {
   /** @internal */
 
 
-  static decodeExtrinsicSignature(value, isSigned = false) {
+  static decodeExtrinsicSignature(value) {
+    let isSigned = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
     if (!value) {
       return _constants.EMPTY_U8A;
     } else if (value instanceof GenericExtrinsicSignatureV4) {
@@ -135,11 +138,12 @@ class GenericExtrinsicSignatureV4 extends _Struct.Struct {
     return this.get('tip');
   }
 
-  _injectSignature(signer, signature, {
-    era,
-    nonce,
-    tip
-  }) {
+  _injectSignature(signer, signature, _ref) {
+    let {
+      era,
+      nonce,
+      tip
+    } = _ref;
     this.set('era', era);
     this.set('nonce', nonce);
     this.set('signer', signer);
@@ -160,17 +164,18 @@ class GenericExtrinsicSignatureV4 extends _Struct.Struct {
    */
 
 
-  createPayload(method, {
-    blockHash,
-    era,
-    genesisHash,
-    nonce,
-    runtimeVersion: {
-      specVersion,
-      transactionVersion
-    },
-    tip
-  }) {
+  createPayload(method, _ref2) {
+    let {
+      blockHash,
+      era,
+      genesisHash,
+      nonce,
+      runtimeVersion: {
+        specVersion,
+        transactionVersion
+      },
+      tip
+    } = _ref2;
     return new _ExtrinsicPayload.GenericExtrinsicPayloadV4(this.registry, {
       blockHash,
       era: era || _constants.IMMORTAL_ERA,

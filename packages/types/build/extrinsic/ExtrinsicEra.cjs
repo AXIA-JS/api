@@ -213,7 +213,9 @@ class GenericExtrinsicEra extends _Enum.Enum {
   // eslint-disable-next-line @typescript-eslint/ban-types
 
 
-  static _decodeExtrinsicEra(value = new Uint8Array()) {
+  static _decodeExtrinsicEra() {
+    let value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Uint8Array();
+
     if (!value) {
       return new Uint8Array([0]);
     } else if (value instanceof GenericExtrinsicEra) {
@@ -223,9 +225,18 @@ class GenericExtrinsicEra extends _Enum.Enum {
     } else if ((0, _util.isU8a)(value)) {
       return !value.length || value[0] === 0 ? new Uint8Array([0]) : new Uint8Array([1, value[0], value[1]]);
     } else if ((0, _util.isObject)(value)) {
-      const entries = Object.entries(value).map(([k, v]) => [k.toLowerCase(), v]);
-      const mortal = entries.find(([k]) => k.toLowerCase() === 'mortalera');
-      const immortal = entries.find(([k]) => k.toLowerCase() === 'immortalera'); // this is to de-serialize from JSON
+      const entries = Object.entries(value).map(_ref => {
+        let [k, v] = _ref;
+        return [k.toLowerCase(), v];
+      });
+      const mortal = entries.find(_ref2 => {
+        let [k] = _ref2;
+        return k.toLowerCase() === 'mortalera';
+      });
+      const immortal = entries.find(_ref3 => {
+        let [k] = _ref3;
+        return k.toLowerCase() === 'immortalera';
+      }); // this is to de-serialize from JSON
 
       return mortal ? {
         MortalEra: mortal[1]

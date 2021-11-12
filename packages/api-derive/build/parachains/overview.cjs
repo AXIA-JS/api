@@ -19,7 +19,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function parse([ids, didUpdate, infos, pendingSwaps, relayDispatchQueueSizes]) {
+function parse(_ref) {
+  let [ids, didUpdate, infos, pendingSwaps, relayDispatchQueueSizes] = _ref;
   return ids.map((id, index) => ({
     didUpdate: (0, _util.didUpdateToBool)(didUpdate, id),
     id,

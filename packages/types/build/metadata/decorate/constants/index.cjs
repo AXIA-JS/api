@@ -12,13 +12,16 @@ var _util = require("@axia-js/util");
 
 /** @internal */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function decorateConstants(registry, {
-  pallets
-}, _metaVersion) {
-  return pallets.reduce((result, {
-    constants,
-    name
-  }) => {
+function decorateConstants(registry, _ref, _metaVersion) {
+  let {
+    pallets
+  } = _ref;
+  return pallets.reduce((result, _ref2) => {
+    let {
+      constants,
+      name
+    } = _ref2;
+
     if (constants.isEmpty) {
       return result;
     } // For access, we change the index names, i.e. Democracy.EnactmentPeriod -> democracy.enactmentPeriod

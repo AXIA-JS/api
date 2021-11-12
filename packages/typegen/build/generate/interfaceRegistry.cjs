@@ -56,15 +56,17 @@ function generateInterfaceTypes(importDefinitions, dest) {
     const existingTypes = {}; // ensure we have everything registered since we will get the definition
     // form the available types (so any unknown should show after this)
 
-    Object.values(definitions).forEach(({
-      types
-    }) => {
+    Object.values(definitions).forEach(_ref => {
+      let {
+        types
+      } = _ref;
       registry.register(types);
     }); // create imports for everything that we have available
 
-    Object.values(definitions).forEach(({
-      types
-    }) => {
+    Object.values(definitions).forEach(_ref2 => {
+      let {
+        types
+      } = _ref2;
       (0, _index.setImports)(definitions, imports, Object.keys(types));
       const uniqueTypes = Object.keys(types).filter(type => !existingTypes[type]);
       uniqueTypes.forEach(type => {

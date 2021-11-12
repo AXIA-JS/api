@@ -82,10 +82,12 @@ async function query(api, pairs) {
 async function queryExtra(api, pairs) {
   // events destructing
   await api.query.system.events(records => {
-    records.forEach(({
-      event,
-      phase
-    }) => {
+    records.forEach(_ref => {
+      let {
+        event,
+        phase
+      } = _ref;
+
       if (phase.isApplyExtrinsic) {
         // Dunno... this should work
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -112,7 +114,10 @@ async function queryExtra(api, pairs) {
   await api.query.balances.freeBalance.range(['0x1234'], pairs.bob.address); // check range types
 
   const entries = await api.query.system.events.range(['0x12345', '0x7890']);
-  console.log(`Received ${entries.length} entries, ${entries.map(([hash, events]) => `${hash.toHex()}: ${events.length} events`).join(', ')}`); // is
+  console.log(`Received ${entries.length} entries, ${entries.map(_ref2 => {
+    let [hash, events] = _ref2;
+    return `${hash.toHex()}: ${events.length} events`;
+  }).join(', ')}`); // is
 
   const key = {};
 
@@ -129,7 +134,8 @@ async function rpc(api) {
     console.log('current header #', header.number.toNumber());
   }); // with generic params
 
-  await api.rpc.state.subscribeStorage(['my_balance_key'], ([balance]) => {
+  await api.rpc.state.subscribeStorage(['my_balance_key'], _ref3 => {
+    let [balance] = _ref3;
     console.log('current balance:', balance.toString());
   }); // using json & raw
 
@@ -165,16 +171,20 @@ async function tx(api, pairs) {
     nonce
   })).toHex(); // just with the callback
 
-  await api.tx.balances.transfer(pairs.bob.address, 12345).signAndSend(pairs.alice, ({
-    status
-  }) => console.log(status.type)); // with options and the callback
+  await api.tx.balances.transfer(pairs.bob.address, 12345).signAndSend(pairs.alice, _ref4 => {
+    let {
+      status
+    } = _ref4;
+    return console.log(status.type);
+  }); // with options and the callback
 
   const nonce2 = await api.query.system.accountNonce(pairs.alice.address);
   const unsub2 = await api.tx.balances.transfer(pairs.bob.address, 12345).signAndSend(pairs.alice, {
     nonce: nonce2
-  }, ({
-    status
-  }) => {
+  }, _ref5 => {
+    let {
+      status
+    } = _ref5;
     console.log('transfer status:', status.type);
     unsub2();
   }); // it allows for query & then using the submittable

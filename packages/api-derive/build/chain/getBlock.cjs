@@ -28,7 +28,10 @@ var _index2 = require("../util/index.cjs");
  * ```
  */
 function getBlock(instanceId, api) {
-  return (0, _index2.memo)(instanceId, hash => (0, _rxjs.combineLatest)([api.rpc.chain.getBlock(hash), api.query.system.events.at(hash), api.query.session ? api.query.session.validators.at(hash) : (0, _rxjs.of)([])]).pipe((0, _rxjs.map)(([signedBlock, events, validators]) => (0, _index.createSignedBlockExtended)(api.registry, signedBlock, events, validators)), (0, _rxjs.catchError)(() => // where rpc.chain.getHeader throws, we will land here - it can happen that
+  return (0, _index2.memo)(instanceId, hash => (0, _rxjs.combineLatest)([api.rpc.chain.getBlock(hash), api.query.system.events.at(hash), api.query.session ? api.query.session.validators.at(hash) : (0, _rxjs.of)([])]).pipe((0, _rxjs.map)(_ref => {
+    let [signedBlock, events, validators] = _ref;
+    return (0, _index.createSignedBlockExtended)(api.registry, signedBlock, events, validators);
+  }), (0, _rxjs.catchError)(() => // where rpc.chain.getHeader throws, we will land here - it can happen that
   // we supplied an invalid hash. (Due to defaults, storage will have an
   // empty value, so only the RPC is affected). So return undefined
   (0, _rxjs.of)())));

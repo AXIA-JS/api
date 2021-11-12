@@ -115,7 +115,12 @@ class WsProvider {
    * @param {string | string[]}  endpoint    The endpoint url. Usually `ws://ip:9944` or `wss://ip:9944`, may provide an array of endpoint strings.
    * @param {boolean} autoConnect Whether to connect automatically or not.
    */
-  constructor(endpoint = _defaults.default.WS_URL, autoConnectMs = RETRY_DELAY, headers = {}) {
+  constructor() {
+    var _this = this;
+
+    let endpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaults.default.WS_URL;
+    let autoConnectMs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : RETRY_DELAY;
+    let headers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     Object.defineProperty(this, _coder, {
       writable: true,
       value: void 0
@@ -166,8 +171,12 @@ class WsProvider {
     });
     Object.defineProperty(this, _emit, {
       writable: true,
-      value: (type, ...args) => {
-        (0, _classPrivateFieldLooseBase2.default)(this, _eventemitter)[_eventemitter].emit(type, ...args);
+      value: function (type) {
+        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+
+        (0, _classPrivateFieldLooseBase2.default)(_this, _eventemitter)[_eventemitter].emit(type, ...args);
       }
     });
     Object.defineProperty(this, _onSocketClose, {

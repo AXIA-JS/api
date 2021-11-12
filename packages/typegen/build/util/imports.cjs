@@ -72,9 +72,12 @@ function setImports(allDefs, imports, types) {
       setImports(allDefs, imports, splitTypes);
     } else {
       // find this module inside the exports from the rest
-      const [moduleName] = Object.entries(allDefs).find(([, {
-        types
-      }]) => Object.keys(types).includes(type)) || [null];
+      const [moduleName] = Object.entries(allDefs).find(_ref => {
+        let [, {
+          types
+        }] = _ref;
+        return Object.keys(types).includes(type);
+      }) || [null];
 
       if (moduleName) {
         localTypes[moduleName][type] = true;
@@ -86,15 +89,18 @@ function setImports(allDefs, imports, types) {
 /** @internal */
 
 
-function createImports(importDefinitions, {
-  types
-} = {
-  types: {}
-}) {
+function createImports(importDefinitions) {
+  let {
+    types
+  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    types: {}
+  };
   const definitions = {};
   const typeToModule = {};
-  Object.entries(importDefinitions).forEach(([packagePath, packageDef]) => {
-    Object.entries(packageDef).forEach(([name, moduleDef]) => {
+  Object.entries(importDefinitions).forEach(_ref2 => {
+    let [packagePath, packageDef] = _ref2;
+    Object.entries(packageDef).forEach(_ref3 => {
+      let [name, moduleDef] = _ref3;
       const fullName = `${packagePath}/${name}`;
       definitions[fullName] = moduleDef;
       Object.keys(moduleDef.types).forEach(type => {

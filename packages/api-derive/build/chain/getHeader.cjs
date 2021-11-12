@@ -29,7 +29,10 @@ var _index2 = require("../util/index.cjs");
  * ```
  */
 function getHeader(instanceId, api) {
-  return (0, _index2.memo)(instanceId, hash => (0, _rxjs.combineLatest)([api.rpc.chain.getHeader(hash), api.query.session ? api.query.session.validators.at(hash) : (0, _rxjs.of)([])]).pipe((0, _rxjs.map)(([header, validators]) => (0, _index.createHeaderExtended)(header.registry, header, validators)), (0, _rxjs.catchError)(() => // where rpc.chain.getHeader throws, we will land here - it can happen that
+  return (0, _index2.memo)(instanceId, hash => (0, _rxjs.combineLatest)([api.rpc.chain.getHeader(hash), api.query.session ? api.query.session.validators.at(hash) : (0, _rxjs.of)([])]).pipe((0, _rxjs.map)(_ref => {
+    let [header, validators] = _ref;
+    return (0, _index.createHeaderExtended)(header.registry, header, validators);
+  }), (0, _rxjs.catchError)(() => // where rpc.chain.getHeader throws, we will land here - it can happen that
   // we supplied an invalid hash. (Due to defaults, storeage will have an
   // empty value, so only the RPC is affected). So return undefined
   (0, _rxjs.of)())));

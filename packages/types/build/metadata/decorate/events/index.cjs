@@ -13,17 +13,22 @@ var _index = require("../errors/index.cjs");
 // SPDX-License-Identifier: Apache-2.0
 
 /** @internal */
-function decorateEvents(registry, {
-  lookup,
-  pallets
-}, metaVersion) {
-  return pallets.filter(({
-    events
-  }) => events.isSome).reduce((result, {
-    events,
-    index,
-    name
-  }, _sectionIndex) => {
+function decorateEvents(registry, _ref, metaVersion) {
+  let {
+    lookup,
+    pallets
+  } = _ref;
+  return pallets.filter(_ref2 => {
+    let {
+      events
+    } = _ref2;
+    return events.isSome;
+  }).reduce((result, _ref3, _sectionIndex) => {
+    let {
+      events,
+      index,
+      name
+    } = _ref3;
     const sectionIndex = metaVersion >= 12 ? index.toNumber() : _sectionIndex;
     result[(0, _util.stringCamelCase)(name)] = lookup.getSiType(events.unwrap().type).def.asVariant.variants.reduce((newModule, variant) => {
       // we don't camelCase the event name

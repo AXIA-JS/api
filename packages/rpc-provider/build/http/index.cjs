@@ -58,7 +58,9 @@ class HttpProvider {
   /**
    * @param {string} endpoint The endpoint url starting with http://
    */
-  constructor(endpoint = _defaults.default.HTTP_URL, headers = {}) {
+  constructor() {
+    let endpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaults.default.HTTP_URL;
+    let headers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     Object.defineProperty(this, _coder, {
       writable: true,
       value: void 0

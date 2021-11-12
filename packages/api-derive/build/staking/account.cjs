@@ -28,10 +28,11 @@ const QUERY_OPTS = {
 };
 
 function groupByEra(list) {
-  return list.reduce((map, {
-    era,
-    value
-  }) => {
+  return list.reduce((map, _ref) => {
+    let {
+      era,
+      value
+    } = _ref;
     const key = era.toString();
     map[key] = (map[key] || _util.BN_ZERO).add(value.unwrap());
     return map;
@@ -39,20 +40,27 @@ function groupByEra(list) {
 }
 
 function calculateUnlocking(api, stakingLedger, sessionInfo) {
-  const results = Object.entries(groupByEra(((stakingLedger === null || stakingLedger === void 0 ? void 0 : stakingLedger.unlocking) || []).filter(({
-    era
-  }) => era.unwrap().gt(sessionInfo.activeEra)))).map(([eraString, value]) => ({
-    remainingEras: new _util.BN(eraString).isub(sessionInfo.activeEra),
-    value: api.registry.createType('Balance', value)
-  }));
+  const results = Object.entries(groupByEra(((stakingLedger === null || stakingLedger === void 0 ? void 0 : stakingLedger.unlocking) || []).filter(_ref2 => {
+    let {
+      era
+    } = _ref2;
+    return era.unwrap().gt(sessionInfo.activeEra);
+  }))).map(_ref3 => {
+    let [eraString, value] = _ref3;
+    return {
+      remainingEras: new _util.BN(eraString).isub(sessionInfo.activeEra),
+      value: api.registry.createType('Balance', value)
+    };
+  });
   return results.length ? results : undefined;
 }
 
 function redeemableSum(api, stakingLedger, sessionInfo) {
-  return api.registry.createType('Balance', ((stakingLedger === null || stakingLedger === void 0 ? void 0 : stakingLedger.unlocking) || []).reduce((total, {
-    era,
-    value
-  }) => {
+  return api.registry.createType('Balance', ((stakingLedger === null || stakingLedger === void 0 ? void 0 : stakingLedger.unlocking) || []).reduce((total, _ref4) => {
+    let {
+      era,
+      value
+    } = _ref4;
     return sessionInfo.activeEra.gte(era.unwrap()) ? total.iadd(value.unwrap()) : total;
   }, new _util.BN(0)));
 }
@@ -69,7 +77,10 @@ function parseResult(api, sessionInfo, keys, query) {
 
 
 function accounts(instanceId, api) {
-  return (0, _index.memo)(instanceId, accountIds => api.derive.session.info().pipe((0, _rxjs.switchMap)(sessionInfo => (0, _rxjs.combineLatest)([api.derive.staking.keysMulti(accountIds), api.derive.staking.queryMulti(accountIds, QUERY_OPTS)]).pipe((0, _rxjs.map)(([keys, queries]) => queries.map((query, index) => parseResult(api, sessionInfo, keys[index], query)))))));
+  return (0, _index.memo)(instanceId, accountIds => api.derive.session.info().pipe((0, _rxjs.switchMap)(sessionInfo => (0, _rxjs.combineLatest)([api.derive.staking.keysMulti(accountIds), api.derive.staking.queryMulti(accountIds, QUERY_OPTS)]).pipe((0, _rxjs.map)(_ref5 => {
+    let [keys, queries] = _ref5;
+    return queries.map((query, index) => parseResult(api, sessionInfo, keys[index], query));
+  })))));
 }
 /**
  * @description From a stash, retrieve the controllerId and fill in all the relevant staking details
@@ -77,5 +88,8 @@ function accounts(instanceId, api) {
 
 
 function account(instanceId, api) {
-  return (0, _index.memo)(instanceId, accountId => api.derive.staking.accounts([accountId]).pipe((0, _rxjs.map)(([first]) => first)));
+  return (0, _index.memo)(instanceId, accountId => api.derive.staking.accounts([accountId]).pipe((0, _rxjs.map)(_ref6 => {
+    let [first] = _ref6;
+    return first;
+  })));
 }

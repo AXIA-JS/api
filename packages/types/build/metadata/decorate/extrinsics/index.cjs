@@ -18,28 +18,36 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /** @internal */
-function decorateExtrinsics(registry, {
-  lookup,
-  pallets
-}, metaVersion) {
-  return pallets.filter(({
-    calls
-  }) => calls.isSome).reduce((result, {
-    calls,
-    index,
-    name
-  }, _sectionIndex) => {
+function decorateExtrinsics(registry, _ref, metaVersion) {
+  let {
+    lookup,
+    pallets
+  } = _ref;
+  return pallets.filter(_ref2 => {
+    let {
+      calls
+    } = _ref2;
+    return calls.isSome;
+  }).reduce((result, _ref3, _sectionIndex) => {
+    let {
+      calls,
+      index,
+      name
+    } = _ref3;
     const sectionName = (0, _util.stringCamelCase)(name);
     const sectionIndex = metaVersion >= 12 ? index.toNumber() : _sectionIndex;
     result[sectionName] = lookup.getSiType(calls.unwrap().type).def.asVariant.variants.reduce((newModule, variant) => {
       const callMetadata = registry.createType('FunctionMetadataLatest', _objectSpread(_objectSpread({}, variant), {}, {
-        args: variant.fields.map(({
-          name,
-          type
-        }, index) => ({
-          name: (0, _util.stringCamelCase)(name.unwrapOr(`param${index}`)),
-          type: lookup.getTypeDef(type).type
-        }))
+        args: variant.fields.map((_ref4, index) => {
+          let {
+            name,
+            type
+          } = _ref4;
+          return {
+            name: (0, _util.stringCamelCase)(name.unwrapOr(`param${index}`)),
+            type: lookup.getTypeDef(type).type
+          };
+        })
       }));
       newModule[(0, _util.stringCamelCase)(callMetadata.name)] = (0, _createUnchecked.createUnchecked)(registry, sectionName, new Uint8Array([sectionIndex, callMetadata.index.toNumber()]), callMetadata);
       return newModule;

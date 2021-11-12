@@ -51,7 +51,9 @@ function decodeSetNumber(setValues, _value) {
 /** @internal */
 
 
-function decodeSet(setValues, value = 0, bitLength) {
+function decodeSet(setValues) {
+  let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  let bitLength = arguments.length > 2 ? arguments[2] : undefined;
   (0, _util.assert)(bitLength % 8 === 0, () => `Expected valid bitLength, power of 8, found ${bitLength}`);
   const byteLength = bitLength / 8;
 
@@ -81,7 +83,8 @@ var _allowed = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("allowed");
 var _byteLength = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("byteLength");
 
 class CodecSet extends Set {
-  constructor(registry, setValues, value, bitLength = 8) {
+  constructor(registry, setValues, value) {
+    let bitLength = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 8;
     super(decodeSet(setValues, value, bitLength));
     this.registry = void 0;
     this.createdAtHash = void 0;

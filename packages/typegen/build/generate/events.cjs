@@ -43,39 +43,53 @@ function generateForMeta(meta, dest, extraTypes, isStrict) {
     }, extraTypes);
 
     const imports = (0, _index.createImports)(allTypes);
-    const allDefs = Object.entries(allTypes).reduce((defs, [path, obj]) => {
-      return Object.entries(obj).reduce((defs, [key, value]) => _objectSpread(_objectSpread({}, defs), {}, {
-        [`${path}/${key}`]: value
-      }), defs);
+    const allDefs = Object.entries(allTypes).reduce((defs, _ref) => {
+      let [path, obj] = _ref;
+      return Object.entries(obj).reduce((defs, _ref2) => {
+        let [key, value] = _ref2;
+        return _objectSpread(_objectSpread({}, defs), {}, {
+          [`${path}/${key}`]: value
+        });
+      }, defs);
     }, {});
     const {
       lookup,
       pallets,
       registry
     } = meta.asLatest;
-    const modules = pallets.filter(({
-      events
-    }) => events.isSome).map(({
-      events,
-      name
-    }) => ({
-      items: lookup.getSiType(events.unwrap().type).def.asVariant.variants.map(({
-        docs,
-        fields,
+    const modules = pallets.filter(_ref3 => {
+      let {
+        events
+      } = _ref3;
+      return events.isSome;
+    }).map(_ref4 => {
+      let {
+        events,
         name
-      }) => {
-        const args = fields.map(({
-          type
-        }) => lookup.getTypeDef(type)).map(typeDef => typeDef.lookupName || (0, _index.formatType)(registry, allDefs, typeDef, imports));
-        (0, _index.setImports)(allDefs, imports, args);
-        return {
-          docs,
-          name: name.toString(),
-          type: args.join(', ')
-        };
-      }).sort(_index.compareName),
-      name: (0, _util.stringCamelCase)(name)
-    })).sort(_index.compareName);
+      } = _ref4;
+      return {
+        items: lookup.getSiType(events.unwrap().type).def.asVariant.variants.map(_ref5 => {
+          let {
+            docs,
+            fields,
+            name
+          } = _ref5;
+          const args = fields.map(_ref6 => {
+            let {
+              type
+            } = _ref6;
+            return lookup.getTypeDef(type);
+          }).map(typeDef => typeDef.lookupName || (0, _index.formatType)(registry, allDefs, typeDef, imports));
+          (0, _index.setImports)(allDefs, imports, args);
+          return {
+            docs,
+            name: name.toString(),
+            type: args.join(', ')
+          };
+        }).sort(_index.compareName),
+        name: (0, _util.stringCamelCase)(name)
+      };
+    }).sort(_index.compareName);
     return generateForMetaTemplate({
       headerType: 'chain',
       imports,
@@ -95,7 +109,11 @@ function generateForMeta(meta, dest, extraTypes, isStrict) {
 /** @internal */
 
 
-function generateDefaultEvents(dest = 'packages/api/src/augment/events.ts', data, extraTypes = {}, isStrict = false) {
+function generateDefaultEvents() {
+  let dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'packages/api/src/augment/events.ts';
+  let data = arguments.length > 1 ? arguments[1] : undefined;
+  let extraTypes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  let isStrict = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   const {
     metadata
   } = (0, _index.initMeta)(data, extraTypes);

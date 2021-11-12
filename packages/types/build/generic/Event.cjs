@@ -56,11 +56,16 @@ var _section = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("section");
 var _typeDef = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("typeDef");
 
 class GenericEventData extends _Tuple.Tuple {
-  constructor(registry, value, meta, section = '<unknown>', method = '<unknown>') {
+  constructor(registry, value, meta) {
+    let section = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '<unknown>';
+    let method = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '<unknown>';
     const fields = (meta === null || meta === void 0 ? void 0 : meta.fields) || [];
-    super(registry, fields.map(({
-      type
-    }) => registry.createLookupType(type)), value);
+    super(registry, fields.map(_ref => {
+      let {
+        type
+      } = _ref;
+      return registry.createLookupType(type);
+    }), value);
     Object.defineProperty(this, _meta, {
       writable: true,
       value: void 0
@@ -80,9 +85,12 @@ class GenericEventData extends _Tuple.Tuple {
     (0, _classPrivateFieldLooseBase2.default)(this, _meta)[_meta] = meta;
     (0, _classPrivateFieldLooseBase2.default)(this, _method)[_method] = method;
     (0, _classPrivateFieldLooseBase2.default)(this, _section)[_section] = section;
-    (0, _classPrivateFieldLooseBase2.default)(this, _typeDef)[_typeDef] = fields.map(({
-      type
-    }) => registry.lookup.getTypeDef(type));
+    (0, _classPrivateFieldLooseBase2.default)(this, _typeDef)[_typeDef] = fields.map(_ref2 => {
+      let {
+        type
+      } = _ref2;
+      return registry.lookup.getTypeDef(type);
+    });
   }
   /**
    * @description The wrapped [[EventMetadata]]

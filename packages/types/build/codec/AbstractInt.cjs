@@ -76,7 +76,10 @@ var _bitLength = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("bitLengt
 var _isSigned = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("isSigned");
 
 class AbstractInt extends _util.BN {
-  constructor(registry, value = 0, bitLength = DEFAULT_UINT_BITS, isSigned = false) {
+  constructor(registry) {
+    let value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    let bitLength = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : DEFAULT_UINT_BITS;
+    let isSigned = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     super(decodeAbstractInt(value, bitLength, isSigned));
     this.registry = void 0;
     this.createdAtHash = void 0;
@@ -180,7 +183,8 @@ class AbstractInt extends _util.BN {
    */
 
 
-  toHex(isLe = false) {
+  toHex() {
+    let isLe = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     // For display/JSON, this is BE, for compare, use isLe
     return (0, _util.bnToHex)(this, {
       bitLength: this.bitLength(),
@@ -207,7 +211,10 @@ class AbstractInt extends _util.BN {
       });
     }
 
-    const [, divisor] = FORMATTERS.find(([type]) => type === rawType) || [];
+    const [, divisor] = FORMATTERS.find(_ref => {
+      let [type] = _ref;
+      return type === rawType;
+    }) || [];
     return divisor ? toPercentage(this, divisor) : (0, _util.formatNumber)(this);
   }
   /**
@@ -215,7 +222,8 @@ class AbstractInt extends _util.BN {
    */
 
 
-  toJSON(onlyHex = false) {
+  toJSON() {
+    let onlyHex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     // FIXME this return type should by string | number, however BN returns string
     // Options here are
     //   - super.bitLength() - the actual used bits

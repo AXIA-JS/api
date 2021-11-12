@@ -26,12 +26,15 @@ function isNewDepositors(depositors) {
   return (0, _util.isFunction)(depositors[1].mul);
 }
 
-function parse([proposals, images, optDepositors]) {
-  return proposals.filter(([,, proposer], index) => {
+function parse(_ref) {
+  let [proposals, images, optDepositors] = _ref;
+  return proposals.filter((_ref2, index) => {
     var _optDepositors$index;
 
+    let [,, proposer] = _ref2;
     return !!((_optDepositors$index = optDepositors[index]) !== null && _optDepositors$index !== void 0 && _optDepositors$index.isSome) && !proposer.isEmpty;
-  }).map(([index, imageHash, proposer], proposalIndex) => {
+  }).map((_ref3, proposalIndex) => {
+    let [index, imageHash, proposer] = _ref3;
     const depositors = optDepositors[proposalIndex].unwrap();
     return _objectSpread(_objectSpread({}, isNewDepositors(depositors) ? {
       balance: depositors[1],
@@ -52,6 +55,12 @@ function proposals(instanceId, api) {
   return (0, _index.memo)(instanceId, () => {
     var _api$query$democracy, _api$query$democracy2;
 
-    return (0, _util.isFunction)((_api$query$democracy = api.query.democracy) === null || _api$query$democracy === void 0 ? void 0 : _api$query$democracy.publicProps) && (0, _util.isFunction)((_api$query$democracy2 = api.query.democracy) === null || _api$query$democracy2 === void 0 ? void 0 : _api$query$democracy2.preimages) ? api.query.democracy.publicProps().pipe((0, _rxjs.switchMap)(proposals => proposals.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(proposals), api.derive.democracy.preimages(proposals.map(([, hash]) => hash)), api.query.democracy.depositOf.multi(proposals.map(([index]) => index))]) : (0, _rxjs.of)([[], [], []])), (0, _rxjs.map)(parse)) : (0, _rxjs.of)([]);
+    return (0, _util.isFunction)((_api$query$democracy = api.query.democracy) === null || _api$query$democracy === void 0 ? void 0 : _api$query$democracy.publicProps) && (0, _util.isFunction)((_api$query$democracy2 = api.query.democracy) === null || _api$query$democracy2 === void 0 ? void 0 : _api$query$democracy2.preimages) ? api.query.democracy.publicProps().pipe((0, _rxjs.switchMap)(proposals => proposals.length ? (0, _rxjs.combineLatest)([(0, _rxjs.of)(proposals), api.derive.democracy.preimages(proposals.map(_ref4 => {
+      let [, hash] = _ref4;
+      return hash;
+    })), api.query.democracy.depositOf.multi(proposals.map(_ref5 => {
+      let [index] = _ref5;
+      return index;
+    }))]) : (0, _rxjs.of)([[], [], []])), (0, _rxjs.map)(parse)) : (0, _rxjs.of)([]);
   });
 }

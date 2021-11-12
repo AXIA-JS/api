@@ -50,10 +50,11 @@ _handlebars.default.registerHelper({
       file: '@axia-js/types/types',
       types: Object.keys(imports.typesTypes)
     }, ...types];
-    return [...defs].sort((a, b) => a.file.localeCompare(b.file)).reduce((result, {
-      file,
-      types
-    }) => {
+    return [...defs].sort((a, b) => a.file.localeCompare(b.file)).reduce((result, _ref) => {
+      let {
+        file,
+        types
+      } = _ref;
       return types.length ? `${result}import type { ${types.sort().join(', ')} } from '${file}';\n` : result;
     }, '');
   },
@@ -71,7 +72,11 @@ _handlebars.default.registerHelper({
 /** @internal */
 
 
-function exportInterface(lookupIndex = -1, name = '', base, body = '') {
+function exportInterface() {
+  let lookupIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+  let name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  let base = arguments.length > 2 ? arguments[2] : undefined;
+  let body = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
   // * @description extends [[${base}]]
   const doc = `/** @name ${name}${lookupIndex !== -1 ? ` (${lookupIndex})` : ''} */\n`;
   return `${doc}export interface ${name} extends ${base} {${body.length ? '\n' : ''}${body}}`;
@@ -82,7 +87,10 @@ function exportInterface(lookupIndex = -1, name = '', base, body = '') {
 /** @internal */
 
 
-function exportType(lookupIndex = -1, name = '', base) {
+function exportType() {
+  let lookupIndex = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+  let name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  let base = arguments.length > 2 ? arguments[2] : undefined;
   return exportInterface(lookupIndex, name, base);
 }
 
@@ -92,9 +100,10 @@ const formatters = {
     (0, _imports.setImports)(definitions, imports, ['Compact', sub.lookupName]);
     return (0, _create.paramsNotation)('Compact', sub.lookupName || formatType(registry, definitions, sub.type, imports, withShortcut));
   },
-  [_types.TypeDefInfo.DoNotConstruct]: (registry, {
-    lookupName
-  }, definitions, imports, withShortcut) => {
+  [_types.TypeDefInfo.DoNotConstruct]: (registry, _ref2, definitions, imports, withShortcut) => {
+    let {
+      lookupName
+    } = _ref2;
     (0, _imports.setImports)(definitions, imports, ['DoNotConstruct']);
     return 'DoNotConstruct';
   },
@@ -139,25 +148,40 @@ const formatters = {
     }
 
     const sub = typeDef.sub;
-    (0, _imports.setImports)(definitions, imports, ['Struct', ...sub.map(({
-      lookupName
-    }) => lookupName)]);
-    return `{${withShortcut ? ' ' : '\n'}${sub.map(({
-      lookupName,
-      name,
-      type
-    }, index) => [name || `unknown${index}`, lookupName || formatType(registry, definitions, type, imports, withShortcut)]).map(([k, t]) => `${withShortcut ? '' : '    readonly '}${k}: ${t};`).join(withShortcut ? ' ' : '\n')}${withShortcut ? ' ' : '\n  '}} & Struct`;
+    (0, _imports.setImports)(definitions, imports, ['Struct', ...sub.map(_ref3 => {
+      let {
+        lookupName
+      } = _ref3;
+      return lookupName;
+    })]);
+    return `{${withShortcut ? ' ' : '\n'}${sub.map((_ref4, index) => {
+      let {
+        lookupName,
+        name,
+        type
+      } = _ref4;
+      return [name || `unknown${index}`, lookupName || formatType(registry, definitions, type, imports, withShortcut)];
+    }).map(_ref5 => {
+      let [k, t] = _ref5;
+      return `${withShortcut ? '' : '    readonly '}${k}: ${t};`;
+    }).join(withShortcut ? ' ' : '\n')}${withShortcut ? ' ' : '\n  '}} & Struct`;
   },
   [_types.TypeDefInfo.Tuple]: (registry, typeDef, definitions, imports, withShortcut) => {
     const sub = typeDef.sub;
-    (0, _imports.setImports)(definitions, imports, ['ITuple', ...sub.map(({
-      lookupName
-    }) => lookupName)]); // `(a,b)` gets transformed into `ITuple<[a, b]>`
+    (0, _imports.setImports)(definitions, imports, ['ITuple', ...sub.map(_ref6 => {
+      let {
+        lookupName
+      } = _ref6;
+      return lookupName;
+    })]); // `(a,b)` gets transformed into `ITuple<[a, b]>`
 
-    return (0, _create.paramsNotation)('ITuple', `[${sub.map(({
-      lookupName,
-      type
-    }) => lookupName || formatType(registry, definitions, type, imports, withShortcut)).join(', ')}]`);
+    return (0, _create.paramsNotation)('ITuple', `[${sub.map(_ref7 => {
+      let {
+        lookupName,
+        type
+      } = _ref7;
+      return lookupName || formatType(registry, definitions, type, imports, withShortcut);
+    }).join(', ')}]`);
   },
   [_types.TypeDefInfo.Vec]: (registry, typeDef, definitions, imports, withShortcut) => {
     const sub = typeDef.sub;
@@ -208,7 +232,8 @@ const formatters = {
 /** @internal */
 // eslint-disable-next-line @typescript-eslint/ban-types
 
-function formatType(registry, definitions, type, imports, withShortcut = false) {
+function formatType(registry, definitions, type, imports) {
+  let withShortcut = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
   let typeDef;
 
   if ((0, _util.isString)(type)) {

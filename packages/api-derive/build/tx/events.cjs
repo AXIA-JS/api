@@ -12,8 +12,11 @@ var _index = require("../util/index.cjs");
 // Copyright 2017-2021 @axia-js/api-derive authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 function events(instanceId, api) {
-  return (0, _index.memo)(instanceId, at => (0, _rxjs.combineLatest)([api.query.system.events.at(at), api.rpc.chain.getBlock(at)]).pipe((0, _rxjs.map)(([events, block]) => ({
-    block,
-    events
-  }))));
+  return (0, _index.memo)(instanceId, at => (0, _rxjs.combineLatest)([api.query.system.events.at(at), api.rpc.chain.getBlock(at)]).pipe((0, _rxjs.map)(_ref => {
+    let [events, block] = _ref;
+    return {
+      block,
+      events
+    };
+  })));
 }

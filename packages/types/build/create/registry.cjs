@@ -55,29 +55,35 @@ function injectErrors(_, metadata, metadataErrors) {
     pallets
   } = metadata.asLatest; // decorate the errors
 
-  pallets.forEach(({
-    errors,
-    index,
-    name
-  }, _sectionIndex) => {
+  pallets.forEach((_ref, _sectionIndex) => {
+    let {
+      errors,
+      index,
+      name
+    } = _ref;
+
     if (errors.isNone) {
       return;
     }
 
     const sectionIndex = metadata.version >= 12 ? index.toNumber() : _sectionIndex;
     const sectionName = (0, _util.stringCamelCase)(name);
-    lookup.getSiType(errors.unwrap().type).def.asVariant.variants.forEach(({
-      docs,
-      fields,
-      index,
-      name
-    }) => {
+    lookup.getSiType(errors.unwrap().type).def.asVariant.variants.forEach(_ref2 => {
+      let {
+        docs,
+        fields,
+        index,
+        name
+      } = _ref2;
       const variantIndex = index.toNumber();
       const eventIndex = new Uint8Array([sectionIndex, variantIndex]);
       metadataErrors[(0, _util.u8aToHex)(eventIndex)] = {
-        args: fields.map(({
-          type
-        }) => lookup.getTypeDef(type).type),
+        args: fields.map(_ref3 => {
+          let {
+            type
+          } = _ref3;
+          return lookup.getTypeDef(type).type;
+        }),
         docs: docs.map(d => d.toString()),
         fields,
         index: variantIndex,
@@ -96,22 +102,29 @@ function injectEvents(registry, metadata, metadataEvents) {
     pallets
   } = metadata.asLatest; // decorate the events
 
-  pallets.filter(({
-    events
-  }) => events.isSome).forEach(({
-    events,
-    index,
-    name
-  }, _sectionIndex) => {
+  pallets.filter(_ref4 => {
+    let {
+      events
+    } = _ref4;
+    return events.isSome;
+  }).forEach((_ref5, _sectionIndex) => {
+    let {
+      events,
+      index,
+      name
+    } = _ref5;
     const sectionIndex = metadata.version >= 12 ? index.toNumber() : _sectionIndex;
     const sectionName = (0, _util.stringCamelCase)(name);
     lookup.getSiType(events.unwrap().type).def.asVariant.variants.forEach(variant => {
       const variantIndex = variant.index.toNumber();
       const eventIndex = new Uint8Array([sectionIndex, variantIndex]);
       const meta = registry.createType('EventMetadataLatest', _objectSpread(_objectSpread({}, variant), {}, {
-        args: variant.fields.map(({
-          type
-        }) => lookup.getTypeDef(type).type)
+        args: variant.fields.map(_ref6 => {
+          let {
+            type
+          } = _ref6;
+          return lookup.getTypeDef(type).type;
+        })
       }));
       metadataEvents[(0, _util.u8aToHex)(eventIndex)] = class extends _Event.GenericEventData {
         constructor(registry, value) {
@@ -263,9 +276,12 @@ class TypeRegistry {
     (0, _classPrivateFieldLooseBase2.default)(this, _knownTypes)[_knownTypes] = {}; // register know, first classes then on-demand-created definitions
 
     this.register((0, _classPrivateFieldLooseBase2.default)(this, _knownDefaults)[_knownDefaults]);
-    Object.values((0, _classPrivateFieldLooseBase2.default)(this, _knownDefinitions)[_knownDefinitions]).forEach(({
-      types
-    }) => this.register(types));
+    Object.values((0, _classPrivateFieldLooseBase2.default)(this, _knownDefinitions)[_knownDefinitions]).forEach(_ref7 => {
+      let {
+        types
+      } = _ref7;
+      return this.register(types);
+    });
     return this;
   }
 
@@ -352,7 +368,11 @@ class TypeRegistry {
    */
 
 
-  createType(type, ...params) {
+  createType(type) {
+    for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      params[_key - 1] = arguments[_key];
+    }
+
     return this.createTypeUnsafe(type, params);
   }
   /**
@@ -420,7 +440,10 @@ class TypeRegistry {
   }
 
   getClassName(Type) {
-    const entry = [...(0, _classPrivateFieldLooseBase2.default)(this, _classes)[_classes].entries()].find(([, Clazz]) => Type === Clazz);
+    const entry = [...(0, _classPrivateFieldLooseBase2.default)(this, _classes)[_classes].entries()].find(_ref8 => {
+      let [, Clazz] = _ref8;
+      return Type === Clazz;
+    });
     return entry ? entry[0] : undefined;
   }
 
@@ -484,7 +507,9 @@ class TypeRegistry {
   }
 
   _registerObject(obj) {
-    Object.entries(obj).forEach(([name, type]) => {
+    Object.entries(obj).forEach(_ref9 => {
+      let [name, type] = _ref9;
+
       if ((0, _util.isFunction)(type)) {
         // This _looks_ a bit funny, but `typeof Clazz === 'function'
         (0, _classPrivateFieldLooseBase2.default)(this, _classes)[_classes].set(name, type);
@@ -524,15 +549,20 @@ class TypeRegistry {
     injectEvents(this, metadata, (0, _classPrivateFieldLooseBase2.default)(this, _metadataEvents)[_metadataEvents]); // setup the available extensions
 
     this.setSignedExtensions(signedExtensions || (metadata.asLatest.extrinsic.version.gt(_util.BN_ZERO) // FIXME Use the extension and their injected types
-    ? metadata.asLatest.extrinsic.signedExtensions.map(({
-      identifier
-    }) => identifier.toString()) : _index.fallbackExtensions), userExtensions); // setup the chain properties with format overrides
+    ? metadata.asLatest.extrinsic.signedExtensions.map(_ref10 => {
+      let {
+        identifier
+      } = _ref10;
+      return identifier.toString();
+    }) : _index.fallbackExtensions), userExtensions); // setup the chain properties with format overrides
 
     this.setChainProperties(extractProperties(this, metadata));
   } // sets the available signed extensions
 
 
-  setSignedExtensions(signedExtensions = _index.fallbackExtensions, userExtensions) {
+  setSignedExtensions() {
+    let signedExtensions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _index.fallbackExtensions;
+    let userExtensions = arguments.length > 1 ? arguments[1] : undefined;
     (0, _classPrivateFieldLooseBase2.default)(this, _signedExtensions)[_signedExtensions] = signedExtensions;
     (0, _classPrivateFieldLooseBase2.default)(this, _userExtensions)[_userExtensions] = userExtensions;
     const unknown = (0, _index.findUnknownExtensions)((0, _classPrivateFieldLooseBase2.default)(this, _signedExtensions)[_signedExtensions], (0, _classPrivateFieldLooseBase2.default)(this, _userExtensions)[_userExtensions]);

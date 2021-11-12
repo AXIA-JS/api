@@ -24,9 +24,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 const l = (0, _util.logger)('Abi');
 
 function findMessage(list, messageOrId) {
-  const message = (0, _util.isNumber)(messageOrId) ? list[messageOrId] : (0, _util.isString)(messageOrId) ? list.find(({
-    identifier
-  }) => [identifier, (0, _util.stringCamelCase)(identifier)].includes(messageOrId.toString())) : messageOrId;
+  const message = (0, _util.isNumber)(messageOrId) ? list[messageOrId] : (0, _util.isString)(messageOrId) ? list.find(_ref => {
+    let {
+      identifier
+    } = _ref;
+    return [identifier, (0, _util.stringCamelCase)(identifier)].includes(messageOrId.toString());
+  }) : messageOrId;
   return (0, _util.assertReturn)(message, () => `Attempted to call an invalid contract interface, ${(0, _util.stringify)(messageOrId)}`);
 }
 
@@ -46,6 +49,8 @@ var _encodeArgs = /*#__PURE__*/(0, _classPrivateFieldLooseKey2.default)("encodeA
 
 class Abi {
   constructor(abiJson, chainProperties) {
+    var _this = this;
+
     Object.defineProperty(this, _events, {
       writable: true,
       value: void 0
@@ -92,8 +97,10 @@ class Abi {
     });
     Object.defineProperty(this, _createMessage, {
       writable: true,
-      value: (spec, index, add = {}) => {
-        const args = (0, _classPrivateFieldLooseBase2.default)(this, _createArgs)[_createArgs](spec.args, spec);
+      value: function (spec, index) {
+        let add = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+        const args = (0, _classPrivateFieldLooseBase2.default)(_this, _createArgs)[_createArgs](spec.args, spec);
 
         const identifier = spec.name.toString();
 
@@ -101,14 +108,14 @@ class Abi {
           args,
           docs: spec.docs.map(d => d.toString()),
           fromU8a: data => ({
-            args: (0, _classPrivateFieldLooseBase2.default)(this, _decodeArgs)[_decodeArgs](args, data),
+            args: (0, _classPrivateFieldLooseBase2.default)(_this, _decodeArgs)[_decodeArgs](args, data),
             message
           }),
           identifier,
           index,
           method: (0, _util.stringCamelCase)(identifier),
           selector: spec.selector,
-          toU8a: params => (0, _classPrivateFieldLooseBase2.default)(this, _encodeArgs)[_encodeArgs](spec, args, params)
+          toU8a: params => (0, _classPrivateFieldLooseBase2.default)(_this, _encodeArgs)[_encodeArgs](spec, args, params)
         });
 
         return message;
@@ -120,9 +127,10 @@ class Abi {
         // for decoding we expect the input to be just the arg data, no selectors
         // no length added (this allows use with events as well)
         let offset = 0;
-        return args.map(({
-          type
-        }) => {
+        return args.map(_ref2 => {
+          let {
+            type
+          } = _ref2;
           const value = this.registry.createType(type.type, data.subarray(offset));
           offset += value.encodedLength;
           return value;
@@ -141,14 +149,18 @@ class Abi {
     });
     Object.defineProperty(this, _encodeArgs, {
       writable: true,
-      value: ({
-        name,
-        selector
-      }, args, data) => {
+      value: (_ref3, args, data) => {
+        let {
+          name,
+          selector
+        } = _ref3;
         (0, _util.assert)(data.length === args.length, () => `Expected ${args.length} arguments to contract message '${name.toString()}', found ${data.length}`);
-        return (0, _util.compactAddLength)((0, _util.u8aConcat)(this.registry.createType('ContractSelector', selector).toU8a(), ...args.map(({
-          type
-        }, index) => this.registry.createType(type.type, data[index]).toU8a())));
+        return (0, _util.compactAddLength)((0, _util.u8aConcat)(this.registry.createType('ContractSelector', selector).toU8a(), ...args.map((_ref4, index) => {
+          let {
+            type
+          } = _ref4;
+          return this.registry.createType(type.type, data[index]).toU8a();
+        })));
       }
     });
     const json = (0, _util.isString)(abiJson) ? JSON.parse(abiJson) : abiJson;
