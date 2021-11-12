@@ -9,85 +9,51 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@axia-js/api-contract@workspace:packages/api-contract"
   dependencies:
-    "@axia-js/api": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
+    "@axia-js/api": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/util": 0.1.0
     "@babel/runtime": ^7.15.4
     rxjs: ^7.3.0
   languageName: unknown
   linkType: soft
 
-"@axia-js/api-derive@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/api-derive@npm:1.1.0"
-  dependencies:
-    "@axia-js/api": 1.1.0
-    "@axia-js/rpc-core": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-    "@babel/runtime": ^7.15.4
-    rxjs: ^7.3.0
-  checksum: 77bc95d2a0080ccb79ebe8c79aeb5967aae1408fe8f3492db39a5ab5bba0a05b6082239405b24c20ac913dbbb3e232f0f73af0465c7842ac52c5263afce9875e
-  languageName: node
-  linkType: hard
-
-"@axia-js/api-derive@workspace:packages/api-derive":
+"@axia-js/api-derive@0.1.0, @axia-js/api-derive@workspace:packages/api-derive":
   version: 0.0.0-use.local
   resolution: "@axia-js/api-derive@workspace:packages/api-derive"
   dependencies:
-    "@axia-js/api": 1.1.0
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/rpc-core": 1.1.0
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
+    "@axia-js/api": 0.1.0
+    "@axia-js/keyring": 0.1.0
+    "@axia-js/rpc-core": 0.1.0
+    "@axia-js/rpc-provider": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
     "@babel/runtime": ^7.15.4
     rxjs: ^7.3.0
   languageName: unknown
   linkType: soft
 
-"@axia-js/api@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/api@npm:1.1.0"
-  dependencies:
-    "@axia-js/api-derive": 1.1.0
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/rpc-core": 1.1.0
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/types-known": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-    "@babel/runtime": ^7.15.4
-    eventemitter3: ^4.0.7
-    rxjs: ^7.3.0
-  checksum: 88e4a0a3109a9f63402211202499bdcda3ee0a231c90d26eac9fd37a68947575141f21ad43038ba5d29f85ca4e5ddcec745ed5b1c5f0b59971df8d67159d3caa
-  languageName: node
-  linkType: hard
-
-"@axia-js/api@workspace:packages/api":
+"@axia-js/api@0.1.0, @axia-js/api@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "@axia-js/api@workspace:packages/api"
   dependencies:
-    "@axia-js/api-derive": 1.1.0
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/rpc-core": 1.1.0
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/types-known": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
+    "@axia-js/api-derive": 0.1.0
+    "@axia-js/keyring": 0.1.0
+    "@axia-js/rpc-core": 0.1.0
+    "@axia-js/rpc-provider": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/types-known": 0.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
     "@babel/runtime": ^7.15.4
     eventemitter3: ^4.0.7
     rxjs: ^7.3.0
   languageName: unknown
   linkType: soft
 
-"@axia-js/dev@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/dev@npm:1.1.0"
+"@axia-js/dev@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/dev@npm:0.1.0"
   dependencies:
     "@babel/cli": ^7.15.4
     "@babel/core": ^7.15.5
@@ -175,86 +141,57 @@ __metadata:
     axia-exec-rollup: scripts/axia-exec-rollup.cjs
     axia-exec-tsc: scripts/axia-exec-tsc.cjs
     axia-exec-webpack: scripts/axia-exec-webpack.cjs
-  checksum: 79a26792a8ddf24bd827867c181ba61eb57f71cb40a6161707092348c17ca970ad0031f37283c49d547cefd6c4e47aa12d83090b11d3e4652a18de589867378b
+  checksum: 720ae9696b893319074298c7707eae523d3ee8e514b5ebf73884e2882682137f718677f320a9f3a0c6b87d0b6aabfe6ae4c158142bc9d059861d7528b029ae3a
   languageName: node
   linkType: hard
 
-"@axia-js/keyring@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/keyring@npm:1.1.0"
+"@axia-js/keyring@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/keyring@npm:0.1.0"
   dependencies:
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
     "@babel/runtime": ^7.15.4
   peerDependencies:
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-  checksum: 56a9c554f912e2332fbd2994e4caa9426fa9ff3091a322a409e36c4ab291f3b8959ee86577fd3f0d37f559414c4664d52756e5e0d7f3902fc00207848e6dfb26
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
+  checksum: 96f207f34ab20129cea2fe8a29a926a82580a67ece23daf56a992537178f5ded8a002fbab8797d1f8920b0b57701fcf0cde9e7f09eca66c11e67061ce86c77fa
   languageName: node
   linkType: hard
 
-"@axia-js/networks@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/networks@npm:1.1.0"
+"@axia-js/networks@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/networks@npm:0.1.0"
   dependencies:
     "@babel/runtime": ^7.15.4
-  checksum: 0566595428a0c02276f6570ce3c9c7f6158312ccfe34b85a46842d05c0862e3e1c4259a38a5875edee679208566843d05f8498e90ee6dcc26e8b2b6a2680ab21
+  checksum: c073cd4159903f95a1b5fcc00fbedebdfd260bc39fd26190c68f824cb9174122c20d3727f1abd4dfa68f3ff4af5eea88d286c2e28873bf3f7f171baf76bf4ff3
   languageName: node
   linkType: hard
 
-"@axia-js/rpc-core@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/rpc-core@npm:1.1.0"
-  dependencies:
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@babel/runtime": ^7.15.4
-    rxjs: ^7.3.0
-  checksum: 81c3113be784af5ede6a739c4c260a1f2d467a5125171b9eadfe7ade60d99f9b9fb3a54f6c3d714749292fc3deea91367f01858dd06a557fa3099c77339b63f1
-  languageName: node
-  linkType: hard
-
-"@axia-js/rpc-core@workspace:packages/rpc-core":
+"@axia-js/rpc-core@0.1.0, @axia-js/rpc-core@workspace:packages/rpc-core":
   version: 0.0.0-use.local
   resolution: "@axia-js/rpc-core@workspace:packages/rpc-core"
   dependencies:
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
+    "@axia-js/keyring": 0.1.0
+    "@axia-js/rpc-provider": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/util": 0.1.0
     "@babel/runtime": ^7.15.4
     rxjs: ^7.3.0
   languageName: unknown
   linkType: soft
 
-"@axia-js/rpc-provider@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/rpc-provider@npm:1.1.0"
-  dependencies:
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-    "@axia-js/x-fetch": 1.1.0
-    "@axia-js/x-global": 1.1.0
-    "@axia-js/x-ws": 1.1.0
-    "@babel/runtime": ^7.15.4
-    eventemitter3: ^4.0.7
-  checksum: eff5e08a02bb11d73ece89e3cbd01c397535b5351dd61bfca2d73a5f43062d8e1cb5e2c90422f5e2bdce4346dc0162f943c72f7175c256b9094441103eee58e6
-  languageName: node
-  linkType: hard
-
-"@axia-js/rpc-provider@workspace:packages/rpc-provider":
+"@axia-js/rpc-provider@0.1.0, @axia-js/rpc-provider@workspace:packages/rpc-provider":
   version: 0.0.0-use.local
   resolution: "@axia-js/rpc-provider@workspace:packages/rpc-provider"
   dependencies:
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-    "@axia-js/x-fetch": 1.1.0
-    "@axia-js/x-global": 1.1.0
-    "@axia-js/x-ws": 1.1.0
+    "@axia-js/keyring": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
+    "@axia-js/x-fetch": 0.1.0
+    "@axia-js/x-global": 0.1.0
+    "@axia-js/x-ws": 0.1.0
     "@babel/runtime": ^7.15.4
     eventemitter3: ^4.0.7
     mock-socket: ^9.0.3
@@ -262,12 +199,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@axia-js/ts@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/ts@npm:1.1.0"
+"@axia-js/ts@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/ts@npm:0.1.0"
   dependencies:
     "@types/chrome": ^0.0.157
-  checksum: 823ed736b63db7be91bf292fb80ea24dacc64998b887b9959d4e7c2ca99be9fd3f6a1571acc3a0025cf8aed5fbc0eec7fd385e85388c5c110b50a79ff344aa60
+  checksum: 8443d2540294a54957b2ff98ec99587647130c98fe0bb003d80108d53e2b104dc12b7d0639cb51b9d46b3d6f7aaba15c86ddd4b132991cc2aaa787b33302382b
   languageName: node
   linkType: hard
 
@@ -275,11 +212,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@axia-js/typegen@workspace:packages/typegen"
   dependencies:
-    "@axia-js/api": 1.1.0
-    "@axia-js/rpc-provider": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/types-support": 1.1.0
-    "@axia-js/util": 1.1.0
+    "@axia-js/api": 0.1.0
+    "@axia-js/rpc-provider": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/types-support": 0.1.0
+    "@axia-js/util": 0.1.0
     "@babel/core": ^7.15.5
     "@babel/register": ^7.15.3
     "@babel/runtime": ^7.15.4
@@ -297,68 +234,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@axia-js/types-known@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/types-known@npm:1.1.0"
-  dependencies:
-    "@axia-js/networks": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@babel/runtime": ^7.15.4
-  checksum: eb39efea92a400801105d4fffb822974f25ef1d019475c5873658340b33ac24768c241c88e01347b47bb7b2d89e18a047238b78141d4565d239baf7afeb01fa8
-  languageName: node
-  linkType: hard
-
-"@axia-js/types-known@workspace:packages/types-known":
+"@axia-js/types-known@0.1.0, @axia-js/types-known@workspace:packages/types-known":
   version: 0.0.0-use.local
   resolution: "@axia-js/types-known@workspace:packages/types-known"
   dependencies:
-    "@axia-js/networks": 1.1.0
-    "@axia-js/types": 1.1.0
-    "@axia-js/util": 1.1.0
+    "@axia-js/networks": 0.1.0
+    "@axia-js/types": 0.1.0
+    "@axia-js/util": 0.1.0
     "@babel/runtime": ^7.15.4
   languageName: unknown
   linkType: soft
 
-"@axia-js/types-support@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/types-support@npm:1.1.0"
-  dependencies:
-    "@axia-js/util": 1.1.0
-    "@babel/runtime": ^7.15.4
-  checksum: 8f5dd27dae2358a7b50be4c04525c0f60d6db7d5e9d301d112f41165c282a4c1ce99f2f04a7c6dc328a5b4fb37bacc80dc2d5036436b2308bd075bc23dc9ed30
-  languageName: node
-  linkType: hard
-
-"@axia-js/types-support@workspace:packages/types-support":
+"@axia-js/types-support@0.1.0, @axia-js/types-support@workspace:packages/types-support":
   version: 0.0.0-use.local
   resolution: "@axia-js/types-support@workspace:packages/types-support"
   dependencies:
-    "@axia-js/util": 1.1.0
+    "@axia-js/util": 0.1.0
     "@babel/runtime": ^7.15.4
   languageName: unknown
   linkType: soft
 
-"@axia-js/types@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/types@npm:1.1.0"
-  dependencies:
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
-    "@babel/runtime": ^7.15.4
-    rxjs: ^7.3.0
-  checksum: 7683b282616239fde8a2eee00b3121bef9c4fad22ec7d9526a26abbe450dd6ee6fae9e201be65b56413a6f3be91987e06b4c4b4ed09faf9a02667d63bcac9645
-  languageName: node
-  linkType: hard
-
-"@axia-js/types@workspace:packages/types":
+"@axia-js/types@0.1.0, @axia-js/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@axia-js/types@workspace:packages/types"
   dependencies:
-    "@axia-js/keyring": 1.1.0
-    "@axia-js/types-support": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/util-crypto": 1.1.0
+    "@axia-js/keyring": 0.1.0
+    "@axia-js/types-support": 0.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/util-crypto": 0.1.0
     "@babel/runtime": ^7.15.4
     "@types/bn.js": ^4.11.6
     bn.js: ^4.12.0
@@ -366,14 +269,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@axia-js/util-crypto@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/util-crypto@npm:1.1.0"
+"@axia-js/util-crypto@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/util-crypto@npm:0.1.0"
   dependencies:
-    "@axia-js/networks": 1.1.0
-    "@axia-js/util": 1.1.0
-    "@axia-js/wasm-crypto": 1.1.0
-    "@axia-js/x-randomvalues": 1.1.0
+    "@axia-js/networks": 0.1.0
+    "@axia-js/util": 0.1.0
+    "@axia-js/wasm-crypto": 0.1.0
+    "@axia-js/x-randomvalues": 0.1.0
     "@babel/runtime": ^7.15.4
     base-x: ^3.0.8
     base64-js: ^1.5.1
@@ -388,118 +291,118 @@ __metadata:
     tweetnacl: ^1.0.3
     xxhashjs: ^0.2.2
   peerDependencies:
-    "@axia-js/util": 1.1.0
-  checksum: 38da66a155b6fd100ca7749ce26e8b727636f184e1a204394fcf246d661eacc751935f1de4a78debdef48ca41b8783b21a82bd8b844e0b22d4e2353c9d262d3f
+    "@axia-js/util": 0.1.0
+  checksum: b0d7b99cdb3beb6d65363bc266388805ef8fec8e20b4651514d0541665c49043d293aee7e38759033226289b75d1c562fe89f6aa41cb2e484276d6f62589b336
   languageName: node
   linkType: hard
 
-"@axia-js/util@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/util@npm:1.1.0"
+"@axia-js/util@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/util@npm:0.1.0"
   dependencies:
-    "@axia-js/x-textdecoder": 1.1.0
-    "@axia-js/x-textencoder": 1.1.0
+    "@axia-js/x-textdecoder": 0.1.0
+    "@axia-js/x-textencoder": 0.1.0
     "@babel/runtime": ^7.15.4
     "@types/bn.js": ^4.11.6
     bn.js: ^4.12.0
     camelcase: ^6.2.0
     ip-regex: ^4.3.0
-  checksum: b02e1c495b14ab4b00fd7eebbacf0946abbba04815c3a0f5493c71f4cb4997462de9f0a8aa2463f96de6d93ae4af75b70457ec55f963e5d0689723cb8cc2688d
+  checksum: 172e87199731e517cc7f353e8d61cefe986e0a397577b8f9ec20912bbe64a63132cacbaa8b023767fe5db0fa3b8496ddd7f6989d3ad7eac60b0660720f9d0f25
   languageName: node
   linkType: hard
 
-"@axia-js/wasm-crypto-asmjs@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/wasm-crypto-asmjs@npm:1.1.0"
+"@axia-js/wasm-crypto-asmjs@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/wasm-crypto-asmjs@npm:0.1.0"
   dependencies:
     "@babel/runtime": ^7.15.4
-  checksum: 0e50f85b1e35b3cc2d80358571f1e34ba3531ee96c3432fdddbe3f17db503a5bd27d9257f6ac45b51584e7896622b2392f02e331787d87df42e09eb1acb74e47
+  checksum: 9aff27fd9b2c005d9596fbab3bbf67cd2a2789e57ca2c8b2bcd80f0a451ea997e6e86e1b4aa797858aa59015868e7b9a3d41ab0efe4070d177d7c8325115eb41
   languageName: node
   linkType: hard
 
-"@axia-js/wasm-crypto-wasm@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/wasm-crypto-wasm@npm:1.1.0"
+"@axia-js/wasm-crypto-wasm@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/wasm-crypto-wasm@npm:0.1.0"
   dependencies:
     "@babel/runtime": ^7.15.4
-  checksum: f760e31f78bd66e8e70b155f15c2d2f74d147a2163981528f9066436773489daef308e0e58b5c710368ed16e8656d1cfa479f703b88fae9d1e7e6ece42196d86
+  checksum: ace632f39ed798f8c132301addbd9373f55ae762607ca0f5be82fa8d6fde535a652edf6099bb1fdc57356e5c12b3f7ff874f325bcdab1caed8e04d387d4d69b4
   languageName: node
   linkType: hard
 
-"@axia-js/wasm-crypto@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/wasm-crypto@npm:1.1.0"
+"@axia-js/wasm-crypto@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/wasm-crypto@npm:0.1.0"
   dependencies:
-    "@axia-js/wasm-crypto-asmjs": 1.1.0
-    "@axia-js/wasm-crypto-wasm": 1.1.0
+    "@axia-js/wasm-crypto-asmjs": 0.1.0
+    "@axia-js/wasm-crypto-wasm": 0.1.0
     "@babel/runtime": ^7.15.4
   peerDependencies:
-    "@axia-js/util": "*"
-    "@axia-js/x-randomvalues": "*"
-  checksum: dcd91c105433f6e782aece17febf595a643c3e0c68405019937e12a10952c0a5714a641c831896838ce2da7268a8a31e9627fe353ccc029b976ff00f02c58c9c
+    "@axia-js/util": 0.1.0
+    "@axia-js/x-randomvalues": 0.1.0
+  checksum: 93ee9b23dee34baa4539f6a85650c775a84219381db63afcb7aa042a296f6c4fee11a8ebd745ac134e712b730e6b42ab4bfea7fb1407692fed65bb157924b12e
   languageName: node
   linkType: hard
 
-"@axia-js/x-fetch@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-fetch@npm:1.1.0"
+"@axia-js/x-fetch@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-fetch@npm:0.1.0"
   dependencies:
-    "@axia-js/x-global": 1.1.0
+    "@axia-js/x-global": 0.1.0
     "@babel/runtime": ^7.15.4
     "@types/node-fetch": ^2.5.12
     node-fetch: ^2.6.2
-  checksum: d393384934c477d7b272a04ad1c85cb0f3e55a42e9d9ad1d786818408b9e10d106fcdd3db8cb544fc2f21541797a9119bbc5c0f5706a5018428c219dc75fcbe7
+  checksum: 9d4d0a6eb63091b870927fc6ee3335cea0d841632b2faa36eb290a89f90bb8b6cd1455945a1343380c273a60749dd0e0578dcea29f1f209bc5e42ace88c75525
   languageName: node
   linkType: hard
 
-"@axia-js/x-global@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-global@npm:1.1.0"
+"@axia-js/x-global@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-global@npm:0.1.0"
   dependencies:
     "@babel/runtime": ^7.15.4
-  checksum: e4f98830963dac29efd90e4f6d7918588ea4234acb342ee537495e02a34d12c9dd6e96b3bd38f3226ce1d363029c803ffdd8c3b7261a468dd94d6f634b2ad9e1
+  checksum: 5684909008cc6f06a7724e3d51b91ec0751117fcac6312d99ca430a84cab9226f70d52c94c266a2a765d47a55622bc799afdac8fe96213bd9875c04b8dea52f0
   languageName: node
   linkType: hard
 
-"@axia-js/x-randomvalues@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-randomvalues@npm:1.1.0"
+"@axia-js/x-randomvalues@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-randomvalues@npm:0.1.0"
   dependencies:
-    "@axia-js/x-global": 1.1.0
+    "@axia-js/x-global": 0.1.0
     "@babel/runtime": ^7.15.4
-  checksum: abac2ea2dc294dec3b4cdff6fc2ccb2380b3367164cba03ef721d1c70cef6c85a59d636dcbdca3524bd1fe1bbfa0f2083a36e2dd5c28103d511b313cb70295e4
+  checksum: 8905aa9e66cd222636fb5960d200eecc9243864c3cffcb750501c7deb0e49430ec901a74433f5111891c260a7080349cf361ccdb75ea91bc460949cc991bdb18
   languageName: node
   linkType: hard
 
-"@axia-js/x-textdecoder@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-textdecoder@npm:1.1.0"
+"@axia-js/x-textdecoder@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-textdecoder@npm:0.1.0"
   dependencies:
-    "@axia-js/x-global": 1.1.0
+    "@axia-js/x-global": 0.1.0
     "@babel/runtime": ^7.15.4
-  checksum: d92a368acb9f9609ab4d168c397085bb358dbabc69669d50535e9edcbd0e0db14d57cfafa700ea0f49d86fe45764aa380851fc0b8e87edde73696c9d2bf6ae2b
+  checksum: 28787b5b385f998b05326450948be84155c85d8ce7b4c0e710f599b379416d8a3bcea7b60d2c6e591c09e9ec80942ce37afe9a241524823e644d7b2154dc85f1
   languageName: node
   linkType: hard
 
-"@axia-js/x-textencoder@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-textencoder@npm:1.1.0"
+"@axia-js/x-textencoder@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-textencoder@npm:0.1.0"
   dependencies:
-    "@axia-js/x-global": 1.1.0
+    "@axia-js/x-global": 0.1.0
     "@babel/runtime": ^7.15.4
-  checksum: f9ac5994f17b559a62b44db97357db7bc2e5dbbf9f3528f879b1f5d031406c2c5b193b096052426bf8b4f0ffdd9f5cae600065af9f826978458f26ecdb044498
+  checksum: 4def8a5bf173882631d8ecd06940c6efbf808d8647031b5d8b4f524471ad100ec460b321cebe6b413da2ac057e703804eba0a808d8e95d0aad1f1021078b448f
   languageName: node
   linkType: hard
 
-"@axia-js/x-ws@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@axia-js/x-ws@npm:1.1.0"
+"@axia-js/x-ws@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@axia-js/x-ws@npm:0.1.0"
   dependencies:
-    "@axia-js/x-global": 1.1.0
+    "@axia-js/x-global": 0.1.0
     "@babel/runtime": ^7.15.4
     "@types/websocket": ^1.0.4
     websocket: ^1.0.34
-  checksum: 72fda077c25b0aefbd7f56c2b87b2b0af22a9c115526da4482bb6b7d18fee89af2dc68eaf11a49be4e2492287c8727e91cf8493eb3d07b0f84aa69e703d6a593
+  checksum: 9f2441dfb6ed41dbe3f20f52af2c93752d02c322c89742aa017b035418a9d3ab8f26546f2e784bb64e6d18d8b816d31429972c94ef2d619bdc327709ddc3a200
   languageName: node
   linkType: hard
 
@@ -9406,8 +9309,8 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@axia-js/dev": 1.1.0
-    "@axia-js/ts": 1.1.0
+    "@axia-js/dev": 0.1.0
+    "@axia-js/ts": 0.1.0
     "@axia-js/typegen": "workspace:packages/typegen"
     "@babel/core": ^7.15.5
     "@babel/register": ^7.15.3
