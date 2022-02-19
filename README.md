@@ -7,24 +7,4 @@
 
 # @axia-js/api
 
-This library provides a clean wrapper around all the methods exposed by a AXIA/Substrate network client and defines all the types exposed by a node. For complete documentation around the classes, interfaces and their use, visit the [documentation portal](https://axia.js.org/docs/api/).
-
-If you are an existing user, please be sure to track the [CHANGELOG](CHANGELOG.md) and [UPGRADING](UPGRADING.md) guides when changing versions.
-
-## tutorials
-
-Looking for tutorials to get started? Look at [examples](https://axia.js.org/docs/api/examples/promise/) for guides on how to use the API to make queries and submit transactions.
-
-## overview
-
-The API is split up into a number of internal packages -
-
-- [@axia-js/api](packages/api/) The API library, providing both Promise and RxJS Observable-based interfaces. This is the main user-facing entry point.
-- [@axia-js/api-derive](packages/api-derive/) Derived results that are injected into the API, allowing for combinations of various query results (only used internally and exposed on the Api instances via `api.derive.*`)
-- [@axia-js/metadata](packages/metadata/) Base extrinsic, storage and constant injectors for injection
-- [@axia-js/rpc-core](packages/rpc-core/) Wrapper around all [JSON-RPC methods](https://axia.js.org/docs/substrate/rpc) exposed by a AXIA network client
-- [@axia-js/rpc-provider](packages/rpc-provider/) Providers for connecting to nodes, including WebSockets and Http
-
-Type definitions for interfaces as exposed by AXIA & Substrate clients -
-
-- [@axia-js/types](packages/types/) Codecs for all AXIA and Substrate primitives
+This library provides a clean wrapper around all the methods exposed by a AXIA network client and defines all the types exposed by a node.
